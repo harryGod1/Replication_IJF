@@ -1,0 +1,10 @@
+Comparative model,2004¨C2012,2016¨C2021
+,Computational Time,Computational Time
+Linear DTSM,1.30min,0.71min
+DeepHit,2.03h,0.92h
+LSTM+washout,4.79h,2.86h
+LSTM + washout + Attention,5.69h,3.68h
+LSTM + Deli + washout + Attention,5.85h,3.74h
+LSTM + Attention + no washout,3.79h,2.71h
+3LSTM based Attention + Deli + washout,7.58h,4.72h
+,,

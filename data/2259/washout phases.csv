@@ -1,0 +1,7 @@
+Washout Phase,AUC,-log-likelihood
+No Washout,0.69043,0.08232
+10 steps,0.70347,0.08166
+20 steps,0.70249,0.08169
+30 steps,0.70528,0.08153
+40 steps,0.70896,0.08141
+50 steps,0.70553,0.08152
