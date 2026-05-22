@@ -1,0 +1,8 @@
+Comparative model,2004-2015,2004-2015,2016-2024,2016-2024
+,Delong AUC,Vuong test,Delong AUC,Vuong test
+Linear DTSM,29,24,35,36
+DeepHit,31,28,32,41
+LSTM+washout,37,30,38,43
+LSTM + washout + Attention,19,24,26,36
+LSTM + Deli + washout + Attention,34,22,20,31
+LSTM + Attention + no washout,33,32,35,32
