@@ -1,5 +1,4 @@
 Long Short-Term Memory Network with Adapted Attention Mechanism for Credit Risk Modelling
-
 ========================================================================================
 Hao Wang & Anthony Bellotti
 
