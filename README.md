@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-# Replication_IJF
+
+Replication_IJF
 =======
 Long Short-Term Memory Network with Adapted Attention Mechanism for Credit Risk Modelling
 ========================================================================================
