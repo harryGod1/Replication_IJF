@@ -6,7 +6,7 @@ Long Short-Term Memory Network with Adapted Attention Mechanism for Credit Risk 
 Hao Wang & Anthony Bellotti
 
 Overview:
-
+----------------------------------------------------------------------------------------
 The code in this reproducibility package can generate the 15 figures and 6 tables presented in this paper, covering all experimental results and data. 
 Each figure and table is produced by its corresponding .py file: Figurexx.py and Tablexx.py, respectively. Readers are free to explore the content and
 run all the code. The example directory contains a screenshot demonstrating the execution status of Figure13.py.
