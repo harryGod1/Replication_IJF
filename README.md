@@ -33,4 +33,4 @@ other base packages. Subsequently, install toolkits such as lifelines and pygam 
 Importantly, installing the designated versions of pygam and lifelines may overwrite previously installed versions of NumPy, Scipy, Scikit-learn and other similar packages. 
 Therefore, after completing the installation of pygam and lifelines, manually reinstall NumPy and any other overwritten packages to the exact versions specified in the env directory's .txt file  is required; 
 failure to do so will cause compatibility problems.
->>>>>>> master
+
