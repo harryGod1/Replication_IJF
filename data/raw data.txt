@@ -1,0 +1,15 @@
+1. The download link for the raw data is provided here:
+https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset
+
+Readers may use this link to directly download the raw data utilized in the experiments described in this paper.
+
+2. The datasets covered in this document are intermediary datasets.
+
+3.Reader can directly use intermediary datasets to get the results. If the reader want to create the datasets from the raw data,
+they can refer to the instruction in Chapter 4.2 of the paper. At the meantime, run the additional two scripts under this folder:
+
+3.1 Run DTSM.sql in MySQL to get the panel data 
+3.2 Run Out_file.sql in MySQL to get the final dataset.
+
+4. The experiments was conducted on a conventional laptop computer 
+(CPU: Intel(R) Core(TM) i7-10750H @2.60 GHz, memory: 16GB, GPU: NVDIA GeForce GTX1650, memory: 8GB).
