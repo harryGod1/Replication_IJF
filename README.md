@@ -20,9 +20,9 @@ data/: includes all data used for the experiments and models.
 
 train_model/: provides example code for model training, facilitating further research by future readers.
 
-Figurexx.py: generates the experimental results presented in the corresponding figure of the paper.
+code/Figurexx.py: generates the experimental results presented in the corresponding figure of the paper.
 
-Tablexx.py: produces the results shown in the corresponding table of the paper.
+code/Tablexx.py: produces the results shown in the corresponding table of the paper.
 
 ========================================================================
 
