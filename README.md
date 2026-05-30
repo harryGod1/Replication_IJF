@@ -36,3 +36,6 @@ Importantly, installing the designated versions of pygam and lifelines may overw
 Therefore, after completing the installation of pygam and lifelines, manually reinstall NumPy and any other overwritten packages to the exact versions specified in the env directory's .txt file  is required; 
 failure to do so will cause compatibility problems.
 
+The experiments was conducted on a conventional laptop computer 
+(CPU: Intel(R) Core(TM) i7-10750H @2.60 GHz, memory: 16GB, GPU: NVDIA GeForce GTX1650, memory: 8GB).
+
