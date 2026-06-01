@@ -115,6 +115,8 @@ cd ..
 git clone https://github.com/gmpal/IJF-TD2C.git
 cd IJF-TD2C
 pip install -r requirements.txt
+pip install pygam==0.8.1
+
 ```
 
 ### 4. Download the data folder
