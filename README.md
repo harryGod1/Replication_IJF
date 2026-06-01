@@ -10,7 +10,7 @@
 ## Repository Structure
 # Long Short-Term Memory Network with Adapted Attention Mechanism for Credit Risk Modelling
 
-[![Python 3.8.19](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3819/)
+[![Python 3.8.19](https://img.shields.io/badge/python-3.8.19-blue.svg)](https://www.python.org/downloads/release/python-3819/)
 
 
 **Reproducibility package for:**
