@@ -5,7 +5,7 @@ select * from dtsm_train13 where seq in (select seq from dt_train_random_tenth);
 insert into dtsm_train_tenth24_2
 select * from dtsm_train_defall13;
 select * from dtsm_train_tenth24_2
-into outfile 'D:/IJF_dataset/dtsm_train24_2.txt' fields terminated by ' ';
+into outfile 'data/dtsm_train24_2.txt' fields terminated by ' ';
 drop table dt_train_random_tenth,dtsm_train13;
 
 
@@ -16,7 +16,7 @@ select * from dtsm_test13 where seq in (select seq from dt_test_random_tenth);
 insert into dtsm_test_tenth24_2
 select * from dtsm_test_defall13;
 select * from dtsm_test_tenth24_2
-into outfile 'D:/IJF_dataset/dtsm_test24_2.txt' fields terminated by ' ';
+into outfile 'data/dtsm_test24_2.txt' fields terminated by ' ';
 drop table dt_test_random_tenth,dtsm_test13;
 
 

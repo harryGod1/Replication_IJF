@@ -36,10 +36,8 @@ tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-f1 = open(new_path + "/Replication_IJF/data/2259/train_all_dtsm_x_forecast.txt")
-#f1 = open("./train4_data.txt")
-#f1 = open("./train_undersample10.txt")
-#f2 = open("./test_data.txt")
+f1 = open(new_path + "/data/2259/train_all_dtsm_x_forecast.txt")
+
 train_data = f1.readline()
 #test_data = f2.readline()
 train_credit = []
@@ -1466,14 +1464,14 @@ for k in range(5):
 
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    TEST_FILE = new_path + "/Replication_IJF/data/washout_phase" + "/washout_phase.txt"
+    TEST_FILE = new_path + "/data/washout_phase" + "/washout_phase.txt"
     RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512,phase)
     if(k == 0):
         #use figure instead. Reader can train the nowashout model by themself and use this example code for testing.
         
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        img = Image.open(new_path + '/Replication_IJF/data/2259/washout.png')
+        img = Image.open(new_path + '/data/2259/washout.png')
         img.show()
         break;
         #path = os.getcwd()

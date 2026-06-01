@@ -1,0 +1,7 @@
+keras-preprocessing==1.1.2
+pillow==10.4.0
+scikit-learn==1.1.2
+seaborn==0.10.1
+tensorflow-gpu==2.2.0
+tensorflow-determinism==0.3.0
+

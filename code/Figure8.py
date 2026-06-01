@@ -43,7 +43,7 @@ tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 ym = 2004
 q = 1
-n_vintage = 1 # number of sub datasets users want to test
+n_vintage = 1 
 print("Loading may take a while, please wait.")
 print("This needs to be run repeatedly, outputting the results for each quarter between 2004 and 2024.")
 print("A higher AUC score indicates better model performance. Model performance can be compared by comparing the scores of each model in each round. The final results are summarized in a graph, as shown in Figure 9 of the paper.")
@@ -62,8 +62,6 @@ for prs in range(n_vintage):
         pseudo_attention_deli = []
         pseudo_3lstm_attention_deli = []
     print("==================================================")
-    #print number of rounds of the comparative results
-    print(prs+1)
     
     #if(int(ym%100)<10):
         #r_q = "0" + str(int(ym%100)) + "_" + str(q)
@@ -81,7 +79,7 @@ for prs in range(n_vintage):
         #standardscaler
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        f2 = open(new_path + "/Replication_IJF/data/2259/train_all_dtsm_x_forecast_Deli_random_debug0.txt")
+        f2 = open(new_path + "/data/2259/train_all_dtsm_x_forecast_Deli_random_debug0.txt")
 
         #f2 = open("./test4_data.txt")
         #f2 = open("./test3.txt")
@@ -279,7 +277,7 @@ for prs in range(n_vintage):
     else:
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        f2 = open(new_path + "/Replication_IJF/data/2259/test_all_dtsm_x_forecast_Deli_random_debug0.txt")
+        f2 = open(new_path + "/data/2259/test_all_dtsm_x_forecast_Deli_random_debug0.txt")
 
         #f2 = open("./test4_data.txt")
         #f2 = open("./test3.txt")
@@ -1061,8 +1059,8 @@ for prs in range(n_vintage):
             self.BETA = BETA
             self.INPUT_FILE = INPUT_FILE
             self.SAVE_LOG = SAVE_LOG
-            self.TRAIN_FILE = "../Replication_IJF/data/" + INPUT_FILE + "/train_all_dtsm_x_forecast_Deli_random_debug0.txt"
-            self.TEST_FILE = "../Replication_IJF/data/" + INPUT_FILE + "/test_all_dtsm_x_forecast_Deli_random_debug0.txt"
+            self.TRAIN_FILE = "../data/" + INPUT_FILE + "/train_all_dtsm_x_forecast_Deli_random_debug0.txt"
+            self.TEST_FILE = "../data/" + INPUT_FILE + "/test_all_dtsm_x_forecast_Deli_random_debug0.txt"
             self.OPEN_TEST = OPEN_TEST
             self.COV_SIZE = COV_SIZE
             self.SHOW_SURVIVAL_CURVE = False
@@ -1996,22 +1994,22 @@ for prs in range(n_vintage):
     if(int(ym%100)<10):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        TEST_FILE = new_path + "/Replication_IJF/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+        TEST_FILE = new_path + "/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     else:
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        TEST_FILE = new_path + "/Replication_IJF//data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+        TEST_FILE = new_path + "//data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
     if(prs<48):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model_forecast_washout40_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model_forecast_washout40_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model_forecast_washout40_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model_forecast_washout40_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     else:
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model16to21_gpu_forecast_washout40_nodeli_random data_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model16to21_gpu_forecast_washout40_nodeli_random data_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model16to21_gpu_forecast_washout40_nodeli_random data_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model16to21_gpu_forecast_washout40_nodeli_random data_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     step = 100000
 
     sess = RUNNING_MODEL.load(meta,ckpt,step)
@@ -3166,8 +3164,8 @@ for prs in range(n_vintage):
             self.BETA = BETA
             self.INPUT_FILE = INPUT_FILE
             self.SAVE_LOG = SAVE_LOG
-            self.TRAIN_FILE = "../Replication_IJF/data/" + INPUT_FILE + "/train_all_dtsm_x_forecast_Deli_random_debug0.txt"
-            self.TEST_FILE = "../Replication_IJF/data/" + INPUT_FILE + "/test_all_dtsm_x_forecast_Deli_random_debug0.txt"
+            self.TRAIN_FILE = "../data/" + INPUT_FILE + "/train_all_dtsm_x_forecast_Deli_random_debug0.txt"
+            self.TEST_FILE = "../data/" + INPUT_FILE + "/test_all_dtsm_x_forecast_Deli_random_debug0.txt"
             self.OPEN_TEST = OPEN_TEST
             self.COV_SIZE = COV_SIZE
             self.SHOW_SURVIVAL_CURVE = False
@@ -4566,24 +4564,24 @@ for prs in range(n_vintage):
     #if(int(ym%100)<10):
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #TEST_FILE = new_path + "/Replication_IJF/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+        #TEST_FILE = new_path + "/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     #else:
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #TEST_FILE =new_path + "/Replication_IJF//data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+        #TEST_FILE =new_path + "//data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     #RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
 
     
     #if(prs<48):
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #meta = new_path + "/Replication_IJF/saved_model/model04to12_gpu_forecast_washout40_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        #ckpt = new_path + "/Replication_IJF/saved_model/model04to12_gpu_forecast_washout40_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        #meta = new_path + "/saved_model/model04to12_gpu_forecast_washout40_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        #ckpt = new_path + "/saved_model/model04to12_gpu_forecast_washout40_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     #else:
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #meta = new_path + "/Replication_IJF/saved_model/model16to21_gpu5_forecast_washout40_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        #ckpt = new_path + "/Replication_IJF/saved_model/model16to21_gpu5_forecast_washout40_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        #meta = new_path + "/saved_model/model16to21_gpu5_forecast_washout40_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        #ckpt = new_path + "/saved_model/model16to21_gpu5_forecast_washout40_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     #step = 100000
 
     
@@ -4609,24 +4607,24 @@ for prs in range(n_vintage):
     #if(int(ym%100)<10):
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #TEST_FILE = new_path + "/Replication_IJF/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+        #TEST_FILE = new_path + "/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     #else:
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #TEST_FILE = new_path + "/Replication_IJF/data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+        #TEST_FILE = new_path + "/data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     #RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
 
    
     #if(prs<48):
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #meta = new_path + "/Replication_IJF/saved_model/model04to12_gpu_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        #ckpt = new_path + "/Replication_IJF/saved_model/model04to12_gpu_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        #meta = new_path + "/saved_model/model04to12_gpu_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        #ckpt = new_path + "/saved_model/model04to12_gpu_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     #else:
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #meta = new_path + "/Replication_IJF/saved_model/model16to21_gpu5_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        #ckpt = new_path + "/Replication_IJF/saved_model/model16to21_gpu5_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        #meta = new_path + "/saved_model/model16to21_gpu5_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        #ckpt = new_path + "/saved_model/model16to21_gpu5_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     #step = 100000
 
     
@@ -4654,23 +4652,23 @@ for prs in range(n_vintage):
     if(int(ym%100)<10):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        TEST_FILE = new_path + "/Replication_IJF/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+        TEST_FILE = new_path + "/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     else:
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        TEST_FILE = new_path + "/Replication_IJF/data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+        TEST_FILE = new_path + "/data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
     if(prs<48):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model04to12_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model04to12_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model04to12_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model04to12_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
 
     else:
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model16to21_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model16to21_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model16to21_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model16to21_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     step = 100000
 
 
@@ -5229,8 +5227,8 @@ for prs in range(n_vintage):
             self.BETA = BETA
             self.INPUT_FILE = INPUT_FILE
             self.SAVE_LOG = SAVE_LOG
-            self.TRAIN_FILE = "../Replication_IJF/data/" + INPUT_FILE + "/train_all_dtsm_x_forecast_Deli_random_debug0.txt"
-            self.TEST_FILE = "../Replication_IJF/data/" + INPUT_FILE + "/train_all_dtsm_x_forecast_Deli_random_debug0.txt"
+            self.TRAIN_FILE = "../data/" + INPUT_FILE + "/train_all_dtsm_x_forecast_Deli_random_debug0.txt"
+            self.TEST_FILE = "../data/" + INPUT_FILE + "/train_all_dtsm_x_forecast_Deli_random_debug0.txt"
             self.OPEN_TEST = OPEN_TEST
             self.COV_SIZE = COV_SIZE
             self.SHOW_SURVIVAL_CURVE = False
@@ -6643,7 +6641,7 @@ for prs in range(n_vintage):
         #data for forecast
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        f2 = open(new_path + "/Replication_IJF/data/2259/train_all_dtsm_x_forecast_Deli_random_debug0.txt")
+        f2 = open(new_path + "/data/2259/train_all_dtsm_x_forecast_Deli_random_debug0.txt")
 
         #f2 = open("./test4_data.txt")
         #f2 = open("./test3.txt")
@@ -6844,7 +6842,7 @@ for prs in range(n_vintage):
     else:
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        f2 = open(new_path + "/Replication_IJF/data/2259/train16to21_all_dtsm_x_forecast_Deli_random_debug0.txt")
+        f2 = open(new_path + "/data/2259/train16to21_all_dtsm_x_forecast_Deli_random_debug0.txt")
 
         #f2 = open("./test4_data.txt")
         #f2 = open("./test3.txt")
@@ -7105,17 +7103,17 @@ for prs in range(n_vintage):
     #if(int(ym%100)<10):
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #TEST_FILE = new_path + "/Replication_IJF/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+        #TEST_FILE = new_path + "/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     #else:
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #TEST_FILE = new_path + "/Replication_IJF/data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+        #TEST_FILE = new_path + "/data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     #RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
     #if(prs<48):
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #meta = new_path + "/Replication_IJF/saved_model/model04to12_gpu_forecast_nowashout_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        #ckpt = new_path + "/Replication_IJF/saved_model/model04to12_gpu_forecast_nowashout_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        #meta = new_path + "/saved_model/model04to12_gpu_forecast_nowashout_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        #ckpt = new_path + "/saved_model/model04to12_gpu_forecast_nowashout_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     #else:
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
@@ -7196,7 +7194,7 @@ pseudo_3lstm_attention_deli = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/Replication_IJF/data/2259/Brier_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
+csvFile = open(new_path + "/data/2259/Brier_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
 reader = csv.reader(csvFile)
 
 
@@ -7251,7 +7249,7 @@ pseudo_3lstm_attention_deli = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/Replication_IJF/data/2259/Brier_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
+csvFile = open(new_path + "/data/2259/Brier_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
 reader = csv.reader(csvFile)
 
 

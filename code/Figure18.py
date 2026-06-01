@@ -34,7 +34,7 @@ def forecast_exp():
     #DTSM exposure
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/test1315_forecast_exposure_dtsm_x_Deli.txt")
+    f2 = open(new_path + "/data/2259/forecast/test1315_forecast_exposure_dtsm_x_Deli.txt")
 
     test_data = []
     for line in f2:
@@ -398,8 +398,8 @@ for prs in range(0,3):
     if(data_mod == 1):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        f2 = open(new_path + "/Replication_IJF/data/2259/lag3_12_dtsm_train_all_HPI_UNRATE.txt")
-        #f2 = open("C:/Users/WH/Replication_IJF/data/2259/lag12_dtsm_train_all_HPI_UNRATE.txt")
+        f2 = open(new_path + "/data/2259/lag3_12_dtsm_train_all_HPI_UNRATE.txt")
+        #f2 = open("C:/Users/WH/data/2259/lag12_dtsm_train_all_HPI_UNRATE.txt")
 
         #f2 = open("./test4_data.txt")
         #f2 = open("./test3.txt")
@@ -595,17 +595,12 @@ for prs in range(0,3):
 
         #print(len(x),len(x[0]))
 
-        #优化版本，据集每一笔最后都多了一笔月份为0地数据 会导致default数据被误认为non default（因为last seq ！= new seq部分的判定原因，导致default 1 之后多出了个default0得标签，会误将default0
-        #标签取代原本default应该是1得标签）e.g.,F113Q3250129，F112Q4005541
-        #！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-        #Delinquency版本中去除大部分max_seqlen和deli两者数据集不相等的账户（和上面版本的区别！）
-        #！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-        #最终版本Linear DTSM代码 -- 导入数据集部分
+
         #DTSM testing
         #f1 = open("./train_data.txt")
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        f2 = open(new_path + "/Replication_IJF/data/2259/lag3_12_dtsm_test_all_HPI_UNRATE.txt")
+        f2 = open(new_path + "/data/2259/lag3_12_dtsm_test_all_HPI_UNRATE.txt")
         #f2 = open("./test4_data.txt")
         #f2 = open("./test3.txt")
         #train_data = f1.readline()
@@ -922,7 +917,7 @@ for prs in range(0,3):
     else:
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        f2 = open(new_path + "/Replication_IJF/data/2259/lag3_12_dtsm_train_all16to21_HPI_UNRATE.txt")
+        f2 = open(new_path + "/data/2259/lag3_12_dtsm_train_all16to21_HPI_UNRATE.txt")
         
 
 
@@ -1130,7 +1125,7 @@ for prs in range(0,3):
         #f1 = open("./train_data.txt")
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        f2 = open(new_path + "/Replication_IJF/data/2259/lag3_12_dtsm_train_all16to21_HPI_UNRATE.txt")
+        f2 = open(new_path + "/data/2259/lag3_12_dtsm_train_all16to21_HPI_UNRATE.txt")
         #f2 = open("./test4_data.txt")
         #f2 = open("./test3.txt")
         #train_data = f1.readline()
@@ -1525,17 +1520,17 @@ for prs in range(0,3):
     #if(int(ym%100)<10):
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #f2 = open(new_path + "/Replication_IJF/data/2259/" + "lag3_12_dtsm_test" + "0" + str(int(ym%100)) + "_" + str(q) + "_HPI_UNRATE.txt")
+        #f2 = open(new_path + "/data/2259/" + "lag3_12_dtsm_test" + "0" + str(int(ym%100)) + "_" + str(q) + "_HPI_UNRATE.txt")
         
     #else:
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #f2 = open(new_path + "/Replication_IJF/data/2259/" + "lag3_12_dtsm_test" + str(int(ym%100)) + "_" + str(q) + "_HPI_UNRATE.txt")
+        #f2 = open(new_path + "/data/2259/" + "lag3_12_dtsm_test" + str(int(ym%100)) + "_" + str(q) + "_HPI_UNRATE.txt")
 
     #f2 = open("D:/PhD_ml&cd/IJF_dataset/second_round/in_time/lag3_12_dtsm2_test04_1_HPI_UNRATE.txt")
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f2 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
     
 
 
@@ -2008,7 +2003,7 @@ for prs in range(0,3):
     #f1 = open("./train_data.txt")
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f2 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
     vintage = 201204
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
@@ -2378,7 +2373,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f1 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f1 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
     #f1 = open("./train4_data.txt")
     #f1 = open("./train_undersample10.txt")
@@ -2510,7 +2505,7 @@ for prs in range(0,3):
         path = os.getcwd()
         new_path = path.replace("\\","/")
 
-        csvFile = open(new_path + "/Replication_IJF/data/2259/dtsm_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        csvFile = open(new_path + "/data/2259/dtsm_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
         reader = csv.reader(csvFile)
 
 
@@ -2559,7 +2554,7 @@ for prs in range(0,3):
 
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/lag" + str(int(prs+1)*12) + "_dtsm_train_all_HPI_UNRATE.txt")
+    f2 = open(new_path + "/data/2259/lag" + str(int(prs+1)*12) + "_dtsm_train_all_HPI_UNRATE.txt")
 
 
     vt = preprocessing.LabelEncoder()
@@ -2774,7 +2769,7 @@ for prs in range(0,3):
     #f1 = open("./train_data.txt")
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f2 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
@@ -3210,7 +3205,7 @@ for prs in range(0,3):
     #f1 = open("./train_data.txt")
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f2 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
     vintage = 200401
     #f2 = open("./test4_data.txt")
@@ -3370,7 +3365,7 @@ for prs in range(0,3):
         path = os.getcwd()
         new_path = path.replace("\\","/")
 
-        csvFile = open(new_path + "/Replication_IJF/data/2259/gam_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        csvFile = open(new_path + "/data/2259/gam_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
         reader = csv.reader(csvFile)
 
 
@@ -3466,7 +3461,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/continuous_survival_train_account.txt")
+    f2 = open(new_path + "/data/2259/forecast/continuous_survival_train_account.txt")
 
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
@@ -3584,7 +3579,7 @@ for prs in range(0,3):
     #f1 = open("./train_data.txt")
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/continuous_survival_test_account.txt")
+    f2 = open(new_path + "/data/2259/forecast/continuous_survival_test_account.txt")
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
     #train_data = f1.readline()
@@ -3915,7 +3910,7 @@ for prs in range(0,3):
     #f1 = open("./train_data.txt")
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f2 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
@@ -4647,7 +4642,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f1 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f1 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
     #f1 = open("./train4_data.txt")
     #f1 = open("./train_undersample10.txt")
@@ -4786,7 +4781,7 @@ for prs in range(0,3):
         path = os.getcwd()
         new_path = path.replace("\\","/")
 
-        csvFile = open(new_path + "/Replication_IJF/data/2259/cox_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        csvFile = open(new_path + "/data/2259/cox_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
         reader = csv.reader(csvFile)
 
 
@@ -4821,7 +4816,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f1 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f1 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
 
     #f1 = open("./train4_data.txt")
@@ -4960,7 +4955,7 @@ for prs in range(0,3):
         path = os.getcwd()
         new_path = path.replace("\\","/")
 
-        csvFile = open(new_path + "/Replication_IJF/data/2259/weibull_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        csvFile = open(new_path + "/data/2259/weibull_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
         reader = csv.reader(csvFile)
 
 
@@ -5023,7 +5018,7 @@ for prs in range(0,3):
     #deephit standardscaler
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_train_all_HPI_UNRATE.txt")
+    f2 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_train_all_HPI_UNRATE.txt")
 
 
     #f2 = open("./test4_data.txt")
@@ -6861,7 +6856,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f1 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f1 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
     #f1 = open("./train4_data.txt")
     #f1 = open("./train_undersample10.txt")
@@ -6952,24 +6947,24 @@ for prs in range(0,3):
     #deephit tesing
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    TEST_FILE = new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt"
+    TEST_FILE = new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt"
     RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512) 
 
     if(prs == 0):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model04to12_DeepHit_lag12_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model04to12_DeepHit_lag12_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model04to12_DeepHit_lag12_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model04to12_DeepHit_lag12_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     if(prs == 1):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model04to12_DeepHit_lag24_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model04to12_DeepHit_lag24_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model04to12_DeepHit_lag24_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model04to12_DeepHit_lag24_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     if(prs == 2):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model04to12_DeepHit_lag36_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model04to12_DeepHit_lag36_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model04to12_DeepHit_lag36_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model04to12_DeepHit_lag36_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
         
     step = 100000
 
@@ -7430,7 +7425,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f1 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f1 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
 
     #f1 = open("./train4_data.txt")
@@ -7570,7 +7565,7 @@ for prs in range(0,3):
         path = os.getcwd()
         new_path = path.replace("\\","/")
 
-        csvFile = open(new_path + "/Replication_IJF/data/2259/deephit_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        csvFile = open(new_path + "/data/2259/deephit_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
         reader = csv.reader(csvFile)
 
 
@@ -9223,7 +9218,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_train_all_HPI_UNRATE.txt")
+    f2 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_train_all_HPI_UNRATE.txt")
 
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
@@ -9434,7 +9429,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f1 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f1 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
     #f1 = open("./train4_data.txt")
     #f1 = open("./train_undersample10.txt")
@@ -9521,23 +9516,23 @@ for prs in range(0,3):
 
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    TEST_FILE = new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt"
+    TEST_FILE = new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt"
     RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
     if(prs == 0):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model04to12_lag12_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model04to12_lag12_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model04to12_lag12_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model04to12_lag12_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     if(prs == 1):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model04to12_lag24_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model04to12_lag24_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model04to12_lag24_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model04to12_lag24_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     if(prs == 2):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model04to12_lag36_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model04to12_lag36_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model04to12_lag36_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model04to12_lag36_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     step = 100000
 
     sess = RUNNING_MODEL.load(meta,ckpt,step)
@@ -9947,7 +9942,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f1 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f1 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
     #f1 = open("./train4_data.txt")
     #f1 = open("./train_undersample10.txt")
@@ -10085,7 +10080,7 @@ for prs in range(0,3):
         path = os.getcwd()
         new_path = path.replace("\\","/")
 
-        csvFile = open(new_path + "/Replication_IJF/data/2259/3lstm_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        csvFile = open(new_path + "/data/2259/3lstm_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
         reader = csv.reader(csvFile)
 
 
@@ -11726,7 +11721,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_train_all_HPI_UNRATE.txt")
+    f2 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_train_all_HPI_UNRATE.txt")
 
 
     #f2 = open("./test4_data.txt")
@@ -11943,23 +11938,23 @@ for prs in range(0,3):
 
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    TEST_FILE = new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt"
+    TEST_FILE = new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt"
     RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
     if(prs == 0):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model04to12_lag12_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model04to12_lag12_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model04to12_lag12_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model04to12_lag12_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     if(prs == 1):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model04to12_lag24_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model04to12_lag24_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model04to12_lag24_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model04to12_lag24_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     if(prs == 2):
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_IJF/saved_model/model04to12_lag36_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        ckpt = new_path + "/Replication_IJF/saved_model/model04to12_lag36_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        meta = new_path + "/saved_model/model04to12_lag36_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model04to12_lag36_gpu_forecast_washout40_deli_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     step = 100000
 
     sess = RUNNING_MODEL.load(meta,ckpt,step)
@@ -12305,7 +12300,7 @@ for prs in range(0,3):
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f1 = open(new_path + "/Replication_IJF/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
+    f1 = open(new_path + "/data/2259/forecast/lag" + str(int(prs+1)*12) + "_dtsm_test_forecast1315_HPI_UNRATE.txt")
 
     #f1 = open("./train4_data.txt")
     #f1 = open("./train_undersample10.txt")
@@ -12444,7 +12439,7 @@ for prs in range(0,3):
         path = os.getcwd()
         new_path = path.replace("\\","/")
 
-        csvFile = open(new_path + "/Replication_IJF/data/2259/lstm_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        csvFile = open(new_path + "/data/2259/lstm_forecast_exposure(13to15).csv", "r",encoding='gb18030', errors='ignore')
         reader = csv.reader(csvFile)
 
 

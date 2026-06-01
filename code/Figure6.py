@@ -1288,10 +1288,8 @@ class BASE_RNN():
 
 path = os.getcwd()
 new_path = path.replace("\\","/")        
-f1 = open(new_path + "/Replication_IJF/data/2259/train_all_dtsm_x_forecast.txt")
-#f1 = open("./train4_data.txt")
-#f1 = open("./train_undersample10.txt")
-#f2 = open("./test_data.txt")
+f1 = open(new_path + "/data/2259/train_all_dtsm_x_forecast.txt")
+
 train_data = f1.readline()
 #test_data = f2.readline()
 train_credit = []
@@ -1442,27 +1440,27 @@ for k in range(1,2):
     phase = phase*10
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    img = Image.open(new_path + '/Replication_IJF/data/2259/hazard.png')
+    img = Image.open(new_path + '/data/2259/hazard.png')
     img.show()
-    img = Image.open(new_path + '/Replication_IJF/data/2259/survival.png')
+    img = Image.open(new_path + '/data/2259/survival.png')
     img.show()
 
     w_test = 0 #use figure instead. Reader can train the model by themself and use this example code for testing.
     if(w_test):
         path = os.getcwd()
         new_path = path.replace("\\","/") 
-        TEST_FILE = new_path + "/Replication_IJF/data/washout_phase" + "/washout_phase.txt"
+        TEST_FILE = new_path + "/data/washout_phase" + "/washout_phase.txt"
         RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512,phase)
         if(k == 0):
             path = os.getcwd()
             new_path = path.replace("\\","/") 
-            meta = new_path + "/Replication_model/saved_model/model_forecast_" + "noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-            ckpt = new_path + "/Replication_model/saved_model/model_forecast_" + "noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+            meta = new_path + "/saved_model/model_forecast_" + "noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+            ckpt = new_path + "/saved_model/model_forecast_" + "noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
         else:
             path = os.getcwd()
             new_path = path.replace("\\","/")
-            meta = new_path + "/Replication_model/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-            ckpt = new_path + "/Replication_model/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+            meta = new_path + "/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+            ckpt = new_path + "/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
         step = 21000
 
         sess = RUNNING_MODEL.load(meta,ckpt,step)
