@@ -20,12 +20,17 @@
 
 ```
 .
-├── src/                        # Core source code for the TD2C framework
-│   └── td2c/
-│       ├── benchmark/          # TD2C and competitor method implementations
-│       │   └── utils.py        # draw_cd_diagram and evaluation utilities
-│       ├── data_generation/    # Synthetic NAR time series generation
-│       └── descriptors/        # D2C descriptor computation (core of TD2C)
+├── code/                       # Core source code for the paper
+│   ├── Figure6.py              # reproduce the results shown in Figure 6                     
+│   ├── Figure7.py              # reproduce the results shown in Figure 7
+│   ├── Figure8.py              # reproduce the results shown in Figure 8
+...
+│   ├── Figure20.py             # reproduce the results shown in Figure 20
+│   ├── Table2.py               # reproduce the descriptive statistics of the dataset used in analysis (2004-2013)
+│   ├── Table3.py               # reproduce the descriptive statistics of the dataset used in analysis (2016-2024)
+│   ├── Table4.py               # reproduce the results shown in Table4
+...
+│   ├── Table7.py               # reproduce the results shown in Table7         
 │
 ├── reproduce/
 │   ├── py_scripts/             # Numbered Python scripts — one per pipeline step
@@ -239,19 +244,18 @@ python 09.py --n_jobs 4   # feature importance
 
 ## Expected Runtimes
 
-| Step | Script | Laptop (4 cores) | Cluster (40 cores) |
+| Step | Script | Laptop (4 cores) | 
 |---|---|---|---|
-| 01 — Data generation | `01.py` | ~10 min | ~2 min |
-| 02 — Descriptor computation | `02.py` | days | ~12 hours |
-| 03 — Threshold selection | `03.py` | ~1 min | ~30 sec |
-| 04 — Benchmark execution | `04.py` | days | ~36 hours |
-| 05 — Synthetic analysis | `05.py` | ~2 min | ~2 min |
-| 06 — Realistic analysis | `06.py` | ~2 min | ~2 min |
-| 07 — CD diagrams | `07.py` | ~1 min | ~1 min |
-| 08 — Scalability benchmark | `08.py` | ~30 min | ~5 min |
-| 09 — Feature importance | `09.py` | ~1 min | ~1 min |
-| **Total (with skips)** | | **~5 min** | **~5 min** |
-| **Total (from scratch)** | | **days** | **~2–3 days** |
+| 01 — Data generation | `Figure6.py` | ~2 min | 
+| 02 — Descriptor computation | `Figure7.py` | ~2 min | 
+| 03 — Threshold selection | `Figure8.py` |  ~6 min | 
+| 04 — Benchmark execution | `Figure9.py` |  ~6 min | 
+| 05 — Synthetic analysis | `Figure10.py` | 0- ~7 min | 
+| 06 — Realistic analysis | `06.py` | ~2 min |
+| 07 — CD diagrams | `07.py` | ~1 min |
+| 08 — Scalability benchmark | `08.py` | ~30 min |
+| 09 — Feature importance | `09.py` | ~1 min | 
+| **Total (from scratch)** | | **days** | 
 
 Steps 02 and 04 are the bottleneck. All intermediary outputs are provided in `data.zip` to bypass them.
 
