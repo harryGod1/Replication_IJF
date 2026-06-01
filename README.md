@@ -114,7 +114,7 @@ conda install -c conda-forge cudnn=7.6.5
 
 The `data/` directory (~2 GB) contains all the datasets. For copyright reasons, the original data are not provided directly in this repository. Readers can download the data by clicking the link below.
 
-[Freddie Mac](https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset)
+**Download link:** [Freddie Mac](https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset)
 
 ---
 
@@ -126,7 +126,7 @@ The Freddie Mac single-family loan-level dataset is a publicly available collect
 -The download link for the raw data is provided here:[Freddie Mac](https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset)
 
 ### Intermediary data files
-Reader can directly use intermediary datasets to get the results. The data/ folder contains all data used in the experiments and testing.
+The data/ folder contains all data used in the experiments and testing. Readers do not need to generate all data files from scratch; instead, they can directly utilize the intermediate data located in the `data/` folder to execute all code and generate the corresponding outputs.
 
 ---
 
