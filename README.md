@@ -117,6 +117,10 @@ pip install -r requirements.txt
 pip install lifelines==0.27.8
 pip install pygam==0.8.1
 pip install -r requirements2.txt
+```
+- Optional
+#### All code can be executed even without the following two installation commands. However, if readers wish to utilize GPU acceleration, please run the following two lines of code.
+```bash
 conda install -c conda-forge cudatoolkit=10.1.243
 conda install -c conda-forge cudnn=7.6.5
 
