@@ -1,21 +1,20 @@
 
 ## Reproducibility Package Information
 
-- **Date assembled:** January 2025
-- **Authors:** Gian Marco Paldino (`gian.marco.paldino@ulb.be`), Gianluca Bontempi (`gianluca.bontempi@ulb.be`)
-- **Affiliation:** Machine Learning Group, Computer Science Department, Université Libre de Bruxelles (ULB), Brussels, Belgium
-- **License:** MIT
+- **Date assembled:** June 2026
+- **Authors:** Hao Wang(scxhw1@nottingham.edu.cn), Anthony Bellotti(Anthony-Graham.Bellotti@nottingham.edu.cn)
+
 
 ---
 
 ## Repository Structure
-# Causal Discovery in Multivariate Time Series through Mutual Information Featurization
+# Long Short-Term Memory Network with Adapted Attention Mechanism for Credit Risk Modelling
 
-[![Python 3.8.19](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
+[![Python 3.8.19](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3819/)
 
 
 **Reproducibility package for:**
-> Gian Marco Paldino, Gianluca Bontempi. *Causal Discovery in Multivariate Time Series through Mutual Information Featurization*. International Journal of Forecasting, 2025.
+> Hao Wang, Anthony Bellotti. *Long Short-Term Memory Network with Adapted Attention Mechanism for Credit Risk Modelling*. International Journal of Forecasting, 2026.
 
 ---
 
@@ -95,24 +94,15 @@
 ### 1. Create conda environment
 
 ```bash
-conda create -n td2c python=3.10 -y
-conda activate td2c
+conda create -n replication_ijf python=3.8.19 -y
+conda activate replication_ijf
 ```
 
-### 2. Install knncmi (k-NN conditional MI estimator)
+### 2. Clone this repository and install dependencies
 
 ```bash
-git clone https://github.com/omesner/knncmi.git
-cd knncmi
-pip install .
-cd ..
-```
-
-### 3. Clone this repository and install dependencies
-
-```bash
-git clone https://github.com/gmpal/IJF-TD2C.git
-cd IJF-TD2C
+git clone https://github.com/harryGod1/Replication_IJF.git
+cd Replication_IJF
 pip install -r requirements.txt
 pip install lifelines==0.27.8
 pip install pygam==0.8.1
@@ -126,7 +116,7 @@ conda install -c conda-forge cudnn=7.6.5
 
 ```
 
-### 4. Download the data folder
+### 3. Download the data folder
 
 The `data/` directory (~500 MB) contains all datasets, pre-computed descriptors, and cached results. It is stored separately from the repository due to its size.
 
