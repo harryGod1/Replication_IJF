@@ -110,7 +110,7 @@ conda install -c conda-forge cudnn=7.6.5
 
 ```
 
-### 3. Download the data folder
+### 3. Data folder
 
 The `data/` directory (~2 GB) contains all the datasets. For copyright reasons, the original data are not provided directly in this repository. Readers can download the data by clicking the link below.
 
@@ -125,12 +125,7 @@ The Freddie Mac single-family loan-level dataset is a publicly available collect
 -The download link for the raw data is provided here:[Freddie Mac](https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset)
 
 ### Intermediary data files
-Reader can directly use intermediary datasets to get the results. If the reader want to create the datasets from the raw data,run the additional two sample scripts under data/ folder:
-
-- Run data/DTSM.sql in MySQL to get the panel data
-- Run Out_file.sql in MySQL to get the final dataset
-
-If readers want a detailed understanding of how the intermediary datasets are generated, they may refer to the description in Section 4.2 of the paper.
+Reader can directly use intermediary datasets to get the results. The data/ folder contains all data used in the experiments and testing.
 
 ---
 
@@ -191,7 +186,7 @@ python Figure14.py
 | `Figure15.py` | ~11 min | 
 | `Figure16.py` | ~11 min | 
 | `Figure17.py` | ~2 hours | 
-| `Figure18.py` | 07- ~2 hours |
+| `Figure18.py` | ~2 hours |
 
 | **Total (from scratch)** | | **days** | 
 
