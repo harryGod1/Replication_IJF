@@ -79,7 +79,7 @@
 | `tensorflow-gpu` | 2.2.0 | GPU-enabled TensorFlow |
 | `lifelines` | 0.27.8 | Survival Analysis Library |
 | `matplotlib` | 3.5.5 | Plotting |
-| `scipy` | 1.4.1 | Statistical tests (Wilcoxon, Friedman) |
+| `scipy` | 1.4.1 | Statistical tests |
 
 ---
 
