@@ -188,8 +188,7 @@ python Figure14.py
 | `Figure16.py` | ~11 min | 
 | `Figure17.py` | ~2 hours | 
 | `Figure18.py` | ~2 hours |
-
-| **Total (from scratch)** | | **days** | 
+| **Total (from scratch)** | | **10hours** | 
 
 ---
 
