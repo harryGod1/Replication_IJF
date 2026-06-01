@@ -30,7 +30,7 @@
 │   ├── Table3.py               # reproduce the descriptive statistics of the dataset used in analysis (2016-2024)
 │   ├── Table4.py               # reproduce the results shown in Table4
 ...
-│   ├── Table7.py               # reproduce the results shown in Table7         
+│   └── Table7.py               # reproduce the results shown in Table7         
 │
 ├── data/
 │   ├── 2259/                   # All datasets used in this paper(raw data and intermediary data)
@@ -45,6 +45,8 @@
 │
 ├── example/                    # Demonstration of Code Execution
 │   └── example_figure14.png    # An example screenshot of the execution of Figure14.py in the real environment.
+│
+├── saved_model/                # All models used in the experiments
 │
 ├── train_model/                # Demonstration of Code Execution
 │   ├── 3LSTM_train.py          # Training code for the proposed state-of-the-art model (Attention + 3-layer LSTM).
@@ -246,7 +248,7 @@ python 09.py --n_jobs 4   # feature importance
 | 07 — CD diagrams | `Figure12.py` | ~9 min |
 | 08 — Scalability benchmark | `Figure13.py` | ~9 min |
 | 09 — Feature importance | `Figure14.py` | ~3 min | 
-| 09 — Feature importance | `Figure15.py` | 27- ~3 min | 
+| 09 — Feature importance | `Figure15.py` | 21- ~3 min | 
 | **Total (from scratch)** | | **days** | 
 
 Steps 02 and 04 are the bottleneck. All intermediary outputs are provided in `data.zip` to bypass them.
