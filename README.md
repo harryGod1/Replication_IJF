@@ -238,7 +238,7 @@ python 09.py --n_jobs 4   # feature importance
 ## Expected Runtimes
 
 | Step | Script | Laptop (4 cores) | 
-|---|---|---|---|
+|---|---|---|
 | 01 — Data generation | `Figure6.py` | ~2 min | 
 | 02 — Descriptor computation | `Figure7.py` | ~2 min | 
 | 03 — Threshold selection | `Figure8.py` |  ~6 min | 
@@ -248,8 +248,22 @@ python 09.py --n_jobs 4   # feature importance
 | 07 — CD diagrams | `Figure12.py` | ~9 min |
 | 08 — Scalability benchmark | `Figure13.py` | ~9 min |
 | 09 — Feature importance | `Figure14.py` | ~3 min | 
-| 09 — Feature importance | `Figure15.py` | 21- ~3 min | 
+| 09 — Feature importance | `Figure15.py` |  ~3 min | 
 | **Total (from scratch)** | | **days** | 
+
+| Step | Script | Laptop (4 cores) | Cluster (40 cores) |
+|---|---|---|---|
+| 01 — Data generation | `01.py` | ~10 min | ~2 min |
+| 02 — Descriptor computation | `02.py` | days | ~12 hours |
+| 03 — Threshold selection | `03.py` | ~1 min | ~30 sec |
+| 04 — Benchmark execution | `04.py` | days | ~36 hours |
+| 05 — Synthetic analysis | `05.py` | ~2 min | ~2 min |
+| 06 — Realistic analysis | `06.py` | ~2 min | ~2 min |
+| 07 — CD diagrams | `07.py` | ~1 min | ~1 min |
+| 08 — Scalability benchmark | `08.py` | ~30 min | ~5 min |
+| 09 — Feature importance | `09.py` | ~1 min | ~1 min |
+| **Total (with skips)** | | **~5 min** | **~5 min** |
+| **Total (from scratch)** | | **days** | **~2–3 days** |
 
 Steps 02 and 04 are the bottleneck. All intermediary outputs are provided in `data.zip` to bypass them.
 
