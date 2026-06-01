@@ -114,6 +114,7 @@ cd ..
 git clone https://github.com/gmpal/IJF-TD2C.git
 cd IJF-TD2C
 pip install -r requirements.txt
+pip install lifelines==0.27.8
 pip install pygam==0.8.1
 pip install -r requirements2.txt
 conda install -c conda-forge cudatoolkit=10.1.243
