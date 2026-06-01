@@ -11,9 +11,8 @@
 ## Repository Structure
 # Causal Discovery in Multivariate Time Series through Mutual Information Featurization
 
-[![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Paper](https://img.shields.io/badge/paper-arXiv-red.svg)](https://arxiv.org/abs/2508.01848)
+[![Python 3.8.19](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
+
 
 **Reproducibility package for:**
 > Gian Marco Paldino, Gianluca Bontempi. *Causal Discovery in Multivariate Time Series through Mutual Information Featurization*. International Journal of Forecasting, 2025.
@@ -117,6 +116,8 @@ cd IJF-TD2C
 pip install -r requirements.txt
 pip install pygam==0.8.1
 pip install -r requirements2.txt
+conda install -c conda-forge cudatoolkit=10.1.243
+conda install -c conda-forge cudnn=7.6.5
 
 ```
 
