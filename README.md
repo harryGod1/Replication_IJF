@@ -58,32 +58,28 @@
 
 ## Computing Environment
 
-| Component | Full Experiments (cluster) | Light Reproduction (laptop) |
-|---|---|---|
-| **OS** | Linux | Any (tested on Windows 11) |
-| **CPU** | 40-core cluster node | Intel Core i7 |
-| **RAM** | 377 GB | 32 GB |
-| **Python** | 3.10 | 3.10 |
-| **`--n_jobs`** | 40 | 4 |
+| Component | Reproduction (laptop) | 
+|---|---|
+| **OS** | Any (tested on Windows 10) |
+| **CPU** | Intel Core i7 |
+| **RAM** | 16 GB |
+| **Python** | 3.8.19 |
 
-**Language:** Python 3.10
-**Package manager:** conda (miniforge recommended)
-**Key dependencies** (see `requirements.txt` for full list with pinned versions):
+
+**Language:** Python 3.8.19
+**Package manager:** conda 
+**Key dependencies** (see `requirements.txt & requirements2.txt` for full list with pinned versions):
 
 | Package | Version | Purpose |
 |---|---|---|
-| `numpy` | 1.23.5 | Numerical computation |
-| `pandas` | 1.5.3 | Data manipulation |
-| `scikit-learn` | 1.6.1 | Machine learning metrics and classifiers |
-| `imbalanced-learn` | 0.12.4 | `BalancedRandomForestClassifier` |
-| `tigramite` | 5.2.10.1 | PCMCI implementation |
-| `lingam` | 1.12.2 | VARLiNGAM implementation |
-| `dcor` | 0.6 | Distance correlation (used by tigramite/GPDC) |
-| `causalnex` | 0.12.1 | DYNOTEARS implementation |
-| `matplotlib` | 3.7.5 | Plotting |
-| `seaborn` | 0.13.2 | Statistical visualisation |
-| `scipy` | 1.10.1 | Statistical tests (Wilcoxon, Friedman) |
-| `networkx` | 3.1 | Graph utilities |
+| `numpy` | 1.18.0 | Numerical computation |
+| `pandas` | 1.0.5 | Data manipulation |
+| `scikit-learn` | 1.1.2 | Machine learning metrics and classifiers |
+| `keras-preprocessing` | 1.1.2 | data preprocessing library for Keras |
+| `tensorflow-gpu` | 2.2.0 | GPU-enabled TensorFlow |
+| `lifelines` | 0.27.8 | Survival Analysis Library |
+| `matplotlib` | 3.5.5 | Plotting |
+| `scipy` | 1.4.1 | Statistical tests (Wilcoxon, Friedman) |
 
 ---
 
@@ -97,7 +93,7 @@ conda activate replication_ijf
 ```
 
 ### 2. Clone this repository and install dependencies
-
+> **⚠️ Important — Please be sure to adhere to the specified installation instructions to avoid any compatibility conflicts..**
 ```bash
 git clone https://github.com/harryGod1/Replication_IJF.git
 cd Replication_IJF
@@ -116,18 +112,11 @@ conda install -c conda-forge cudnn=7.6.5
 
 ### 3. Download the data folder
 
-The `data/` directory (~500 MB) contains all datasets, pre-computed descriptors, and cached results. It is stored separately from the repository due to its size.
+The `data/` directory (~2 GB) contains all the datasets. For copyright reasons, the original data are not provided directly in this repository. Readers can download the data by clicking the link below.
 
-**Download link:** [data.zip (Google Drive)](https://drive.google.com/file/d/1z8cHkUTe7TlvWwqBlpoEsukWaSsvFC26/view?usp=sharing)
+**Download link:** [data](https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset)
 
-Via shell:
-```bash
-pip install gdown
-gdown 1z8cHkUTe7TlvWwqBlpoEsukWaSsvFC26
-python3 -m zipfile -e data.zip .
-```
 
-Place the resulting `data/` folder in the root of the repository.
 
 > **⚠️ Important — verify your pre-computed files before running `05.py`, `06.py`, or `07.py`.**
 > Running `04.py` **without** the `--skip_benchmark` flag will overwrite `data/causal_dfs/*.pkl` with freshly generated results, which introduces non-determinism from `BalancedRandomForestClassifier`. To reproduce Tables 4, G.13, and H.14 and Figure I.6 accurately, always use the pre-computed files from `data.zip`.
@@ -248,7 +237,10 @@ python 09.py --n_jobs 4   # feature importance
 | 07 — CD diagrams | `Figure12.py` | ~9 min |
 | 08 — Scalability benchmark | `Figure13.py` | ~9 min |
 | 09 — Feature importance | `Figure14.py` | ~3 min | 
-| 09 — Feature importance | `Figure15.py` |  ~3 min | 
+| 09 — Feature importance | `Figure15.py` | ~11 min | 
+| 09 — Feature importance | `Figure16.py` | ~11 min | 
+| 09 — Feature importance | `Figure17.py` | 18- ~11 min | 
+| 09 — Feature importance | `Figure18.py` | ~11 min |
 | **Total (from scratch)** | | **days** | 
 
 
