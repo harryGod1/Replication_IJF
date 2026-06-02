@@ -145,12 +145,13 @@ python code/Figure14.py
 
 | Paper Item | Script | Brief Description |
 |---|---|---|
-| **Table 1** | `00.py` | Console output (theoretical; not in main pipeline) |
-| **Table 2** — Generation parameters | — | Descriptive table (not computationally generated) |
-| **Table 3** — Threshold selection metrics | `03.py` | Console output |
-| **Table 4** — Synthetic overall results | `05.py` | `TEST_analysis/tables/overall_macro_summary.csv` |
-| **Table 5** — Runtime per method | `08.py` | `data/benchmark_times_by_nvars.csv` |
-| **Table 6** — Feature importance | `09.py` | Console output |
+| **Table 1** | - | Literature review (not computationally generated) |
+| **Table 2** | `Table2.py` | Descriptive statistics of the dataset used in analysis (2004-2013): |
+| **Table 3** | `Table3.py` | Descriptive statistics of the dataset used in analysis (2016-2024): |
+| **Table 4** | `Table4.py` | Model performance with different washout phases |
+| **Table 5** | `Table5.py` | Statistical tests of comparative performance |
+| **Table 6** | `Table6.py` | Computational time for all the models trained in this paper |
+| **Table 7** | `Table7.py` | Summary of results across models for both dataset periods |
 | **Figure 1-5** | — | Conceptual illustration (not computationally generated) |
 | **Figure 6**  | `Figure6.py` | hazard rate & survival rate for an account in 2007 4th quarter|
 | **Figure 7**  | `Figure7.py` | Estimated hazard rates from the model for different washout phases |
@@ -185,10 +186,16 @@ python code/Figure14.py
 | `Figure14.py` | ~3 min | 
 | `Figure15.py` | ~11 min | 
 | `Figure16.py` | ~11 min | 
-| `Figure17.py` | ~2 hours | 
-| `Figure18.py` | ~2 hours |
-| `Figure19.py` | ~2 hours |
-| **Total (from scratch)** | **10hours** | 
+| `Figure17.py` | ~40 min | 
+| `Figure18.py` | ~40 min |
+| `Figure19.py` | ~40 min |
+| `Table2.py` | ~2 min |
+| `Table3.py` | ~2 min |
+| `Table4.py` | ~5 min |
+| `Table5.py` | ~5 min | 
+| `Table6.py` | ~5 min | 
+| `Table7.py` | ~5 min | 
+| **Total (from scratch)** | **4hours** | 
 
 ---
 
