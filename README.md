@@ -78,6 +78,7 @@
 | `keras-preprocessing` | 1.1.2 | data preprocessing library for Keras |
 | `tensorflow-gpu` | 2.2.0 | GPU-enabled TensorFlow |
 | `lifelines` | 0.27.8 | Survival Analysis Library |
+| `pygam` | 0.8.1 | Generalized Additive Models (GAMs) library |
 | `matplotlib` | 3.5.5 | Plotting |
 | `scipy` | 1.4.1 | Statistical tests |
 
