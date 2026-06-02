@@ -136,8 +136,7 @@ Each figure and table in the paper can be reproduced by executing the correspond
 The following shows a running example of the Figure14.py script.：
 
 ```bash
-cd code
-python Figure14.py
+python code/Figure14.py
 ```
 
 ---
@@ -188,6 +187,7 @@ python Figure14.py
 | `Figure16.py` | ~11 min | 
 | `Figure17.py` | ~2 hours | 
 | `Figure18.py` | ~2 hours |
+| `Figure19.py` | ~2 hours |
 | **Total (from scratch)** | **10hours** | 
 
 ---
