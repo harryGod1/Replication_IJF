@@ -203,4 +203,8 @@ python code/Figure14.py
 
 Gian Marco Paldino, Gianluca Bontempi. Causal Discovery in Multivariate Time Series through Mutual Information Featurization. International Journal of Forecasting, 2025. https://doi.org/10.48550/arXiv.2508.01848
 
+Timo Dimitriadis and Alexander I. Jordan. Replication package for "Evaluating Probabilistic Classifiers: The Triptych". International Journal of Forecasting, 2024. https://doi.org/10.1016/j.ijforecast.2023.09.007
+
+Dennis van der Meer, Pierre Pinson, Simon Camal and Georges Kariniotakis. CRPS-based online learning for nonlinear probabilistic forecast combination. International Journal of Forecasting, 2024. https://doi.org/10.1016/j.ijforecast.2023.12.005
+
 ---
