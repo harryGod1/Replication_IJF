@@ -145,7 +145,7 @@ python code/Figure14.py
 
 | Paper Item | Script | Brief Description |
 |---|---|---|
-| **Table 1** | - | Literature review (not computationally generated) |
+| **Table 1** | — | Literature review (not computationally generated) |
 | **Table 2** | `Table2.py` | Descriptive statistics of the dataset used in analysis (2004-2013): |
 | **Table 3** | `Table3.py` | Descriptive statistics of the dataset used in analysis (2016-2024): |
 | **Table 4** | `Table4.py` | Model performance with different washout phases |
