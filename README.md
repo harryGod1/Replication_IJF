@@ -93,17 +93,20 @@
 conda create -n replication_ijf python=3.8.19 -y
 conda activate replication_ijf
 ```
-
-### 2. Clone this repository and install dependencies
-> **⚠️ Important — Please be sure to adhere to the following specified installation instructions to avoid any compatibility conflicts.**
+### 2. Installing git lfs for handling big data(>100m)
 > **⚠️ Important — *Due to the presence of data files exceeding 100 MB, Git Large File Storage (LFS) is required to handle them. Readers should first download the appropriate Git LFS installation package for their operating system.*
 
--Optional:Example for installing git lfs in Linux(unbuntu)
+#### Example for installing git lfs in Linux(unbuntu)
 ```bash
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 apt-get install git-lfs
 git lfs install
 ```
+
+
+### 3. Clone this repository and install dependencies
+> **⚠️ Important — Please be sure to adhere to the following specified installation instructions to avoid any compatibility conflicts.**
+
 
 ```bash
 git lfs clone https://github.com/harryGod1/Replication_IJF.git
@@ -117,7 +120,7 @@ conda install -c conda-forge cudatoolkit=10.1.243
 conda install -c conda-forge cudnn=7.6.5
 ```
 
-### 3. Data folder
+### 4. Data folder
 
 The `data/` directory (~2 GB) contains all the datasets. For copyright reasons, the original data are not provided directly in this repository. Readers can download the data by clicking the link below.
 
