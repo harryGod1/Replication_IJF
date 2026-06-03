@@ -62,7 +62,7 @@
 |---|---|
 | **OS** | Any (tested on Windows 10) |
 | **CPU** | Intel Core i7 |
-| **RAM** | 16 GB |
+| **RAM** | 32 GB |
 | **Python** | 3.8.19 |
 
 
