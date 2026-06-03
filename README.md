@@ -60,9 +60,10 @@
 
 | Component | Reproduction (laptop) | 
 |---|---|
-| **OS** | Any (tested on Windows 10) |
+| **OS** | Any |
 | **CPU** | Intel Core i7 |
-| **RAM** | 16 GB |
+| **GPU** | NVIDIA GeForce GTX 1650 |
+| **RAM** | 32 GB |
 | **Python** | 3.8.19 |
 
 
@@ -98,17 +99,12 @@ conda activate replication_ijf
 ```bash
 git clone https://github.com/harryGod1/Replication_IJF.git
 cd Replication_IJF
-pip install -r requirements.txt
+pip install -r env/requirements.txt
 pip install lifelines==0.27.8
 pip install pygam==0.8.1
-pip install -r requirements2.txt
-```
-- Optional
-#### All code can be executed even without the following two installation commands. However, if readers wish to utilize GPU acceleration, please run the following two lines of code.
-```bash
+pip install -r env/requirements2.txt
 conda install -c conda-forge cudatoolkit=10.1.243
 conda install -c conda-forge cudnn=7.6.5
-
 ```
 
 ### 3. Data folder
