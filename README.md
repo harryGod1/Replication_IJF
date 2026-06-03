@@ -62,6 +62,7 @@
 |---|---|
 | **OS** | Any (tested on Windows 10) |
 | **CPU** | Intel Core i7 |
+| **GPU** | NVIDIA GeForce GTX 1650 |
 | **RAM** | 32 GB |
 | **Python** | 3.8.19 |
 
