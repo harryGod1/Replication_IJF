@@ -130,6 +130,15 @@ The `data/` directory (~2 GB) contains all the datasets. For copyright reasons, 
 
 ---
 
+## Reproducing the Results
+Each figure and table in the paper can be reproduced by executing the corresponding Python script located in the code/ directory.
+
+The following shows a running example of the Figure14.py script.：
+
+```bash
+python code/Figure14.py
+```
+
 ## Data Description
 
 ### Freddie Mac Mortgage data(2004 to 2024)
@@ -142,16 +151,6 @@ The data/ folder contains all data used in the experiments and testing. Readers 
 
 ---
 
-## Reproducing the Results
-Each figure and table in the paper can be reproduced by executing the corresponding Python script located in the code/ directory.
-
-The following shows a running example of the Figure14.py script.：
-
-```bash
-python code/Figure14.py
-```
-
----
 
 ## Paper Tables and Figures — Output Mapping
 
