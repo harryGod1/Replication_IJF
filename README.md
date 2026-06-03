@@ -186,8 +186,8 @@ The data/ folder contains all data used in the experiments and testing. Readers 
 
 | Script | Laptop | 
 |---|---|
-| `Figure6.py` | ~2 min | 
-| `Figure7.py` | ~2 min | 
+| `Figure6.py` | ~5 min | 
+| `Figure7.py` | ~15 min | 
 | `Figure8.py` |  ~6 min | 
 | `Figure9.py` |  ~6 min | 
 | `Figure10.py` |  ~6 min | 
