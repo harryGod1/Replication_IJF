@@ -12230,7 +12230,7 @@ print('Forecasts of default rate(2013-2015): ')
 for k in range(0,len(pseudo_3lstm)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(12, 3))
+plt.figure(figsize=(10, 4))
 plt.plot(x_axis,r_default.astype(float),'black',label='Real Default Rate',linewidth=2)  
 plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
 plt.plot(x_axis,pseudo_gam.astype(float),'red',label='GAM',linestyle='--')
