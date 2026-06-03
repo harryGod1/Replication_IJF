@@ -98,10 +98,10 @@ conda activate replication_ijf
 ```bash
 git clone https://github.com/harryGod1/Replication_IJF.git
 cd Replication_IJF
-pip install -r requirements.txt
+pip install -r env/requirements.txt
 pip install lifelines==0.27.8
 pip install pygam==0.8.1
-pip install -r requirements2.txt
+pip install -r env/requirements2.txt
 ```
 - Optional
 #### All code can be executed even without the following two installation commands. However, if readers wish to utilize GPU acceleration, please run the following two lines of code.
