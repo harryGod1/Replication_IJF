@@ -60,7 +60,7 @@
 
 | Component | Reproduction (laptop) | 
 |---|---|
-| **OS** | Any (tested on Windows 10) |
+| **OS** | Any |
 | **CPU** | Intel Core i7 |
 | **GPU** | NVIDIA GeForce GTX 1650 |
 | **RAM** | 32 GB |
