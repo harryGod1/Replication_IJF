@@ -96,8 +96,18 @@ conda activate replication_ijf
 
 ### 2. Clone this repository and install dependencies
 > **⚠️ Important — Please be sure to adhere to the following specified installation instructions to avoid any compatibility conflicts.**
+> **⚠️ Important — *Due to the presence of data files exceeding 100 MB, Git Large File Storage (LFS) is required to handle them. Readers should first download the appropriate Git LFS installation package for their operating system.*
+
+-Optional:Example for installing git lfs in Linux(unbuntu)
 ```bash
-git clone https://github.com/harryGod1/Replication_IJF.git
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+apt-get install git-lfs
+git lfs install
+```
+
+```bash
+git lfs clone https://github.com/harryGod1/Replication_IJF.git
+#reader can just use the traditional command: git clone https://github.com/harryGod1/Replication_IJF.git. Mannually download the big data from github and put them #to data/2259/ folder
 cd Replication_IJF
 pip install -r env/requirements.txt
 pip install lifelines==0.27.8
