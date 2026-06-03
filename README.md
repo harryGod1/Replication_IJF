@@ -95,6 +95,7 @@ conda activate replication_ijf
 ```
 ### 2. Installing git lfs for handling big data(>100m)
 > **⚠️ Important — Please download the appropriate Git LFS package for your operating system.**
+> 
 > **⚠️ Important — Due to the presence of data files exceeding 100 MB, Git Large File Storage (LFS) is required to handle them. Readers should first download the appropriate Git LFS installation package for their operating system.**
 
 #### Example for installing git lfs in Linux(unbuntu)
