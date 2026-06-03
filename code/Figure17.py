@@ -36,15 +36,17 @@ import pandas as pd
 #change dataset
 data_mod = 1
 
-for prs in range(0,3):
-    pseudo_dtsm = []
-    pseudo_gam = []
-    pseudo_cox = []
-    pseudo_weibull = []
-    pseudo_deephit = []
-    pseudo_lstm = []
-    pseudo_3lstm = []
-    r_default = []
+pseudo_dtsm = []
+pseudo_gam = []
+pseudo_cox = []
+pseudo_weibull = []
+pseudo_deephit = []
+pseudo_lstm = []
+pseudo_3lstm = []
+r_default = []
+
+for prs in range(1):
+
 
     #f1 = open("./train_data.txt")
 
@@ -455,8 +457,7 @@ for prs in range(0,3):
 
         #print(len(x2),len(x2[0]))
 
-        #最终版本Linear DTSM代码 -- 给类别变量编码的部分
-        #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         #For delinquency version
         #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         for i in range(len(x)):
@@ -514,8 +515,7 @@ for prs in range(0,3):
 
         #print(x[0])
 
-        #最终版本Linear DTSM代码 -- 给类别变量编码的部分
-        #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         #For delinquency version
         #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         for i in range(len(x2)):
@@ -775,12 +775,7 @@ for prs in range(0,3):
 
         #print(len(x),len(x[0]))
 
-        #优化版本，据集每一笔最后都多了一笔月份为0地数据 会导致default数据被误认为non default（因为last seq ！= new seq部分的判定原因，导致default 1 之后多出了个default0得标签，会误将default0
-        #标签取代原本default应该是1得标签）e.g.,F113Q3250129，F112Q4005541
-        #！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-        #Delinquency版本中去除大部分max_seqlen和deli两者数据集不相等的账户（和上面版本的区别！）
-        #！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-        #最终版本Linear DTSM代码 -- 导入数据集部分
+
         #DTSM testing
         #f1 = open("./train_data.txt")
         path = os.getcwd()
@@ -1106,7 +1101,7 @@ for prs in range(0,3):
     x = scaler.transform(x)
     #print(x[0],x[1])
 
-    #用训练集的标准差进行标准化还是用测试集自己的标准差进行标准化？
+
     #x_s2=x2
     #scaler = preprocessing.StandardScaler().fit(x_s2)
     x2 = scaler.transform(x2)
@@ -1466,7 +1461,7 @@ for prs in range(0,3):
         if(x2[i][8]==99):
             x2[i][8]=0.5   
 
-    #最终版本Linear DTSM代码 -- 测试每个季度模型的部分
+
     from sklearn import preprocessing
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import roc_auc_score
@@ -1941,7 +1936,7 @@ for prs in range(0,3):
         if(x2[i][8]==99):
             x2[i][8]=0.5   
 
-    #最终版本Linear DTSM代码 -- 测试每个季度模型的部分
+
     from sklearn import preprocessing
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import roc_auc_score
@@ -2181,36 +2176,36 @@ for prs in range(0,3):
             #print('True default rate: ', count_default/count_within_lag*100)
             #print('Predicted default rate: ', predicted_default/count_within_lag*100)
             #print('============================================================')
-    
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
+    for prs_s in range(3):
+        path = os.getcwd()
+        new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/dtsm_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
+        csvFile = open(new_path + "/data/2259/dtsm_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        reader = csv.reader(csvFile)
 
 
-    result = []
-    for item in reader:
-        data = []
-        # 忽略第一行
-        #if reader.line_num == 1:
-            #continue
-        for i in range(3):
-            data.append(item[i])
-        result.append(data)
+        result = []
+        for item in reader:
+            data = []
 
-    csvFile.close()
-    df = pd.DataFrame(result)
-    print("DTSM:")
-    print(df.iloc[prs*6:prs*6+6].to_string(index=False))
-    r_default = np.array(r_default)
-    pseudo_dtsm = np.array(pseudo_dtsm)
-    result = np.array(result)
-    r_default = np.concatenate((r_default, result[prs*6+2:prs*6+6,1]))
-    pseudo_dtsm = np.concatenate((pseudo_dtsm, result[prs*6+2:prs*6+6,2]))
-    
-    print('============================================================')
-    
+            #if reader.line_num == 1:
+                #continue
+            for i in range(3):
+                data.append(item[i])
+            result.append(data)
+
+        csvFile.close()
+        df = pd.DataFrame(result)
+        print("DTSM:")
+        print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
+        r_default = np.array(r_default)
+        pseudo_dtsm = np.array(pseudo_dtsm)
+        result = np.array(result)
+        r_default = np.concatenate((r_default, result[prs_s*6+2:prs_s*6+6,1]))
+        pseudo_dtsm = np.concatenate((pseudo_dtsm, result[prs_s*6+2:prs_s*6+6,2]))
+
+        print('============================================================')
+
     
 
     print("GAM...")
@@ -2442,12 +2437,7 @@ for prs in range(0,3):
 
     #print(len(x),len(x[0]))
 
-    #优化版本，据集每一笔最后都多了一笔月份为0地数据 会导致default数据被误认为non default（因为last seq ！= new seq部分的判定原因，导致default 1 之后多出了个default0得标签，会误将default0
-    #标签取代原本default应该是1得标签）e.g.,F113Q3250129，F112Q4005541
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #Delinquency版本中去除大部分max_seqlen和deli两者数据集不相等的账户（和上面版本的区别！）
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #最终版本Linear DTSM代码 -- 导入数据集部分
+
     #DTSM testing
     #f1 = open("./train_data.txt")
     path = os.getcwd()
@@ -2731,8 +2721,7 @@ for prs in range(0,3):
 
     #print(x[0])
 
-    #最终版本Linear DTSM代码 -- 给类别变量编码的部分
-    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     #For delinquency version
     #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for i in range(len(x2)):
@@ -2790,7 +2779,7 @@ for prs in range(0,3):
 
     #print(x2[2])
 
-    #最终版本Linear DTSM代码 -- 训练模型的部分
+
     #Linear DTSM final
     from sklearn import preprocessing
 
@@ -2879,12 +2868,7 @@ for prs in range(0,3):
     #print('Unbalanced log_likelyhood_dtsm : ',(-unbalanced_log_likeli_dtsm )/len(predict_gam))
 
 
-    #优化版本，据集每一笔最后都多了一笔月份为0地数据 会导致default数据被误认为non default（因为last seq ！= new seq部分的判定原因，导致default 1 之后多出了个default0得标签，会误将default0
-    #标签取代原本default应该是1得标签）e.g.,F113Q3250129，F112Q4005541
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #Delinquency版本中去除大部分max_seqlen和deli两者数据集不相等的账户（和上面版本的区别！）
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #最终版本Linear DTSM代码 -- 训练完DTSM 之后测试每个季度模型性能部分！！！！！！
+
     #f1 = open("./train_data.txt")
     path = os.getcwd()
     new_path = path.replace("\\","/")
@@ -3062,32 +3046,32 @@ for prs in range(0,3):
             #print('Predicted default rate: ', predicted_default/count_within_lag*100)
             #print('============================================================')
 
+    for prs_s in range(3):
+        path = os.getcwd()
+        new_path = path.replace("\\","/")
 
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/gam_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
+        csvFile = open(new_path + "/data/2259/gam_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        reader = csv.reader(csvFile)
 
 
-    result = []
-    for item in reader:
-        data = []
-        # 忽略第一行
-        #if reader.line_num == 1:
-            #continue
-        for i in range(3):
-            data.append(item[i])
-        result.append(data)
+        result = []
+        for item in reader:
+            data = []
 
-    csvFile.close()
-    df = pd.DataFrame(result)
-    print("GAM:")
-    print(df.iloc[prs*6:prs*6+6].to_string(index=False))
-    pseudo_gam = np.array(pseudo_gam)
-    result = np.array(result)
-    pseudo_gam = np.concatenate((pseudo_gam, result[prs*6+2:prs*6+6,2]))
-    print('============================================================')
+            #if reader.line_num == 1:
+                #continue
+            for i in range(3):
+                data.append(item[i])
+            result.append(data)
+
+        csvFile.close()
+        df = pd.DataFrame(result)
+        print("GAM:")
+        print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
+        pseudo_gam = np.array(pseudo_gam)
+        result = np.array(result)
+        pseudo_gam = np.concatenate((pseudo_gam, result[prs_s*6+2:prs_s*6+6,2]))
+        print('============================================================')
     
     
 
@@ -3149,14 +3133,7 @@ for prs in range(0,3):
     import math
     import pandas as pd
 
-    #Continuous Survival版本 (注意：只有all版本的train和test才处理了debug0问题，也就是集合了40个嫉妒的所有时间线的数据集，后续测试每个季度数据集还是需要继续用debug0的代码处理该问题)
-    #Continuous Survival版本不加入vintage
-    #优化版本，据集每一笔最后都多了一笔月份为0地数据 会导致default数据被误认为non default（因为last seq ！= new seq部分的判定原因，导致default 1 之后多出了个default0得标签，会误将default0
-    #标签取代原本default应该是1得标签）e.g.,F113Q3250129，F112Q4005541
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #Delinquency版本中去除大部分max_seqlen和deli两者数据集不相等的账户（和上面版本的区别！）
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #最终版本Linear DTSM代码 -- 导入数据集部分
+
     #f1 = open("./train_data.txt")
 
     #all data
@@ -3272,14 +3249,7 @@ for prs in range(0,3):
     print(x[0])
 
 
-    #Continuous Survival版本 (注意：只有all版本的train和test才处理了debug0问题，也就是集合了40个嫉妒的所有时间线的数据集，后续测试每个季度数据集还是需要继续用debug0的代码处理该问题)
-    #Continuous Survival版本不加入vintage
-    #优化版本，据集每一笔最后都多了一笔月份为0地数据 会导致default数据被误认为non default（因为last seq ！= new seq部分的判定原因，导致default 1 之后多出了个default0得标签，会误将default0
-    #标签取代原本default应该是1得标签）e.g.,F113Q3250129，F112Q4005541
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #Delinquency版本中去除大部分max_seqlen和deli两者数据集不相等的账户（和上面版本的区别！）
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #最终版本Linear DTSM代码 -- 导入数据集部分
+
     #f1 = open("./train_data.txt")
     path = os.getcwd()
     new_path = path.replace("\\","/")
@@ -3399,7 +3369,7 @@ for prs in range(0,3):
     print(len(x2),len(x2[0]))
     print(x2[0])
 
-    #最终版本Linear DTSM代码 -- 给类别变量编码的部分
+
     for i in range(len(x)):
         #FTHF:N=1,Y=2,9=3
         #OS:P=1,I=2,S=3,9=4
@@ -3521,7 +3491,7 @@ for prs in range(0,3):
     df_standard = scaler.transform(df_standard)
     #print(x[0],x[1])
 
-    #用训练集的标准差进行标准化还是用测试集自己的标准差进行标准化？
+
     #x_s2=x2
     #scaler = preprocessing.StandardScaler().fit(x_s2)
     df_standard2 = scaler.transform(df_standard2)
@@ -3574,7 +3544,7 @@ for prs in range(0,3):
     df_standard2 = df_standard2.join(df2[9])
     df_standard2 = df_standard2.join(df2[10])
 
-    #注意，因为月份从0开始，所以需要加1
+
     df_standard[9] = df_standard[9] + 1
     df_standard2[9] = df_standard2[9] + 1
 
@@ -3604,13 +3574,7 @@ for prs in range(0,3):
 
     print('Cox PH and Weibell fitted')
 
-    #测试每个季度测试集，首先将数据集进行debug0处理，再处理成continuous survival的形式
-    #优化版本，据集每一笔最后都多了一笔月份为0地数据 会导致default数据被误认为non default（因为last seq ！= new seq部分的判定原因，导致default 1 之后多出了个default0得标签，会误将default0
-    #标签取代原本default应该是1得标签）e.g.,F113Q3250129，F112Q4005541
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #Delinquency版本中去除大部分max_seqlen和deli两者数据集不相等的账户（和上面版本的区别！）
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #最终版本Linear DTSM代码 -- 训练完DTSM 之后测试每个季度模型性能部分！！！！！！
+
     #f1 = open("./train_data.txt")
     path = os.getcwd()
     new_path = path.replace("\\","/")
@@ -4520,32 +4484,32 @@ for prs in range(0,3):
             #print('Predicted default rate: ', predicted_default/count_within_lag*100)
             #print('============================================================')
         
-    
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
+    for prs_s in range(3):
+        path = os.getcwd()
+        new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/cox_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
+        csvFile = open(new_path + "/data/2259/cox_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        reader = csv.reader(csvFile)
 
 
-    result = []
-    for item in reader:
-        data = []
-        # 忽略第一行
-        #if reader.line_num == 1:
-            #continue
-        for i in range(3):
-            data.append(item[i])
-        result.append(data)
+        result = []
+        for item in reader:
+            data = []
 
-    csvFile.close()
-    df = pd.DataFrame(result)
-    print("Cox PH:")
-    print(df.iloc[prs*6:prs*6+6].to_string(index=False))
-    pseudo_cox = np.array(pseudo_cox)
-    result = np.array(result)
-    pseudo_cox = np.concatenate((pseudo_cox, result[prs*6+2:prs*6+6,2]))
-    print('============================================================')
+            #if reader.line_num == 1:
+                #continue
+            for i in range(3):
+                data.append(item[i])
+            result.append(data)
+
+        csvFile.close()
+        df = pd.DataFrame(result)
+        print("Cox PH:")
+        print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
+        pseudo_cox = np.array(pseudo_cox)
+        result = np.array(result)
+        pseudo_cox = np.concatenate((pseudo_cox, result[prs_s*6+2:prs_s*6+6,2]))
+        print('============================================================')
     
 
     print("Forecasts of default rate:Weibull...")
@@ -4707,32 +4671,32 @@ for prs in range(0,3):
             #print('True default rate: ', count_default/count_within_lag*100)
             #print('Predicted default rate: ', predicted_default/count_within_lag*100)
             #print('============================================================')
-        
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
+    for prs_s in range(3):    
+        path = os.getcwd()
+        new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/weibull_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
+        csvFile = open(new_path + "/data/2259/weibull_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        reader = csv.reader(csvFile)
 
 
-    result = []
-    for item in reader:
-        data = []
-        # 忽略第一行
-        #if reader.line_num == 1:
-            #continue
-        for i in range(3):
-            data.append(item[i])
-        result.append(data)
+        result = []
+        for item in reader:
+            data = []
 
-    csvFile.close()
-    df = pd.DataFrame(result)
-    print("Weibull:")
-    print(df.iloc[prs*6:prs*6+6].to_string(index=False))
-    pseudo_weibull = np.array(pseudo_weibull)
-    result = np.array(result)
-    pseudo_weibull = np.concatenate((pseudo_weibull, result[prs*6+2:prs*6+6,2]))
-    print('============================================================')
+            #if reader.line_num == 1:
+                #continue
+            for i in range(3):
+                data.append(item[i])
+            result.append(data)
+
+        csvFile.close()
+        df = pd.DataFrame(result)
+        print("Weibull:")
+        print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
+        pseudo_weibull = np.array(pseudo_weibull)
+        result = np.array(result)
+        pseudo_weibull = np.concatenate((pseudo_weibull, result[prs_s*6+2:prs_s*6+6,2]))
+        print('============================================================')
 
     print("Deephit...")
 
@@ -4761,12 +4725,7 @@ for prs in range(0,3):
     from sklearn.compose import ColumnTransformer 
     import string
     import math
-    #优化版本，据集每一笔最后都多了一笔月份为0地数据 会导致default数据被误认为non default（因为last seq ！= new seq部分的判定原因，导致default 1 之后多出了个default0得标签，会误将default0
-    #标签取代原本default应该是1得标签）e.g.,F113Q3250129，F112Q4005541
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #Delinquency版本中去除大部分max_seqlen和deli两者数据集不相等的账户（和上面版本的区别！）
-    #！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-    #最终版本Linear DTSM代码 -- 导入数据集部分
+
     #f1 = open("./train_data.txt")
 
     #all data
@@ -7331,32 +7290,32 @@ for prs in range(0,3):
             #print('============================================================')
 
         
+    for prs_s in range(3):
+        path = os.getcwd()
+        new_path = path.replace("\\","/")
 
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/deephit_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
+        csvFile = open(new_path + "/data/2259/deephit_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        reader = csv.reader(csvFile)
 
 
-    result = []
-    for item in reader:
-        data = []
-        # 忽略第一行
-        #if reader.line_num == 1:
-            #continue
-        for i in range(3):
-            data.append(item[i])
-        result.append(data)
+        result = []
+        for item in reader:
+            data = []
 
-    csvFile.close()
-    df = pd.DataFrame(result)
-    print("DeepHit:")
-    print(df.iloc[prs*6:prs*6+6].to_string(index=False))
-    pseudo_deephit = np.array(pseudo_deephit)
-    result = np.array(result)
-    pseudo_deephit = np.concatenate((pseudo_deephit, result[prs*6+2:prs*6+6,2]))
-    print('============================================================')
+            #if reader.line_num == 1:
+                #continue
+            for i in range(3):
+                data.append(item[i])
+            result.append(data)
+
+        csvFile.close()
+        df = pd.DataFrame(result)
+        print("DeepHit:")
+        print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
+        pseudo_deephit = np.array(pseudo_deephit)
+        result = np.array(result)
+        pseudo_deephit = np.concatenate((pseudo_deephit, result[prs_s*6+2:prs_s*6+6,2]))
+        print('============================================================')
     
 
     print("LSTM+Washout+3LSTM Attention+Deli...")
@@ -8236,7 +8195,6 @@ for prs in range(0,3):
 
                 #1
 
-                #注意，加这一层代表LSTM+3Lstm based attention，注释掉代表3Lstm based attention
                 #with tf.variable_scope("rnn3"):    
                     #outputs, (h_c, h_n) = tf.nn.dynamic_rnn(
                         #rnn_cell3,                   # cell you have chosen
@@ -8711,8 +8669,7 @@ for prs in range(0,3):
             #os.environ["CUDA_VISIBLE_DEVICES"] = "0"
             with tf.Session(config=config) as sess:
                 self.train_test(sess)
-    #cd_ml中random data的code理需要修改，要在random data的时候，先把1后面有0的行删掉。不然
-    #随机取值的时候，0那行会跟本体分开，单独成列，变成两笔账户。    
+  
         def save_model(self):
             print("model name: ", self.filename, " ", self.global_step, "\n")
             self.saver.save(self.sess, "F:/ijf_second_round/saved_model/model16to21_lag12_gpu2_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16/" + self.filename, global_step=self.global_step)
@@ -9862,32 +9819,32 @@ for prs in range(0,3):
             #print('============================================================')
             
         
+    for prs_s in range(3):
+        path = os.getcwd()
+        new_path = path.replace("\\","/")
 
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/3lstm_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
+        csvFile = open(new_path + "/data/2259/3lstm_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        reader = csv.reader(csvFile)
 
 
-    result = []
-    for item in reader:
-        data = []
-        # 忽略第一行
-        #if reader.line_num == 1:
-            #continue
-        for i in range(3):
-            data.append(item[i])
-        result.append(data)
+        result = []
+        for item in reader:
+            data = []
 
-    csvFile.close()
-    df = pd.DataFrame(result)
-    print("3LSTM:")
-    print(df.iloc[prs*6:prs*6+6].to_string(index=False))
-    pseudo_3lstm = np.array(pseudo_3lstm)
-    result = np.array(result)
-    pseudo_3lstm = np.concatenate((pseudo_3lstm, result[prs*6+2:prs*6+6,2]))
-    print('============================================================')
+            #if reader.line_num == 1:
+                #continue
+            for i in range(3):
+                data.append(item[i])
+            result.append(data)
+
+        csvFile.close()
+        df = pd.DataFrame(result)
+        print("3LSTM:")
+        print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
+        pseudo_3lstm = np.array(pseudo_3lstm)
+        result = np.array(result)
+        pseudo_3lstm = np.concatenate((pseudo_3lstm, result[prs_s*6+2:prs_s*6+6,2]))
+        print('============================================================')
     
     print("LSTM+Washout+Attention+Deli...")
 
@@ -10766,7 +10723,7 @@ for prs in range(0,3):
 
                 #1
 
-                #注意，加这一层代表LSTM+3Lstm based attention，注释掉代表3Lstm based attention
+
                 #with tf.variable_scope("rnn3"):    
                     #outputs, (h_c, h_n) = tf.nn.dynamic_rnn(
                         #rnn_cell3,                   # cell you have chosen
@@ -11238,8 +11195,7 @@ for prs in range(0,3):
             #os.environ["CUDA_VISIBLE_DEVICES"] = "0"
             with tf.Session(config=config) as sess:
                 self.train_test(sess)
-    #cd_ml中random data的code理需要修改，要在random data的时候，先把1后面有0的行删掉。不然
-    #随机取值的时候，0那行会跟本体分开，单独成列，变成两笔账户。    
+    
         def save_model(self):
             print("model name: ", self.filename, " ", self.global_step, "\n")
             self.saver.save(self.sess, "F:/ijf_second_round/saved_model/model16to21_lag12_gpu2_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16/" + self.filename, global_step=self.global_step)
@@ -12234,32 +12190,32 @@ for prs in range(0,3):
             #print('============================================================')
 
         
+    for prs_s in range(3):
+        path = os.getcwd()
+        new_path = path.replace("\\","/")
 
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/lstm_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
+        csvFile = open(new_path + "/data/2259/lstm_forecast_default(13to15).csv", "r",encoding='gb18030', errors='ignore')
+        reader = csv.reader(csvFile)
 
 
-    result = []
-    for item in reader:
-        data = []
-        # 忽略第一行
-        #if reader.line_num == 1:
-            #continue
-        for i in range(3):
-            data.append(item[i])
-        result.append(data)
+        result = []
+        for item in reader:
+            data = []
 
-    csvFile.close()
-    df = pd.DataFrame(result)
-    print("LSTM:")
-    print(df.iloc[prs*6:prs*6+6].to_string(index=False))
-    pseudo_lstm = np.array(pseudo_lstm)
-    result = np.array(result)
-    pseudo_lstm = np.concatenate((pseudo_lstm, result[prs*6+2:prs*6+6,2]))
-    print('============================================================')
+            #if reader.line_num == 1:
+                #continue
+            for i in range(3):
+                data.append(item[i])
+            result.append(data)
+
+        csvFile.close()
+        df = pd.DataFrame(result)
+        print("LSTM:")
+        print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
+        pseudo_lstm = np.array(pseudo_lstm)
+        result = np.array(result)
+        pseudo_lstm = np.concatenate((pseudo_lstm, result[prs_s*6+2:prs_s*6+6,2]))
+        print('============================================================')
     
 #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
 #Model weights are saved in the saved_model folder within the saved directory.           

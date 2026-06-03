@@ -1705,7 +1705,7 @@ RUNNING_MODEL.create_graph()
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-f1 = open(new_path + "/Replication_IJF/data/2259/train_all_dtsm_x_forecast_Deli_random_debug0.txt")
+f1 = open(new_path + "/data/2259/train_all_dtsm_x_forecast_Deli_random_debug0.txt")
 #f1 = open("./train4_data.txt")
 #f1 = open("./train_undersample10.txt")
 #f2 = open("./test_data.txt")
@@ -1806,6 +1806,6 @@ from sklearn.metrics import auc
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-TEST_FILE = new_path + "/Replication_IJF/data/2259" + "/train_test_all_dtsm_x_forecast_Deli_random_debug0.txt"
+TEST_FILE = new_path + "/data/2259" + "/train_test_all_dtsm_x_forecast_Deli_random_debug0.txt"
 RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
 RUNNING_MODEL.test_data_win.next(RUNNING_MODEL.BATCH_SIZE)

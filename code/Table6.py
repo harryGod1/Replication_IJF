@@ -63,7 +63,7 @@ show_survival_curve = False
 
 ym = 2004
 q = 1
-n_vintage = 1 #number of sub datasets chosed for testing
+n_vintage = 1 
 prs = n_vintage
 
 if(prs<48):
@@ -76,7 +76,7 @@ if(prs<48):
     #standardscaler
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/train_all_dtsm_x_forecast_Deli_random_debug0.txt")
+    f2 = open(new_path + "/data/2259/train_all_dtsm_x_forecast_Deli_random_debug0.txt")
 
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
@@ -275,7 +275,7 @@ else:
     pseudo_3lstm = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    f2 = open(new_path + "/Replication_IJF/data/2259/test_all_dtsm_x_forecast_Deli_random_debug0.txt")
+    f2 = open(new_path + "/data/2259/test_all_dtsm_x_forecast_Deli_random_debug0.txt")
 
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
@@ -2432,22 +2432,22 @@ from sklearn.metrics import auc
 if(int(ym%100)<10):
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    TEST_FILE = new_path + "/Replication_IJF/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+    TEST_FILE = new_path + "/data/2259/" + "test" + "0" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
 else:
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    TEST_FILE = new_path + "/Replication_IJF/data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
+    TEST_FILE = new_path + "/data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
 RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
 if(prs<48):
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    meta = new_path + "/Replication_IJF/saved_model/model04to12_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-    ckpt = new_path + "/Replication_IJF/saved_model/model04to12_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+    meta = new_path + "/saved_model/model04to12_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+    ckpt = new_path + "/saved_model/model04to12_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
 else:
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    meta = new_path + "/Replication_IJF/saved_model/model16to21_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-    ckpt = new_path + "/Replication_IJF/saved_model/model16to21_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+    meta = new_path + "/saved_model/model16to21_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+    ckpt = new_path + "/saved_model/model16to21_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
 step = 100000
 
 pseudo_3lstm.append(RUNNING_MODEL.load(meta,ckpt,step))
@@ -2466,7 +2466,7 @@ test_data = []
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/Replication_IJF/data/2259/computational_time.csv", "r",encoding='gb18030', errors='ignore')
+csvFile = open(new_path + "/data/2259/computational_time.csv", "r",encoding='gb18030', errors='ignore')
 reader = csv.reader(csvFile)
 
 

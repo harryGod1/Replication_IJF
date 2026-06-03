@@ -40,7 +40,7 @@ tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-f1 = open(new_path + "/Replication_IJF/data/2259/train_all_dtsm_x_forecast.txt")
+f1 = open(new_path + "/data/2259/train_all_dtsm_x_forecast.txt")
 #f1 = open("./train4_data.txt")
 #f1 = open("./train_undersample10.txt")
 #f2 = open("./test_data.txt")
@@ -149,7 +149,7 @@ TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
 show_survival_curve = False
-#导入数据和处理阶段先做标准化处理！！！！！别等到批次读取数据的时候再做处理
+
 class SparseData():
 
     def shuffle(self):
@@ -1722,7 +1722,7 @@ washout_LLR = []
 
     #path = os.getcwd()
     #new_path = path.replace("\\","/")
-    #TEST_FILE = new_path + "/Replication_IJF/data/washout_phase" + "/washout_phase.txt"
+    #TEST_FILE = new_path + "/data/washout_phase" + "/washout_phase.txt"
     #RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512,phase)
     #if(prs == 0):
         #print('loading "No washout" model...')
@@ -1737,8 +1737,8 @@ washout_LLR = []
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
         ##put the model weight here
-        #meta = new_path + "/Replication_IJF/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
-        #ckpt = new_path + "/Replication_IJF/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        #meta = new_path + "/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        #ckpt = new_path + "/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     #step = 21000
     
     
@@ -1762,14 +1762,14 @@ washout_LLR = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/Replication_IJF/data/2259/washout phases.csv", "r",encoding='gb18030', errors='ignore')
+csvFile = open(new_path + "/data/2259/washout phases.csv", "r",encoding='gb18030', errors='ignore')
 reader = csv.reader(csvFile)
 
 
 result = []
 for item in reader:
     data = []
-    # 忽略第一行
+
     #if reader.line_num == 1:
         #continue
     for i in range(3):
