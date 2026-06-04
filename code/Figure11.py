@@ -2437,8 +2437,7 @@ for prs in range(n_vintage):
         #AUC
         if(is_default == 1):
             auc_score = roc_auc_score(conditional_labels,prediction)
-            if(auc_score < 0.5):
-                auc_score = 1- auc_score
+
             AUC.append(auc_score)
             #print('DTSM AUC ',time_window[m],':',auc_score)
 
