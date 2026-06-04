@@ -93,11 +93,26 @@
 conda create -n replication_ijf python=3.8.19 -y
 conda activate replication_ijf
 ```
+### 2. Installing git lfs for handling big data(>100m)
+> **⚠️ Important — Please download the appropriate Git LFS package for your operating system.**
+> 
+> **⚠️ Important — Due to the presence of data files exceeding 100 MB, Git Large File Storage (LFS) is required to handle them. Readers should first download the appropriate Git LFS installation package for their operating system.**
 
-### 2. Clone this repository and install dependencies
-> **⚠️ Important — Please be sure to adhere to the following specified installation instructions to avoid any compatibility conflicts.**
+#### Example for installing git lfs in Linux(unbuntu)
 ```bash
-git clone https://github.com/harryGod1/Replication_IJF.git
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+apt-get install git-lfs
+git lfs install
+```
+
+
+### 3. Clone this repository and install dependencies
+> **⚠️ Important — Please be sure to adhere to the following specified installation instructions to avoid any compatibility conflicts.**
+
+
+```bash
+git lfs clone https://github.com/harryGod1/Replication_IJF.git
+#reader can just use the traditional command: git clone https://github.com/harryGod1/Replication_IJF.git. Mannually download the big data from github and put them #to data/2259/ folder
 cd Replication_IJF
 pip install -r env/requirements.txt
 pip install lifelines==0.27.8
@@ -107,13 +122,22 @@ conda install -c conda-forge cudatoolkit=10.1.243
 conda install -c conda-forge cudnn=7.6.5
 ```
 
-### 3. Data folder
+### 4. Data folder
 
 The `data/` directory (~2 GB) contains all the datasets. For copyright reasons, the original data are not provided directly in this repository. Readers can download the data by clicking the link below.
 
 **Download link:** [Freddie Mac](https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset)
 
 ---
+
+## Reproducing the Results
+Each figure and table in the paper can be reproduced by executing the corresponding Python script located in the code/ directory.
+
+The following shows a running example of the Figure14.py script.：
+
+```bash
+python code/Figure14.py
+```
 
 ## Data Description
 
@@ -127,16 +151,6 @@ The data/ folder contains all data used in the experiments and testing. Readers 
 
 ---
 
-## Reproducing the Results
-Each figure and table in the paper can be reproduced by executing the corresponding Python script located in the code/ directory.
-
-The following shows a running example of the Figure14.py script.：
-
-```bash
-python code/Figure14.py
-```
-
----
 
 ## Paper Tables and Figures — Output Mapping
 
@@ -172,8 +186,8 @@ python code/Figure14.py
 
 | Script | Laptop | 
 |---|---|
-| `Figure6.py` | ~2 min | 
-| `Figure7.py` | ~2 min | 
+| `Figure6.py` | ~5 min | 
+| `Figure7.py` | ~15 min | 
 | `Figure8.py` |  ~6 min | 
 | `Figure9.py` |  ~6 min | 
 | `Figure10.py` |  ~6 min | 
