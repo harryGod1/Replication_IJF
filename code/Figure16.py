@@ -1,8 +1,3 @@
-#The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-#Model weights are saved in the saved_model folder within the saved directory.           
-#The code presented here enables readers to train and validate the model independently.
-#The following code provides an example of validating the output results. Readers may adapt it as needed.
-########################################################################################################
 import os
 import tensorflow.compat.v1 as tf
 from sklearn.metrics import roc_curve, auc
@@ -40,8 +35,9 @@ q = 1
 n_vintage = 1 
 
 print("Loading may take a while, please wait.")
-print("This needs to be run repeatedly, outputting the results for each quarter between 2004 and 2024.")
-print("A higher AUC score indicates better model performance. Model performance can be compared by comparing the scores of each model in each round. The final results are summarized in a graph, as shown in Figure 11 of the paper.")
+
+
+
 
 for prs in range(n_vintage):
     if(prs == 0):
@@ -1626,8 +1622,7 @@ for prs in range(n_vintage):
         #AUC
         if(is_default == 1):
             auc_score = roc_auc_score(conditional_labels,prediction)
-            if(auc_score < 0.5):
-                auc_score = 1- auc_score
+
             AUC.append(auc_score)
             
 
@@ -1637,7 +1632,7 @@ for prs in range(n_vintage):
 
     AUC24 = AUC.mean()
 
-    pseudo_dtsm.append(AUC24)
+    #pseudo_dtsm.append(AUC24)
     
 
     brier_score = 0
@@ -3223,8 +3218,7 @@ for prs in range(n_vintage):
         #AUC
         if(is_default == 1):
             auc_score = roc_auc_score(conditional_labels,prediction)
-            if(auc_score < 0.5):
-                auc_score = 1- auc_score
+
             AUC.append(auc_score)
 
 
@@ -3234,7 +3228,7 @@ for prs in range(n_vintage):
 
     AUC24 = AUC.mean()
     
-    pseudo_dtsm_mev.append(AUC24)
+    #pseudo_dtsm_mev.append(AUC24)
 
     brier_score = 0
     for i in range(len(time_auc)):
@@ -4804,7 +4798,38 @@ for prs in range(n_vintage):
             self.train_log_txt.write(log)
             self.train_log_txt.close()
 
-    
+    pseudo_dtsm = []
+    pseudo_dtsm_mev = []
+    pseudo_deephit = []
+    pseudo_deephit_mev = []
+    pseudo_3lstm = []
+    pseudo_3lstm_mev = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+
+    csvFile = open(new_path + "/data/2259/AUC_MEV(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+
+
+    result = []
+    for item in reader:
+        data = []
+
+        #if reader.line_num == 1:
+            #continue
+        for i in range(12):
+            data.append(item[i])
+        result.append(data)
+
+    csvFile.close()
+    df = pd.DataFrame(result)
+
+    pseudo_dtsm = df.iloc[2:50,1]
+    pseudo_dtsm_mev = df.iloc[2:50,3]
+    pseudo_deephit = df.iloc[2:50,5]
+    pseudo_deephit_mev = df.iloc[2:50,7]
+    pseudo_3lstm = df.iloc[2:50,9]
+    pseudo_3lstm_mev = df.iloc[2:50,11]
 
     #deephit standardscaler
     if(prs<48):
@@ -5567,13 +5592,46 @@ for prs in range(n_vintage):
 
     AUC24 = AUC.mean()
     
-    pseudo_deephit.append(AUC24)
+    #pseudo_deephit.append(AUC24)
 
     #print('avg_AUC: ', AUC.mean())
 
     brier_score = 0
     for i in range(len(unbalanced_prediction_deephit)):
         brier_score = brier_score + (unbalanced_prediction_deephit[i]-int(true_label[i][1]))**2
+        
+    pseudo_dtsm2 = []
+    pseudo_dtsm_mev2 = []
+    pseudo_deephit2 = []
+    pseudo_deephit_mev2 = []
+    pseudo_3lstm2 = []
+    pseudo_3lstm_mev2 = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+
+    csvFile = open(new_path + "/data/2259/AUC_MEV(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+
+
+    result = []
+    for item in reader:
+        data = []
+
+        #if reader.line_num == 1:
+            #continue
+        for i in range(12):
+            data.append(item[i])
+        result.append(data)
+
+    csvFile.close()
+    df = pd.DataFrame(result)
+
+    pseudo_dtsm2 = df.iloc[2:36,1]
+    pseudo_dtsm_mev2 = df.iloc[2:36,3]
+    pseudo_deephit2 = df.iloc[2:36,5]
+    pseudo_deephit_mev2 = df.iloc[2:36,7]
+    pseudo_3lstm2 = df.iloc[2:36,9]
+    pseudo_3lstm_mev2 = df.iloc[2:36,11]
     
     print("Deephit + MEVs ...")
     #DeepHit
@@ -10561,7 +10619,6 @@ for prs in range(n_vintage):
 
                 #1
 
-                #注意，加这一层代表LSTM+3Lstm based attention，注释掉代表3Lstm based attention
                 #with tf.variable_scope("rnn3"):    
                     #outputs, (h_c, h_n) = tf.nn.dynamic_rnn(
                         #rnn_cell3,                   # cell you have chosen
@@ -11036,8 +11093,7 @@ for prs in range(n_vintage):
             #os.environ["CUDA_VISIBLE_DEVICES"] = "0"
             with tf.Session(config=config) as sess:
                 self.train_test(sess)
-    #cd_ml中random data的code理需要修改，要在random data的时候，先把1后面有0的行删掉。不然
-    #随机取值的时候，0那行会跟本体分开，单独成列，变成两笔账户。    
+
         def save_model(self):
             print("model name: ", self.filename, " ", self.global_step, "\n")
             self.saver.save(self.sess, "F:/ijf_second_round/saved_model/model16to21_lag12_gpu2_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16/" + self.filename, global_step=self.global_step)
@@ -12026,38 +12082,6 @@ for prs in range(n_vintage):
 
 
 #2004to2015
-pseudo_dtsm = []
-pseudo_dtsm_mev = []
-pseudo_deephit = []
-pseudo_deephit_mev = []
-pseudo_3lstm = []
-pseudo_3lstm_mev = []
-path = os.getcwd()
-new_path = path.replace("\\","/")
-
-csvFile = open(new_path + "/data/2259/AUC_MEV(04to15).csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
-for item in reader:
-    data = []
-
-    #if reader.line_num == 1:
-        #continue
-    for i in range(12):
-        data.append(item[i])
-    result.append(data)
-
-csvFile.close()
-df = pd.DataFrame(result)
-
-pseudo_dtsm = df.iloc[2:50,1]
-pseudo_dtsm_mev = df.iloc[2:50,3]
-pseudo_deephit = df.iloc[2:50,5]
-pseudo_deephit_mev = df.iloc[2:50,7]
-pseudo_3lstm = df.iloc[2:50,9]
-pseudo_3lstm_mev = df.iloc[2:50,11]
 
 #draw the curve of AUC from 2004 to 2015
 x_axis = []
@@ -12066,75 +12090,46 @@ print('AUC:Models with and without MEVs(2004-2015): ')
 for k in range(0,len(pseudo_3lstm)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 5))
-
+#plt.figure(figsize=(9, 5))
+plt.figure(figsize=(18, 4)) 
+plt.subplot(1, 2, 1) 
+ax1 = plt.gca()
+ax1.set_ylim([0.5,1])
 plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
 plt.plot(x_axis,pseudo_dtsm_mev.astype(float),'red',label='Linear DTSM + MEVS',linestyle='--')
 plt.plot(x_axis,pseudo_deephit.astype(float),'grey',label='DeepHit' )
 plt.plot(x_axis,pseudo_deephit_mev.astype(float),'green',label='DeepHit + MEVs')
-plt.plot(x_axis,pseudo_deephit.astype(float),'black',label='DeepHit',linewidth=2)
 plt.plot(x_axis,pseudo_3lstm.astype(float),'black',label='3LSTM',linewidth=2,linestyle='--')
 plt.plot(x_axis,pseudo_3lstm_mev.astype(float),'black',label='3LSTM + MEVs',linewidth=2)
 
 plt.legend(prop = {'size':5})
 plt.title('AUC(2004-2015)')
 plt.xlabel('Time')
-plt.ylim(0.5,1)
-plt.show()  
+
+#plt.show()  
 
 #2016to2024
-pseudo_dtsm = []
-pseudo_dtsm_mev = []
-pseudo_deephit = []
-pseudo_deephit_mev = []
-pseudo_3lstm = []
-pseudo_3lstm_mev = []
-path = os.getcwd()
-new_path = path.replace("\\","/")
-
-csvFile = open(new_path + "/data/2259/AUC_MEV(16to24).csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
-for item in reader:
-    data = []
-
-    #if reader.line_num == 1:
-        #continue
-    for i in range(12):
-        data.append(item[i])
-    result.append(data)
-
-csvFile.close()
-df = pd.DataFrame(result)
-
-pseudo_dtsm = df.iloc[2:36,1]
-pseudo_dtsm_mev = df.iloc[2:36,3]
-pseudo_deephit = df.iloc[2:36,5]
-pseudo_deephit_mev = df.iloc[2:36,7]
-pseudo_3lstm = df.iloc[2:36,9]
-pseudo_3lstm_mev = df.iloc[2:36,11]
 
 #draw the curve of AUC from 2016 to 2024
 x_axis = []
 hr = []
 print('AUC:Models with and without MEVs(2016-2024): ')
-for k in range(0,len(pseudo_3lstm)):
+for k in range(0,len(pseudo_3lstm2)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 5))
-
-plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
-plt.plot(x_axis,pseudo_dtsm_mev.astype(float),'red',label='Linear DTSM + MEVS',linestyle='--')
-plt.plot(x_axis,pseudo_deephit.astype(float),'grey',label='DeepHit' )
-plt.plot(x_axis,pseudo_deephit_mev.astype(float),'green',label='DeepHit + MEVs')
-plt.plot(x_axis,pseudo_deephit.astype(float),'black',label='DeepHit',linewidth=2)
-plt.plot(x_axis,pseudo_3lstm.astype(float),'black',label='3LSTM',linewidth=2,linestyle='--')
-plt.plot(x_axis,pseudo_3lstm_mev.astype(float),'black',label='3LSTM + MEVs',linewidth=2)
+#plt.figure(figsize=(9, 5))
+plt.subplot(1, 2, 2) 
+ax1 = plt.gca()
+ax1.set_ylim([0.5,1])
+plt.plot(x_axis,pseudo_dtsm2.astype(float),'blue',label='Linear DTSM')
+plt.plot(x_axis,pseudo_dtsm_mev2.astype(float),'red',label='Linear DTSM + MEVS',linestyle='--')
+plt.plot(x_axis,pseudo_deephit2.astype(float),'grey',label='DeepHit' )
+plt.plot(x_axis,pseudo_deephit_mev2.astype(float),'green',label='DeepHit + MEVs')
+plt.plot(x_axis,pseudo_3lstm2.astype(float),'black',label='3LSTM',linewidth=2,linestyle='--')
+plt.plot(x_axis,pseudo_3lstm_mev2.astype(float),'black',label='3LSTM + MEVs',linewidth=2)
 
 plt.legend(prop = {'size':5})
 plt.title('AUC(2016-2024)')
 plt.xlabel('Time')
-plt.ylim(0.5,1)
+
 plt.show()   

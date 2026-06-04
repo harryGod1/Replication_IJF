@@ -33,11 +33,13 @@ from PIL import Image
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
+print("Loading may take a while, please wait.")
+
 TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
 show_survival_curve = False
-#导入数据和处理阶段先做标准化处理！！！！！别等到批次读取数据的时候再做处理
+
 class SparseData():
     
     def shuffle(self):
@@ -93,8 +95,7 @@ class SparseData():
                 is_default = 1
                 #print('is_default')
             
-            #数据集每一笔最后都多了一笔月份为0地数据 会导致default数据被误认为non default（因为last seq ！= new seq部分的判定原因，导致default 1 之后多出了个default0得标签，会误将default0
-            #标签取代原本default应该是1得标签）e.g.,F113Q3250129，F112Q4005541
+
             if(int(s[slen-4]) > max_seqlen):
                 max_seqlen = int(s[slen-4])
                 
@@ -592,8 +593,7 @@ class BASE_RNN():
                 
                 #t = tf.reshape(t,[9])
                 
-                #把三个类别变量转换成独热编码
-                
+
                 t1 = tf.tile([x[0]],[self.MAX_SEQ_LEN])
                 t1 = tf.one_hot(tf.cast(t1, dtype=tf.int32),depth = 3)
                 t2 = tf.tile([x[1]],[self.MAX_SEQ_LEN])
@@ -758,8 +758,7 @@ class BASE_RNN():
                 count_predict = count_predict + 1
                 #self.id = id
                 #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
-                
-                #需要在sess.run处实现
+
                 #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
             else:
                 survival_rate = self.map_parameter[i][40:self.tf_bid_len[i]]
@@ -1438,14 +1437,14 @@ RUNNING_MODEL.create_graph()
 phase = 4
 for k in range(1,2):
     phase = phase*10
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-    img = Image.open(new_path + '/data/2259/hazard.png')
-    img.show()
-    img = Image.open(new_path + '/data/2259/survival.png')
-    img.show()
+    #path = os.getcwd()
+    #new_path = path.replace("\\","/")
+    #img = Image.open(new_path + '/data/2259/hazard.png')
+    #img.show()
+    #img = Image.open(new_path + '/data/2259/survival.png')
+    #img.show()
 
-    w_test = 0 #use figure instead. Reader can train the model by themself and use this example code for testing.
+    w_test = 1 # Reader can train the model by themself and use this example code for testing.
     if(w_test):
         path = os.getcwd()
         new_path = path.replace("\\","/") 
@@ -1537,11 +1536,11 @@ for k in range(1,2):
                     id = id + RUNNING_MODEL.tf_bid_len[j] - phase
                 #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
 
-                #需要在sess.run处实现
+
                 #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
 
 
-                #print一下这个self.tf_bid_len[i]看看
+
                 #predicted_label.append(predict)
                 #for i in range(self.tf_bid_len[i].shape):
                     #default.append(dead_rate[i])
@@ -1574,9 +1573,9 @@ for k in range(1,2):
             x_axis = []
             hr = []
             print('test_conditional_survival_rate',test_survival_rate)
-            for k in range(0,len(test_survival_rate)):
-                hr.append(1-test_survival_rate[k])
-                x_axis.append((k+1))
+            for k_s in range(0,len(test_survival_rate)):
+                hr.append(1-test_survival_rate[k_s])
+                x_axis.append((k_s+1))
 
             plt.plot(x_axis, hr,'b')
             plt.ylabel('Hazard Rate')
@@ -1591,8 +1590,8 @@ for k in range(1,2):
                 x_axis.append((k+1))
             sr = []
             product = 1
-            for k in range(0,len(test_survival_rate)):
-                product = product*test_survival_rate[k]
+            for k_s in range(0,len(test_survival_rate)):
+                product = product*test_survival_rate[k_s]
                 sr.append(product)
             plt.plot(x_axis, sr,'b')
             plt.ylabel('Survival Rate')
@@ -1600,7 +1599,7 @@ for k in range(1,2):
             plt.show() 
 
 
-        #usually the number of the last test batch is not equal to the batch size
+
         remaining = RUNNING_MODEL.test_data_win.size - int(RUNNING_MODEL.test_data_win.size / RUNNING_MODEL.BATCH_SIZE)*RUNNING_MODEL.BATCH_SIZE
 
         if(remaining != 0):
@@ -1654,11 +1653,9 @@ for k in range(1,2):
                 id = id + RUNNING_MODEL.tf_bid_len[i] - phase
             #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
 
-            #需要在sess.run处实现
             #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
 
 
-            #print一下这个self.tf_bid_len[i]看看
             #predicted_label.append(predict)
             #for i in range(self.tf_bid_len[i].shape):
                 #default.append(dead_rate[i])
@@ -1696,14 +1693,15 @@ for k in range(1,2):
         x_axis = []
         hr = []
 
-        for k in range(0,len(test_survival_rate0)):
-            hr.append(1-test_survival_rate0[k])
-            x_axis.append((k+1))
-
+        for k_s in range(0,len(test_survival_rate0)):
+            hr.append(1-test_survival_rate0[k_s])
+            x_axis.append((k_s+1))
+        plt.figure(figsize=(15, 5)) 
+        plt.subplot(1, 2, 1) 
         plt.plot(x_axis, hr,'b')
         plt.ylabel('Hazard Rate')
         plt.xlabel('Time')
-        plt.show() 
+
 
         #draw the survival curve
         x_axis = []
@@ -1713,14 +1711,21 @@ for k in range(1,2):
             x_axis.append((k+1))
         sr = []
         product = 1
-        for k in range(0,len(test_survival_rate0)):
-            product = product*test_survival_rate0[k]
+        for k_s in range(0,len(test_survival_rate0)):
+            product = product*test_survival_rate0[k_s]
             sr.append(product)
+            
+        plt.subplot(1, 2, 2) 
+ 
         plt.plot(x_axis, sr,'b')
         plt.ylabel('Survival Rate')
         plt.xlabel('Time')
-        plt.show() 
+
 
 
         plt.style.use('ggplot')
 
+#plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1, hspace=0.4)
+plt.tight_layout() 
+
+plt.show()

@@ -1,8 +1,3 @@
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently.
-    #The following code provides an example of validating the output results. Readers may adapt it as needed.
-    ########################################################################################################
 import os
 import tensorflow.compat.v1 as tf
 from sklearn.metrics import roc_curve, auc
@@ -41,8 +36,7 @@ ym = 2016
 q = 1
 n_vintage = 1 
 print("Loading may take a while, please wait.")
-print("This needs to be run repeatedly, outputting the results for each quarter between 2004 and 2024.")
-print("A higher Pseudo-R-Square and AUC score indicates better model performance. Model performance can be compared by comparing the scores of each model in each round. The final results are summarized in a graph, as shown in Figure 11 of the paper.")
+
 
 
 path = os.getcwd()
@@ -1749,6 +1743,32 @@ for prs in range(n_vintage):
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
 
+    pseudo_3lstm = []
+    pseudo_3lstm_unbalanced = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+
+    csvFile = open(new_path + "/data/2259/PRS_ablation.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+
+
+    result = []
+    for item in reader:
+        data = []
+
+        #if reader.line_num == 1:
+            #continue
+        for i in range(5):
+            data.append(item[i])
+        result.append(data)
+
+    csvFile.close()
+    df = pd.DataFrame(result)
+
+    pseudo_3lstm = df.iloc[2:36,2]
+    pseudo_3lstm_unbalanced = df.iloc[2:36,4]
+    
+
     #Forecast
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
     #use the second copy of the lstm code
@@ -2163,7 +2183,7 @@ for prs in range(n_vintage):
     dr = count_bad/(count_bad + count_good)
 
     baseline_llr = -dr*math.log(dr)-(1-dr)*math.log(1-dr)
-    pseudo_3lstm.append(1-((-unbalanced_log_likeli_3lstm_attention_deli)/len(unbalanced_prediction))/baseline_llr)
+    #pseudo_3lstm.append(1-((-unbalanced_log_likeli_3lstm_attention_deli)/len(unbalanced_prediction))/baseline_llr)
 
     unbalanced_prediction_3lstm_attention_deli = unbalanced_prediction
 
@@ -2239,7 +2259,7 @@ for prs in range(n_vintage):
     AUC = np.array(AUC)    
 
     AUC24 = AUC
-    score_3lstm.append(AUC24.mean())
+    #score_3lstm.append(AUC24.mean())
     #print('avg_AUC: ', AUC.mean())
 
 
@@ -2247,6 +2267,32 @@ for prs in range(n_vintage):
     for i in range(len(unbalanced_prediction_3lstm_attention_deli)):
         brier_score = brier_score + (unbalanced_prediction_3lstm_attention_deli[i]-int(true_label[i][1]))**2
     #print('3lstm_attention_deli brier score: ',brier_score/len(unbalanced_prediction_3lstm_attention_deli))
+    
+    score_3lstm = []
+    score_3lstm_unbalanced = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+
+    csvFile = open(new_path + "/data/2259/AUC_ablation.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+
+
+    result = []
+    for item in reader:
+        data = []
+
+        #if reader.line_num == 1:
+            #continue
+        for i in range(4):
+            data.append(item[i])
+        result.append(data)
+
+    csvFile.close()
+    df = pd.DataFrame(result)
+
+
+    score_3lstm = df.iloc[2:36,1]
+    score_3lstm_unbalanced = df.iloc[2:36,3]
     
     print('LSTM+unbalanced_ablation+Washout+3LSTM Attention+Deli...')
     #data for forecast
@@ -2851,7 +2897,7 @@ for prs in range(n_vintage):
     dr = count_bad/(count_bad + count_good)
 
     baseline_llr = -dr*math.log(dr)-(1-dr)*math.log(1-dr)
-    pseudo_3lstm_ablation.append(1-((-unbalanced_log_likeli_ablation_3lstm_attention_deli)/len(unbalanced_prediction))/baseline_llr)
+    #pseudo_3lstm_ablation.append(1-((-unbalanced_log_likeli_ablation_3lstm_attention_deli)/len(unbalanced_prediction))/baseline_llr)
 
     unbalanced_prediction_ablation_3lstm_attention_deli = unbalanced_prediction
 
@@ -2919,14 +2965,13 @@ for prs in range(n_vintage):
         #AUC
         if(is_default != 0):
             auc_score = roc_auc_score(conditional_labels,prediction)
-            if(auc_score < 0.5):
-                auc_score = 1 - auc_score
+
             AUC.append(auc_score)
             #print('AUC ',time_window[m],':',auc_score)
 
     #print(conditional_labels)
     AUC = np.array(AUC)    
-    score_3lstm_ablation.append(AUC.mean())
+    #score_3lstm_ablation.append(AUC.mean())
     
    
     brier_score = 0
@@ -2987,30 +3032,7 @@ for prs in range(n_vintage):
         #plt.show()    
         
 #2016to2024
-pseudo_3lstm = []
-pseudo_3lstm_unbalanced = []
-path = os.getcwd()
-new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/data/2259/PRS_ablation.csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
-for item in reader:
-    data = []
-
-    #if reader.line_num == 1:
-        #continue
-    for i in range(5):
-        data.append(item[i])
-    result.append(data)
-
-csvFile.close()
-df = pd.DataFrame(result)
-
-pseudo_3lstm = df.iloc[2:36,2]
-pseudo_3lstm_unbalanced = df.iloc[2:36,4]
 
 #draw the curve of pseudo_r_square from 2022 to 2024
 x_axis = []
@@ -3019,55 +3041,35 @@ print('Ablation study:Balanced and Unbalanced(2016-2024): ')
 for k in range(0,len(pseudo_3lstm)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 5))
-
-plt.plot(x_axis,pseudo_3lstm_unbalanced.astype(float),'black',label='3LSTM',linewidth=2,linestyle='--')
+#plt.figure(figsize=(9, 5))
+plt.figure(figsize=(18, 4)) 
+plt.subplot(1, 2, 1) 
+ax1 = plt.gca()
+ax1.set_ylim([-0.6,0.8])
+plt.plot(x_axis,pseudo_3lstm_unbalanced.astype(float),'black',label='3LSTM',linestyle='--')
 plt.plot(x_axis,pseudo_3lstm.astype(float),'black',label='unbalanced 3LSTM',linewidth=2)
 
 plt.legend(prop = {'size':5})
 plt.title('Pseudo-R-Square(2016-2024)')
 plt.xlabel('Time')
-plt.show()  
+#plt.show()  
 
 #2016to2024
-pseudo_3lstm = []
-pseudo_3lstm_unbalanced = []
-path = os.getcwd()
-new_path = path.replace("\\","/")
-
-csvFile = open(new_path + "/data/2259/AUC_ablation.csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
-for item in reader:
-    data = []
-
-    #if reader.line_num == 1:
-        #continue
-    for i in range(4):
-        data.append(item[i])
-    result.append(data)
-
-csvFile.close()
-df = pd.DataFrame(result)
-
-
-pseudo_3lstm = df.iloc[2:36,1]
-pseudo_3lstm_unbalanced = df.iloc[2:36,3]
 
 #draw the curve of pseudo_r_square from 2016 to 2024
 x_axis = []
 hr = []
 print('Ablation study:Balanced and Unbalanced(2016-2024): ')
-for k in range(0,len(pseudo_3lstm)):
+for k in range(0,len(score_3lstm)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 5))
+#plt.figure(figsize=(9, 5))
+plt.subplot(1, 2, 2) 
+ax1 = plt.gca()
+ax1.set_ylim([0.5,1])
 
-
-plt.plot(x_axis,pseudo_3lstm_unbalanced.astype(float),'black',label='3LSTM',linewidth=2,linestyle='--')
-plt.plot(x_axis,pseudo_3lstm.astype(float),'black',label='unbalanced 3LSTM',linewidth=2)
+plt.plot(x_axis,score_3lstm_unbalanced.astype(float),'black',label='3LSTM',linestyle='--')
+plt.plot(x_axis,score_3lstm.astype(float),'black',label='unbalanced 3LSTM',linewidth=2)
 
 plt.legend(prop = {'size':5})
 plt.title('AUC(2016-2024)')

@@ -1,8 +1,3 @@
-#The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-#Model weights are saved in the saved_model folder within the saved directory.           
-#The code presented here enables readers to train and validate the model independently.
-#The following code provides an example of validating the output results. Readers may adapt it as needed.
-########################################################################################################
 import tensorflow.compat.v1 as tf
 import numpy as np
 import sys
@@ -33,6 +28,8 @@ from PIL import Image
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+
+print("Loading may take a while, please wait.")
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
@@ -1449,7 +1446,7 @@ RUNNING_MODEL = BASE_RNN(EMB_DIM=EMB_DIM,
 RUNNING_MODEL.create_graph()
         
 phase = 0
-for k in range(5):
+for k in range(6):
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  
     tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
     phase = k*10
@@ -1469,22 +1466,15 @@ for k in range(5):
     if(k == 0):
         #use figure instead. Reader can train the nowashout model by themself and use this example code for testing.
         
-        path = os.getcwd()
-        new_path = path.replace("\\","/")
-        img = Image.open(new_path + '/data/2259/washout.png')
-        img.show()
-        break;
         #path = os.getcwd()
         #new_path = path.replace("\\","/")
-        #meta = new_path + "/Replication_model/saved_model/model_forecast_" + "noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1-12000.meta"
-        #ckpt = new_path + "/Replication_model/saved_model/model_forecast_" + "noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1-12000"
-    else:
-        #use figure instead. Reader can train the nowashout model by themself and use this example code for testing.
-        print(k*10,"steps:")
+        #img = Image.open(new_path + '/data/2259/washout.png')
+        #img.show()
+        #break;
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        meta = new_path + "/Replication_model/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1-12000.meta"
-        ckpt = new_path + "/Replication_model/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1-12000"
+        meta = new_path + "/saved_model/model_forecast_" + "noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model_forecast_" + "noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
         step = 21000
 
         sess = RUNNING_MODEL.load(meta,ckpt,step)
@@ -1565,7 +1555,6 @@ for k in range(5):
                 #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
 
 
-                #print一下这个self.tf_bid_len[i]看看
                 #predicted_label.append(predict)
                 #for i in range(self.tf_bid_len[i].shape):
                     #default.append(dead_rate[i])
@@ -1598,9 +1587,9 @@ for k in range(5):
             x_axis = []
             hr = []
 
-            for k in range(0,len(test_survival_rate)):
-                hr.append(1-test_survival_rate[k])
-                x_axis.append((k+1))
+            for k_s in range(0,len(test_survival_rate)):
+                hr.append(1-test_survival_rate[k_s])
+                x_axis.append((k_s+1))
 
             plt.plot(x_axis, hr,'b')
             plt.ylabel('Hazard Rate')
@@ -1668,7 +1657,245 @@ for k in range(5):
             #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
 
 
-            #print一下这个self.tf_bid_len[i]看看
+
+            #predicted_label.append(predict)
+            #for i in range(self.tf_bid_len[i].shape):
+                #default.append(dead_rate[i])
+
+        all_count = RUNNING_MODEL.tf_bid_len[0] - phase
+        for i in range(1,remaining):
+            all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - phase
+        cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
+
+
+
+        bid_loss,test_survival_rate,test_survival_rate0,test_t2,test_true_label,test_predicted_label,test_count= sess.run(
+            [cross_entropy2,survival_rate,survival_rate0,RUNNING_MODEL.t2,true_label2,predicted_label2,all_count],
+            feed_dict={RUNNING_MODEL.tf_x: test_batch_x,
+                        RUNNING_MODEL.tf_x2: test_batch_x2,
+                        RUNNING_MODEL.tf_y: test_batch_y,
+                        RUNNING_MODEL.tf_y2: test_batch_y2,
+
+                        RUNNING_MODEL.tf_bid_len: test_batch_len
+
+                        #self.tf_market_price: test_batch_market_price
+                        })
+        #print('lentgh:',test_length)
+
+        #print(bid_loss)
+        count = count + test_count
+        loss_arr.append(bid_loss*test_count)
+        true_label.append(test_true_label)
+        predicted_label.append(test_predicted_label)
+        #if(RUNNING_MODEL.SHOW_SURVIVAL_CURVE == True):
+
+
+
+
+        #draw the hazard rate curve
+        x_axis = []
+        hr = []
+        plt.figure(figsize=(20, 7)) 
+        for k_s in range(0,len(test_survival_rate0)):
+            hr.append(1-test_survival_rate0[k_s])
+            x_axis.append((k_s+1))
+
+        plt.subplot(2,3,k+1)
+        plt.plot(x_axis, hr,'b')
+        plt.ylabel('Hazard Rate')
+        plt.xlabel('Time')
+
+    else:
+        
+        print(k*10,"steps:")
+        path = os.getcwd()
+        new_path = path.replace("\\","/")
+        meta = new_path + "/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
+        ckpt = new_path + "/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
+        step = 21000
+
+        sess = RUNNING_MODEL.load(meta,ckpt,step)
+        #RUNNING_MODEL.run_test(sess)
+        auc_arr = []
+        loss_arr = []
+        anlp_arr = []
+        auc_prob = []
+        auc_label = []
+        cross_entropy = []
+        RUNNING_MODEL.TRUE_LABEL2 = []
+        RUNNING_MODEL.PREDICTED_LABEL2 = []
+
+        #print self.test_data_win.size + self.test_data_lose.size, \"total size\"
+        total_time = 0
+        log_good = 0
+        log_bad = 0
+        true_label = []
+        predicted_label = []
+        count_good = 0
+        count_bad = 0
+        count = 0
+        #for i in range(RUNNING_MODEL.BATCH_SIZE):
+        #    survival_rate = RUNNING_MODEL.map_parameter[i][0:RUNNING_MODEL.tf_bid_len[i]]
+
+        #    dead_rate = tf.subtract(tf.constant(1.0, dtype=tf.float32), survival_rate)
+        #    predict = tf.transpose(tf.stack([survival_rate, dead_rate])) 
+
+            #true_label.append(RUNNING_MODEL.tf_y2[id:id+RUNNING_MODEL.tf_bid_len[i]])
+            #id = id + RUNNING_MODEL.tf_bid_len[i]
+            #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
+            #predicted_label.append(predict)
+            #for i in range(self.tf_bid_len[i].shape):
+                #default.append(dead_rate[i])
+
+
+        for i in range(0, int(RUNNING_MODEL.test_data_win.size / RUNNING_MODEL.BATCH_SIZE)):
+
+            test_batch_x, test_batch_x2, test_batch_y, test_batch_len, test_batch_y2 = RUNNING_MODEL.test_data_win.next(
+                RUNNING_MODEL.BATCH_SIZE)
+            #test_batch_y = tf.ragged.RaggedTensorValue(test_batch_y,np.array([self.BATCH_SIZE]))
+            #start_time = time.time()
+            count_predict = 0
+
+            #customized loss function according to the number of the remaining test data
+            for j in range(RUNNING_MODEL.BATCH_SIZE):  
+                if(j == 0):
+                    survival_rate = RUNNING_MODEL.map_parameter[j][phase:RUNNING_MODEL.tf_bid_len[j]]
+                    dead_rate = tf.subtract(tf.constant(1.0, dtype=tf.float32), survival_rate)
+                    predict = tf.transpose(tf.stack([survival_rate, dead_rate])) 
+                    id = RUNNING_MODEL.tf_bid_len[j] - phase
+                    cross_entropy2 = -tf.reduce_sum(RUNNING_MODEL.tf_y2[0:id]*tf.log(tf.clip_by_value(predict,1e-10,1.0)))
+                    if(count_predict == 0):
+                        predicted_label2 = predict
+                        true_label2 = RUNNING_MODEL.tf_y2[0:id]
+                    else:
+                        predicted_label2 = tf.concat([predicted_label2, tf.cast(predict, dtype=tf.float32)], 0)
+                        true_label2 = tf.concat([true_label2, tf.cast(RUNNING_MODEL.tf_y2[0:id], dtype=tf.float32)], 0)
+                    count_predict = count_predict + 1
+                    #id = id + RUNNING_MODEL.tf_bid_len[i]
+                else:
+                    survival_rate = RUNNING_MODEL.map_parameter[j][phase:RUNNING_MODEL.tf_bid_len[j]]
+                    dead_rate = tf.subtract(tf.constant(1.0, dtype=tf.float32), survival_rate)
+                    predict = tf.transpose(tf.stack([survival_rate, dead_rate])) 
+                    cross_entropy2 = cross_entropy2 -tf.reduce_sum(RUNNING_MODEL.tf_y2[id:id+RUNNING_MODEL.tf_bid_len[j]-phase]*tf.log(tf.clip_by_value(predict,1e-10,1.0)))
+
+                    if(count_predict == 0):
+                        predicted_label2 = predict
+                        true_label2 = RUNNING_MODEL.tf_y2[id:id+RUNNING_MODEL.tf_bid_len[j]-phase]
+                    else:
+                        predicted_label2 = tf.concat([predicted_label2, tf.cast(predict, dtype=tf.float32)], 0)
+                        true_label2 = tf.concat([true_label2, tf.cast(RUNNING_MODEL.tf_y2[id:id+RUNNING_MODEL.tf_bid_len[j]-phase], dtype=tf.float32)], 0)
+                    count_predict = count_predict + 1
+                    id = id + RUNNING_MODEL.tf_bid_len[j] - phase
+                #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
+
+                
+                #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
+
+
+
+                #predicted_label.append(predict)
+                #for i in range(self.tf_bid_len[i].shape):
+                    #default.append(dead_rate[i])
+
+            all_count = 0
+            for m in range(RUNNING_MODEL.BATCH_SIZE):
+                all_count = all_count + RUNNING_MODEL.tf_bid_len[m] - phase
+            cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
+
+
+            bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_count= sess.run(
+                [cross_entropy2,survival_rate,RUNNING_MODEL.t2,true_label2,predicted_label2,all_count],
+                feed_dict={RUNNING_MODEL.tf_x: test_batch_x,
+                            RUNNING_MODEL.tf_x2: test_batch_x2,
+                            RUNNING_MODEL.tf_y: test_batch_y,
+                            RUNNING_MODEL.tf_y2: test_batch_y2,
+
+                            RUNNING_MODEL.tf_bid_len: test_batch_len
+
+                            #self.tf_market_price: test_batch_market_price
+                            })
+
+            count = count + test_count
+            loss_arr.append(bid_loss*test_count)
+            true_label.append(test_true_label)
+            predicted_label.append(test_predicted_label)
+            #if(RUNNING_MODEL.SHOW_SURVIVAL_CURVE == True):
+
+            #draw the hazard rate curve
+            x_axis = []
+            hr = []
+
+            for k_s in range(0,len(test_survival_rate)):
+                hr.append(1-test_survival_rate[k_s])
+                x_axis.append((k_s+1))
+
+            plt.plot(x_axis, hr,'b')
+            plt.ylabel('Hazard Rate')
+            plt.xlabel('Time')
+            plt.show() 
+
+
+
+
+        #usually the number of the last test batch is not equal to the batch size
+        remaining = RUNNING_MODEL.test_data_win.size - int(RUNNING_MODEL.test_data_win.size / RUNNING_MODEL.BATCH_SIZE)*RUNNING_MODEL.BATCH_SIZE
+
+        if(remaining != 0):
+            test_batch_x, test_batch_x2, test_batch_y, test_batch_len, test_batch_y2 = RUNNING_MODEL.test_data_win.next(
+                remaining)
+            #test_batch_y = tf.ragged.RaggedTensorValue(test_batch_y,np.array([self.BATCH_SIZE]))
+            #start_time = time.time()
+
+        for i in range(remaining):
+            survival_rate = RUNNING_MODEL.map_parameter[i][0:RUNNING_MODEL.tf_bid_len[i]]
+
+        count_predict = 0
+
+        #customized loss function according to the number of the remaining test data
+        for i in range(remaining):  
+            if(i == 0):
+
+                survival_rate = RUNNING_MODEL.map_parameter[i][phase:RUNNING_MODEL.tf_bid_len[i]]
+                dead_rate = tf.subtract(tf.constant(1.0, dtype=tf.float32), survival_rate)
+                predict = tf.transpose(tf.stack([survival_rate, dead_rate])) 
+                id = RUNNING_MODEL.tf_bid_len[i] - phase
+                cross_entropy2 = -tf.reduce_sum(RUNNING_MODEL.tf_y2[0:id]*tf.log(tf.clip_by_value(predict,1e-10,1.0)))
+
+
+
+                if(count_predict == 0):
+                    predicted_label2 = predict
+                    true_label2 = RUNNING_MODEL.tf_y2[0:id]
+
+                else:
+                    predicted_label2 = tf.concat([predicted_label2, tf.cast(predict, dtype=tf.float32)], 0)
+                    true_label2 = tf.concat([true_label2, tf.cast(RUNNING_MODEL.tf_y2[0:id], dtype=tf.float32)], 0)
+                count_predict = count_predict + 1
+                #id = id + RUNNING_MODEL.tf_bid_len[i]
+            else:
+                if(i == 12):
+                    length = RUNNING_MODEL.tf_bid_len[i]
+                    survival_rate0 = RUNNING_MODEL.map_parameter[i][phase:RUNNING_MODEL.tf_bid_len[i]]
+                survival_rate = RUNNING_MODEL.map_parameter[i][phase:RUNNING_MODEL.tf_bid_len[i]]
+                dead_rate = tf.subtract(tf.constant(1.0, dtype=tf.float32), survival_rate)
+                predict = tf.transpose(tf.stack([survival_rate, dead_rate])) 
+                cross_entropy2 = cross_entropy2 -tf.reduce_sum(RUNNING_MODEL.tf_y2[id:id+RUNNING_MODEL.tf_bid_len[i]-phase]*tf.log(tf.clip_by_value(predict,1e-10,1.0)))
+
+                if(count_predict == 0):
+                    predicted_label2 = predict
+                    true_label2 = RUNNING_MODEL.tf_y2[id:id+RUNNING_MODEL.tf_bid_len[i]-phase]
+                else:
+                    predicted_label2 = tf.concat([predicted_label2, tf.cast(predict, dtype=tf.float32)], 0)
+                    true_label2 = tf.concat([true_label2, tf.cast(RUNNING_MODEL.tf_y2[id:id+RUNNING_MODEL.tf_bid_len[i]-phase], dtype=tf.float32)], 0)
+                count_predict = count_predict + 1
+                id = id + RUNNING_MODEL.tf_bid_len[i] - phase
+            #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
+
+            
+            #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
+
+
+
             #predicted_label.append(predict)
             #for i in range(self.tf_bid_len[i].shape):
                 #default.append(dead_rate[i])
@@ -1707,17 +1934,19 @@ for k in range(5):
         x_axis = []
         hr = []
 
-        for k in range(0,len(test_survival_rate0)):
-            hr.append(1-test_survival_rate0[k])
-            x_axis.append((k+1))
+        for k_s in range(0,len(test_survival_rate0)):
+            hr.append(1-test_survival_rate0[k_s])
+            x_axis.append((k_s+1))
 
+        plt.subplot(2,3,k+1)
         plt.plot(x_axis, hr,'b')
         plt.ylabel('Hazard Rate')
         plt.xlabel('Time')
-        plt.show() 
 
 
 
+plt.suptitle("Estimated hazard rates for a specific account opened in the fourth quarter of 2007 for different washout phases")
+plt.show()
 
 
      

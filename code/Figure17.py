@@ -1,9 +1,4 @@
-#The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-#Model weights are saved in the saved_model folder within the saved directory.           
-#The code presented here enables readers to train and validate the model independently.
-#The following code provides an example of validating the output results. Readers may adapt it as needed.
-########################################################################################################
-
+import tensorflow.compat.v1 as tf
 from sklearn.metrics import roc_curve, auc
 import matplotlib as mpl  
 import matplotlib.pyplot as plt
@@ -32,6 +27,9 @@ import string
 import math
 import csv
 import pandas as pd
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 #change dataset
 data_mod = 1
@@ -392,7 +390,7 @@ for prs in range(1):
                 #print('last one: ',final_data[len(final_data)-2])
                 #print('delete current: ',final_data[len(final_data)-1])
                 del final_data[len(final_data)-1]
-                print('Exception1!')
+                #print('Exception1!')
             if(str(new_seq) == str(last_seq) and is_default == 1 and test_Def[i] == 0):
                 del x2[len(x2)-1]
                 del y2[len(y2)-1]
@@ -403,7 +401,7 @@ for prs in range(1):
                 #print('after delete: ',final_data[len(final_data)-1])
                 #print('after delete x: ',x2[len(x2)-1])
                 #print('after delete y:',y2[len(y2)-1])
-                print('Exception2!')
+                #print('Exception2!')
             if(str(new_seq) != str(last_seq)):
                 if((max_seqlen+1 != (len(current_deli)-1)) or (max_seqlen == 0)):
 
@@ -708,7 +706,7 @@ for prs in range(1):
                 #print('last one: ',final_data[len(final_data)-2])
                 #print('delete current: ',final_data[len(final_data)-1])
                 del final_data[len(final_data)-1]
-                print('Exception1!')
+                #print('Exception1!')
             if(str(new_seq) == str(last_seq) and is_default == 1 and test_Def[i] == 0):
                 del x[len(x)-1]
                 del y[len(y)-1]
@@ -719,7 +717,7 @@ for prs in range(1):
                 #print('after delete: ',final_data[len(final_data)-1])
                 #print('after delete x: ',x[len(x)-1])
                 #print('after delete y:',y[len(y)-1])
-                print('Exception2!')
+                #print('Exception2!')
             if(str(new_seq) != str(last_seq)):
                 if((max_seqlen+1 != (len(current_deli)-1)) or (max_seqlen == 0)):
 
@@ -1882,7 +1880,7 @@ for prs in range(1):
     good = 0
     bad = 0
 
-    print(len(y2))
+    #print(len(y2))
 
     for i in range(len(y2)):
         if(y2[i]==1):
@@ -1987,7 +1985,7 @@ for prs in range(1):
     prediction = []
     for i in range(len(s)):
         prediction.append(s[i][1])
-    print(s[0][1])
+    #print(s[0][1])
     #auc_score = roc_auc_score(y2,prediction)
     #print('AUC: ',auc_score)
 
@@ -3245,8 +3243,8 @@ for prs in range(1):
 
         b2 = []
 
-    print(len(x),len(x[0]))
-    print(x[0])
+    #print(len(x),len(x[0]))
+    #print(x[0])
 
 
 
@@ -3366,8 +3364,8 @@ for prs in range(1):
 
 
 
-    print(len(x2),len(x2[0]))
-    print(x2[0])
+    #print(len(x2),len(x2[0]))
+    #print(x2[0])
 
 
     for i in range(len(x)):
@@ -3570,7 +3568,6 @@ for prs in range(1):
     wbf.fit(df_standard[9], df_standard[10])
 
     T4 = time.perf_counter()
-    print('Weibull Trainning Time:' , (T2-T1+(T4 - T3)))
 
     print('Cox PH and Weibell fitted')
 
@@ -7390,7 +7387,7 @@ for prs in range(1):
 
             for line in fi:
                 self.load_data.append(line)
-            print(len(self.load_data))    
+            #print(len(self.load_data))    
             last_seq = self.load_data[0].split(' ')[11]
 
 
@@ -7431,13 +7428,13 @@ for prs in range(1):
 
                 if(len(last_seq) ==  0):
                     last_seq = s[11] 
-                    print('fist seqqqqqqqqqq!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',last_seq)
+
                 if(str(new_seq) == str(last_seq) and is_default == 0 and int(s[slen-5]) < max_seqlen ):
                     del self.labels2[len(self.labels2)-1]
                     del self.deli[len(self.deli)-1]
                     del current_deli[len(current_deli)-1]
                     del self.final_data[len(self.final_data)-1]
-                    print('Exception1!')
+                    #print('Exception1!')
                 if(str(new_seq) == str(last_seq) and is_default == 1 and int(s[slen-2]) == 0):
                     #print(load_data[i-1])
                     #print(load_data[i])
@@ -7450,7 +7447,7 @@ for prs in range(1):
                     del self.final_data[len(self.final_data)-1]
                     #print(load_data[i-1])
                     #print(self.labels2[len(self.labels2)-1])
-                    print('Exception2!')
+                    #print('Exception2!')
                 if(str(new_seq) != str(last_seq)):
                     s = self.load_data[i-1].split(' ')
                     slen = len(s)
@@ -7601,7 +7598,7 @@ for prs in range(1):
                 is_break = 0
                 max_seqlen = 0
                 current_deli = []
-                print('max_seqlen')
+                #print('max_seqlen')
 
 
 
@@ -7667,13 +7664,13 @@ for prs in range(1):
 
             #standard transformation
             self.data2 = scaler.transform(self.data2)
-            print('data2:',self.data2[0])
+            #print('data2:',self.data2[0])
 
             #print('data2',self.data2[0])
             #print('data',self.data[0])
 
 
-            print("data size ", self.size, "\n")
+            #print("data size ", self.size, "\n")
             self.index = list(range(0, self.size))
             #self.data, self.seqlen, self.labels = self.shuffle()
             self.batch_id = 0
@@ -7883,8 +7880,8 @@ for prs in range(1):
             self.FEATURE_SIZE2 = FEATURE_SIZE2
             self.MAX_DEN = MAX_DEN
             self.MAX_SEQ_LEN = int(MAX_SEQ_LEN / self.DISCOUNT + 10)
-            print(type(MAX_SEQ_LEN))
-            print(type(self.MAX_SEQ_LEN))
+            #print(type(MAX_SEQ_LEN))
+            #print(type(self.MAX_SEQ_LEN))
             self.LR = LR
             self.GRAD_CLIP = GRAD_CLIP
             self.L2_NORM = L2_NORM
@@ -7914,7 +7911,7 @@ for prs in range(1):
                     "{:.2f}".format(self.BETA) + "_" + str(ADD_TIME_FEATURE) + \
                         "_" + str(self.QRNN_MODEL) + "_" + str(self.COV_SIZE) + "_" + str(DISCOUNT)
 
-            print(para, '\n')
+            #print(para, '\n')
             self.filename = para
             self.train_log_txt_filename = "./" + para + '.train.log.txt'
             if os.path.exists(self.train_log_txt_filename):
@@ -8211,7 +8208,7 @@ for prs in range(1):
                 #3Lstm based attention
                 new_output = tf.reshape(final_outputs, [self.MAX_SEQ_LEN * self.BATCH_SIZE, self.STATE_SIZE])
 
-                print(self.BATCH_SIZE)
+                #print(self.BATCH_SIZE)
 
                 with tf.variable_scope('softmax'):
                     W = tf.get_variable('W', [self.STATE_SIZE, 1])
@@ -8355,7 +8352,7 @@ for prs in range(1):
 
             #
             tvars = tf.trainable_variables()
-            print(tvars)
+            #print(tvars)
             #self.cross_entropy2 = tf.add_n([ tf.nn.l2_loss(v) for v in tvars ]) * self.L2_NORM / self.BATCH_SIZE
 
             #self.cross_entropy2 = -tf.reduce_sum(self.tf_y2*tf.log(tf.clip_by_value(self.predict,1e-10,1.0)))/ tf.cast(all_count,dtype=tf.float32)
@@ -8568,7 +8565,7 @@ for prs in range(1):
                             #continue
                     #delete the mean_auc for a moment
                     log = self.getStatStr("TRAIN", self.global_step, mean_loss,mean_cross_entropy)
-                    print(log)
+                    #print(log)
                     #print('learning rate:',learning_rate)
                     self.force_write(log)
                     train_loss_arr = []
@@ -8584,7 +8581,7 @@ for prs in range(1):
                     #computational time
                     if(self.global_step == 100):
                         T2 = time.perf_counter()
-                        print('程序运行时间:%s毫秒' % ((T2 - T1)*1000/100))
+
                         np.savetxt('F:/ijf_second_round/saved_model/model16to21_lag12_gpu_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception/lag12_train16to21_computational_time.txt',[(T2 - T1)*1000/100],fmt='%s')
                     self.SHOW_SURVIVAL_CURVE = True
                     if self.global_step % 100 == 0:
@@ -8620,7 +8617,7 @@ for prs in range(1):
                     #computational time
                     if(self.global_step == 10000):
                         T2 = time.perf_counter()
-                        print('程序运行时间:%s毫秒' % ((T2 - T1)*1000/10000))
+
                         np.savetxt('F:/ijf_second_round/saved_model/model16to21_lag12_gpu_forecast_washout40_deli_random_3LSTM_attention seq selfdot_noL2_512_16/computational_time/lag12_train16to21_computational_time.txt',[(T2 - T1)*1000/10000],fmt='%s')
 
                     #self.SHOW_SURVIVAL_CURVE = True
@@ -8871,7 +8868,7 @@ for prs in range(1):
             #delete mean_auc for a moment
             #log = self.getStatStr("TEST", self.global_step, mean_loss)
             self.force_write(log)
-            print(log)
+            #print(log)
             return mean_loss,mean_cross_entropy
 
         def force_write(self, log):
@@ -9074,7 +9071,7 @@ for prs in range(1):
             print('last one: ',final_data[len(final_data)-2])
             print('delete current: ',final_data[len(final_data)-1])
             del final_data[len(final_data)-1]
-            print('Exception1!')
+            #print('Exception1!')
         if(str(new_seq) == str(last_seq) and is_default == 1 and test_Def[i] == 0):
             del x[len(x)-1]
             del y[len(y)-1]
@@ -9085,7 +9082,7 @@ for prs in range(1):
             #print('after delete: ',final_data[len(final_data)-1])
             #print('after delete x: ',x[len(x)-1])
             #print('after delete y:',y[len(y)-1])
-            print('Exception2!')
+            #print('Exception2!')
         if(str(new_seq) != str(last_seq)):
             if((max_seqlen+1 != (len(current_deli)-1)) or (max_seqlen == 0)):
 
@@ -9144,8 +9141,8 @@ for prs in range(1):
             x[i][5]=1 
         if(x[i][5]==99):
             x[i][5]=0.5 
-    print(x[0][5])
-    print(len(x),len(x[0]))
+    #print(x[0][5])
+    #print(len(x),len(x[0]))
     scaler = preprocessing.StandardScaler().fit(x)
 
     #3LSTM+Deli
@@ -9299,7 +9296,7 @@ for prs in range(1):
         #for i in range(self.tf_bid_len[i].shape):
             #default.append(dead_rate[i])
 
-    print(RUNNING_MODEL.BATCH_SIZE)        
+    #print(RUNNING_MODEL.BATCH_SIZE)        
     for i in range(0, int(RUNNING_MODEL.test_data_win.size / RUNNING_MODEL.BATCH_SIZE)):
 
         test_batch_x, test_batch_x2, test_batch_y, test_batch_len, test_batch_y2, test_batch_x_deli, test_batch_seq = RUNNING_MODEL.test_data_win.next(
@@ -9312,7 +9309,7 @@ for prs in range(1):
         for j in range(RUNNING_MODEL.BATCH_SIZE):  
             if(j == 0):
                 if(j == 11):
-                    print(j)
+                    #print(j)
                     length = RUNNING_MODEL.tf_bid_len[j]
                     survival_rate0 = RUNNING_MODEL.map_parameter[j][40:RUNNING_MODEL.tf_bid_len[j]]
                 survival_rate = RUNNING_MODEL.map_parameter[j][40:RUNNING_MODEL.tf_bid_len[j]]
@@ -9457,7 +9454,7 @@ for prs in range(1):
 
     #usually the number of the last test batch is not equal to the batch size
     remaining = RUNNING_MODEL.test_data_win.size - int(RUNNING_MODEL.test_data_win.size / RUNNING_MODEL.BATCH_SIZE)*RUNNING_MODEL.BATCH_SIZE
-    print('remaining:',remaining)
+    #print('remaining:',remaining)
     if(remaining != 0):
         test_batch_x, test_batch_x2, test_batch_y, test_batch_len, test_batch_y2, test_batch_x_deli, test_batch_seq = RUNNING_MODEL.test_data_win.next(
             remaining)
@@ -9542,7 +9539,7 @@ for prs in range(1):
                     })
     #print('lentgh:',test_length)
 
-    print(bid_loss)
+    #print(bid_loss)
     count = count + test_count
     loss_arr.append(bid_loss*test_count)
     true_label.append(test_true_label)
@@ -9878,7 +9875,7 @@ for prs in range(1):
         def shuffle(self):
             if SHUFFLE:
                 np.random.shuffle(self.index)
-                print('shuffle!!!!!')
+                #print('shuffle!!!!!')
             return self.data[self.index], self.seqlen[self.index], self.labels[self.index], self.data2[self.index], self.seq[self.index]
 
         def __init__(self, INPUT_FILE, win, all,discount,fixed_batch_size):
@@ -9917,7 +9914,7 @@ for prs in range(1):
 
             for line in fi:
                 self.load_data.append(line)
-            print(len(self.load_data))    
+            #print(len(self.load_data))    
             last_seq = self.load_data[0].split(' ')[11]
 
 
@@ -9959,13 +9956,13 @@ for prs in range(1):
 
                 if(len(last_seq) ==  0):
                     last_seq = s[11] 
-                    print('fist seqqqqqqqqqq!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',last_seq)
+
                 if(str(new_seq) == str(last_seq) and is_default == 0 and int(s[slen-5]) < max_seqlen ):
                     del self.labels2[len(self.labels2)-1]
                     del self.deli[len(self.deli)-1]
                     del current_deli[len(current_deli)-1]
                     del self.final_data[len(self.final_data)-1]
-                    print('Exception1!')
+                    #print('Exception1!')
                 if(str(new_seq) == str(last_seq) and is_default == 1 and int(s[slen-2]) == 0):
                     #print(load_data[i-1])
                     #print(load_data[i])
@@ -9978,7 +9975,7 @@ for prs in range(1):
                     del self.final_data[len(self.final_data)-1]
                     #print(load_data[i-1])
                     #print(self.labels2[len(self.labels2)-1])
-                    print('Exception2!')
+                    #print('Exception2!')
                 if(str(new_seq) != str(last_seq)):
                     s = self.load_data[i-1].split(' ')
                     slen = len(s)
@@ -10129,7 +10126,7 @@ for prs in range(1):
                 is_break = 0
                 max_seqlen = 0
                 current_deli = []
-                print('max_seqlen')
+                #print('max_seqlen')
 
 
 
@@ -10195,13 +10192,13 @@ for prs in range(1):
 
             #standard transformation
             self.data2 = scaler.transform(self.data2)
-            print('data2:',self.data2[0])
+            #print('data2:',self.data2[0])
 
             #print('data2',self.data2[0])
             #print('data',self.data[0])
 
 
-            print("data size ", self.size, "\n")
+            #print("data size ", self.size, "\n")
             self.index = list(range(0, self.size))
             #self.data, self.seqlen, self.labels = self.shuffle()
             self.batch_id = 0
@@ -10411,8 +10408,8 @@ for prs in range(1):
             self.FEATURE_SIZE2 = FEATURE_SIZE2
             self.MAX_DEN = MAX_DEN
             self.MAX_SEQ_LEN = int(MAX_SEQ_LEN / self.DISCOUNT + 10)
-            print(type(MAX_SEQ_LEN))
-            print(type(self.MAX_SEQ_LEN))
+            #print(type(MAX_SEQ_LEN))
+            #print(type(self.MAX_SEQ_LEN))
             self.LR = LR
             self.GRAD_CLIP = GRAD_CLIP
             self.L2_NORM = L2_NORM
@@ -10442,7 +10439,7 @@ for prs in range(1):
                     "{:.2f}".format(self.BETA) + "_" + str(ADD_TIME_FEATURE) + \
                         "_" + str(self.QRNN_MODEL) + "_" + str(self.COV_SIZE) + "_" + str(DISCOUNT)
 
-            print(para, '\n')
+            #print(para, '\n')
             self.filename = para
             self.train_log_txt_filename = "./" + para + '.train.log.txt'
             if os.path.exists(self.train_log_txt_filename):
@@ -10740,7 +10737,7 @@ for prs in range(1):
                 #3Lstm based attention
                 new_output = tf.reshape(final_outputs, [self.MAX_SEQ_LEN * self.BATCH_SIZE, self.STATE_SIZE])
 
-                print(self.BATCH_SIZE)
+                #print(self.BATCH_SIZE)
 
                 with tf.variable_scope('softmax'):
                     W = tf.get_variable('W', [self.STATE_SIZE, 1])
@@ -10884,7 +10881,7 @@ for prs in range(1):
 
             #
             tvars = tf.trainable_variables()
-            print(tvars)
+            #print(tvars)
             #self.cross_entropy2 = tf.add_n([ tf.nn.l2_loss(v) for v in tvars ]) * self.L2_NORM / self.BATCH_SIZE
 
             #self.cross_entropy2 = -tf.reduce_sum(self.tf_y2*tf.log(tf.clip_by_value(self.predict,1e-10,1.0)))/ tf.cast(all_count,dtype=tf.float32)
@@ -11097,7 +11094,7 @@ for prs in range(1):
                             #continue
                     #delete the mean_auc for a moment
                     log = self.getStatStr("TRAIN", self.global_step, mean_loss,mean_cross_entropy)
-                    print(log)
+                    #print(log)
                     #print('learning rate:',learning_rate)
                     self.force_write(log)
                     train_loss_arr = []
@@ -11397,7 +11394,7 @@ for prs in range(1):
             #delete mean_auc for a moment
             #log = self.getStatStr("TEST", self.global_step, mean_loss)
             self.force_write(log)
-            print(log)
+            #print(log)
             return mean_loss,mean_cross_entropy
 
         def force_write(self, log):
@@ -11594,7 +11591,7 @@ for prs in range(1):
             print('last one: ',final_data[len(final_data)-2])
             print('delete current: ',final_data[len(final_data)-1])
             del final_data[len(final_data)-1]
-            print('Exception1!')
+            #print('Exception1!')
         if(str(new_seq) == str(last_seq) and is_default == 1 and test_Def[i] == 0):
             del x[len(x)-1]
             del y[len(y)-1]
@@ -11605,7 +11602,7 @@ for prs in range(1):
             #print('after delete: ',final_data[len(final_data)-1])
             #print('after delete x: ',x[len(x)-1])
             #print('after delete y:',y[len(y)-1])
-            print('Exception2!')
+            #print('Exception2!')
         if(str(new_seq) != str(last_seq)):
             if((max_seqlen+1 != (len(current_deli)-1)) or (max_seqlen == 0)):
 
@@ -11664,8 +11661,8 @@ for prs in range(1):
             x[i][5]=1 
         if(x[i][5]==99):
             x[i][5]=0.5 
-    print(x[0][5])
-    print(len(x),len(x[0]))
+    #print(x[0][5])
+    #print(len(x),len(x[0]))
     scaler = preprocessing.StandardScaler().fit(x)
 
 
@@ -11736,7 +11733,7 @@ for prs in range(1):
         #for i in range(self.tf_bid_len[i].shape):
             #default.append(dead_rate[i])
 
-    print(RUNNING_MODEL.BATCH_SIZE)        
+    #print(RUNNING_MODEL.BATCH_SIZE)        
     for i in range(0, int(RUNNING_MODEL.test_data_win.size / RUNNING_MODEL.BATCH_SIZE)):
 
         test_batch_x, test_batch_x2, test_batch_y, test_batch_len, test_batch_y2, test_batch_x_deli, test_batch_seq = RUNNING_MODEL.test_data_win.next(
@@ -11749,7 +11746,7 @@ for prs in range(1):
         for j in range(RUNNING_MODEL.BATCH_SIZE):  
             if(j == 0):
                 if(j == 11):
-                    print(j)
+                    #print(j)
                     length = RUNNING_MODEL.tf_bid_len[j]
                     survival_rate0 = RUNNING_MODEL.map_parameter[j][40:RUNNING_MODEL.tf_bid_len[j]]
                 survival_rate = RUNNING_MODEL.map_parameter[j][40:RUNNING_MODEL.tf_bid_len[j]]
@@ -12217,10 +12214,8 @@ for prs in range(1):
         pseudo_lstm = np.concatenate((pseudo_lstm, result[prs_s*6+2:prs_s*6+6,2]))
         print('============================================================')
     
-#The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-#Model weights are saved in the saved_model folder within the saved directory.           
-#The code presented here enables readers to train and validate the model independently, 
-#producing the output results that are summarized for each washout step in this work.
+       
+#The code presented here enables readers to train and validate the model independently.
 ##############################################
 
 #draw the curve of forecast of default rate from 2013 to 2015
@@ -12230,7 +12225,7 @@ print('Forecasts of default rate(2013-2015): ')
 for k in range(0,len(pseudo_3lstm)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(10, 4))
+plt.figure(figsize=(9, 4))
 plt.plot(x_axis,r_default.astype(float),'black',label='Real Default Rate',linewidth=2)  
 plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
 plt.plot(x_axis,pseudo_gam.astype(float),'red',label='GAM',linestyle='--')

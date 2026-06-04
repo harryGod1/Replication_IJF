@@ -1,9 +1,3 @@
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently.
-    #The following code provides an example of validating the output results. Readers may adapt it as needed.
-    ########################################################################################################
-#whether to open the calculation of exposure
 exposure = False
 
 import tensorflow.compat.v1 as tf
@@ -45,8 +39,7 @@ ym = 2004
 q = 1
 n_vintage = 1 
 print("Loading may take a while, please wait.")
-print("This needs to be run repeatedly, outputting the results for each quarter between 2004 and 2024.")
-print("A higher AUC score indicates better model performance. Model performance can be compared by comparing the scores of each model in each round. The final results are summarized in a graph, as shown in Figure 9 of the paper.")
+
 
 for prs in range(n_vintage):
     if(prs == 0):
@@ -473,7 +466,36 @@ for prs in range(n_vintage):
         #print(len(x),len(x[0]))
         scaler = preprocessing.StandardScaler().fit(x)
 
+    pseudo_washout = []
+    pseudo_washout_attention = []
+    pseudo_nowashout_attention = []
+    pseudo_attention_deli = []
+    pseudo_3lstm_attention_deli = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
 
+    csvFile = open(new_path + "/data/2259/PRS_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+
+
+    result = []
+    for item in reader:
+        data = []
+
+        #if reader.line_num == 1:
+            #continue
+        for i in range(11):
+            data.append(item[i])
+        result.append(data)
+
+    csvFile.close()
+    df = pd.DataFrame(result)
+
+    pseudo_washout = df.iloc[2:50,2]
+    pseudo_washout_attention = df.iloc[2:50,4]
+    pseudo_nowashout_attention = df.iloc[2:50,6]
+    pseudo_attention_deli = df.iloc[2:50,8]
+    pseudo_3lstm_attention_deli = df.iloc[2:50,10]
 
 
     print('LSTM+Washout...')
@@ -2096,11 +2118,11 @@ for prs in range(n_vintage):
                 id = id + RUNNING_MODEL.tf_bid_len[j] - 40
             #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
 
-            #需要在sess.run处实现
+
             #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
 
 
-            #print一下这个self.tf_bid_len[i]看看
+
             #predicted_label.append(predict)
             #for i in range(self.tf_bid_len[i].shape):
                 #default.append(dead_rate[i])
@@ -2220,11 +2242,11 @@ for prs in range(n_vintage):
             id = id + RUNNING_MODEL.tf_bid_len[i] - 40
         #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
 
-        #需要在sess.run处实现
+
         #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
 
 
-        #print一下这个self.tf_bid_len[i]看看
+
         #predicted_label.append(predict)
         #for i in range(self.tf_bid_len[i].shape):
             #default.append(dead_rate[i])
@@ -2405,7 +2427,7 @@ for prs in range(n_vintage):
 
     baseline_llr = -dr*math.log(dr)-(1-dr)*math.log(1-dr)
     
-    pseudo_washout.append(1-((-unbalanced_log_likeli_lstm_washout)/len(unbalanced_prediction))/baseline_llr)
+    #pseudo_washout.append(1-((-unbalanced_log_likeli_lstm_washout)/len(unbalanced_prediction))/baseline_llr)
     unbalanced_prediction_lstm_washout = unbalanced_prediction
 
     seqlen2 = []
@@ -2475,8 +2497,7 @@ for prs in range(n_vintage):
         #AUC
         if(is_default != 0):
             auc_score = roc_auc_score(conditional_labels,prediction)
-            if(auc_score<0.5):
-                auc_score = 1- auc_score
+
             AUC.append(auc_score)
             #print('AUC ',time_window[m],':',auc_score)
 
@@ -2548,8 +2569,7 @@ for prs in range(n_vintage):
         #AUC
         if(is_default != 0):
             auc_score = roc_auc_score(conditional_labels,prediction)
-            if(auc_score<0.5):
-                auc_score = 1- auc_score
+
             AUC.append(auc_score)
             #print('AUC ',time_window[m],':',auc_score)
 
@@ -2687,9 +2707,7 @@ for prs in range(n_vintage):
                     if(len(last_seq) ==  0):
                         last_seq = s[11] 
 
-                    #数据集每一笔最后都多了一笔月份为0地数据 会导致default数据被误认为non default（因为last seq ！= new seq部分的判定原因，导致default 1 之后多出了个default0得标签，会误将default0
-                    #标签取代原本default应该是1得标签）e.g.,F113Q3250129，F112Q4005541
-                    #需要判定len_count == max_seqlen + 1的原因：可能这笔帐户出现最大月份25个月，然后继续从0或者1月份开始延续！！！（真的很奇怪），所以我们需要判定到这种情况，并且删除它
+
                     if(str(new_seq) == str(last_seq) and int(s[slen-5]) > max_seqlen):
                         max_seqlen = int(s[slen-5])
 
@@ -3954,11 +3972,10 @@ for prs in range(n_vintage):
                         id = id + RUNNING_MODEL.tf_bid_len[j] - 40
                     #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
 
-                    #需要在sess.run处实现
+
                     #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
 
 
-                    #print一下这个self.tf_bid_len[i]看看
                     #predicted_label.append(predict)
                     #for i in range(self.tf_bid_len[i].shape):
                         #default.append(dead_rate[i])
@@ -4325,8 +4342,7 @@ for prs in range(n_vintage):
                 #AUC
                 if(is_default != 0):
                     auc_score = roc_auc_score(conditional_labels,prediction)
-                    if(auc_score<0.5):
-                        auc_score = 1- auc_score
+
                     AUC.append(auc_score)
                     #print('AUC ',time_window[m],':',auc_score)
 
@@ -4631,7 +4647,36 @@ for prs in range(n_vintage):
     #pseudo_attention_deli.append(RUNNING_MODEL.load(meta,ckpt,step))
 
     
+    pseudo_washout2 = []
+    pseudo_washout_attention2 = []
+    pseudo_nowashout_attention2 = []
+    pseudo_attention_deli2 = []
+    pseudo_3lstm_attention_deli2 = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
 
+    csvFile = open(new_path + "/data/2259/PRS_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+
+
+    result = []
+    for item in reader:
+        data = []
+
+        #if reader.line_num == 1:
+            #continue
+        for i in range(11):
+            data.append(item[i])
+        result.append(data)
+
+    csvFile.close()
+    df = pd.DataFrame(result)
+
+    pseudo_washout2 = df.iloc[2:36,2]
+    pseudo_washout_attention2 = df.iloc[2:36,4]
+    pseudo_nowashout_attention2 = df.iloc[2:36,6]
+    pseudo_attention_deli2 = df.iloc[2:36,8]
+    pseudo_3lstm_attention_deli2 = df.iloc[2:36,10]
 
     
 
@@ -4672,7 +4717,7 @@ for prs in range(n_vintage):
     step = 100000
 
 
-    pseudo_3lstm_attention_deli.append(RUNNING_MODEL.load(meta,ckpt,step))
+    #pseudo_3lstm_attention_deli.append(RUNNING_MODEL.load(meta,ckpt,step))
 
 
     
@@ -6019,11 +6064,11 @@ for prs in range(n_vintage):
                         id = id + RUNNING_MODEL.tf_bid_len[j] - 0
                     #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
 
-                    #需要在sess.run处实现
+
                     #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
 
 
-                    #print一下这个self.tf_bid_len[i]看看
+
                     #predicted_label.append(predict)
                     #for i in range(self.tf_bid_len[i].shape):
                         #default.append(dead_rate[i])
@@ -6143,11 +6188,10 @@ for prs in range(n_vintage):
                     id = id + RUNNING_MODEL.tf_bid_len[i] - 0
                 #true_label.append(self.tf_y2[id:id+self.tf_bid_len[i]])
 
-                #需要在sess.run处实现
+
                 #predicted_label = tf.concat([input_x, tf.cast(input_x2, dtype=tf.float32)], 0)
 
 
-                #print一下这个self.tf_bid_len[i]看看
                 #predicted_label.append(predict)
                 #for i in range(self.tf_bid_len[i].shape):
                     #default.append(dead_rate[i])
@@ -6394,8 +6438,7 @@ for prs in range(n_vintage):
                 #AUC
                 if(is_default != 0):
                     auc_score = roc_auc_score(conditional_labels,prediction)
-                    if(auc_score<0.5):
-                        auc_score = 1- auc_score
+
                     AUC.append(auc_score)
                     #print('AUC ',time_window[m],':',auc_score)
 
@@ -6465,8 +6508,7 @@ for prs in range(n_vintage):
                 #AUC
                 if(is_default != 0):
                     auc_score = roc_auc_score(conditional_labels,prediction)
-                    if(auc_score<0.5):
-                        auc_score = 1- auc_score
+
                     AUC.append(auc_score)
                     #print('AUC ',time_window[m],':',auc_score)
 
@@ -7186,36 +7228,6 @@ for prs in range(n_vintage):
         #plt.show()  
         
 #2004to2015
-pseudo_washout = []
-pseudo_washout_attention = []
-pseudo_nowashout_attention = []
-pseudo_attention_deli = []
-pseudo_3lstm_attention_deli = []
-path = os.getcwd()
-new_path = path.replace("\\","/")
-
-csvFile = open(new_path + "/data/2259/Brier_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
-for item in reader:
-    data = []
-
-    #if reader.line_num == 1:
-        #continue
-    for i in range(10):
-        data.append(item[i])
-    result.append(data)
-
-csvFile.close()
-df = pd.DataFrame(result)
-
-pseudo_washout = df.iloc[2:50,1]
-pseudo_washout_attention = df.iloc[2:50,3]
-pseudo_nowashout_attention = df.iloc[2:50,5]
-pseudo_attention_deli = df.iloc[2:50,7]
-pseudo_3lstm_attention_deli = df.iloc[2:50,9]
 
 
 #draw the curve of AUC from 2004 to 2015
@@ -7225,8 +7237,11 @@ print('Brier Score(2004-2015): ')
 for k in range(0,len(pseudo_3lstm_attention_deli)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 5))
-
+#plt.figure(figsize=(9, 5))
+plt.figure(figsize=(18, 4)) 
+plt.subplot(1, 2, 1) 
+ax1 = plt.gca()
+ax1.set_ylim([-1,1])
 plt.plot(x_axis,pseudo_washout.astype(float),'blue',label='LSTM + wo')
 plt.plot(x_axis,pseudo_washout_attention.astype(float),'red',label='LSTM + attn + wo',linestyle='--')
 plt.plot(x_axis,pseudo_nowashout_attention.astype(float),'grey',label='LSTM + attn' )
@@ -7236,61 +7251,32 @@ plt.plot(x_axis,pseudo_3lstm_attention_deli.astype(float),'black',label='3LSTM +
 
 
 plt.legend(prop = {'size':5})
-plt.title('Brier Score(2004-2015)')
+plt.title('Pseudo-R-Square (2004-2015)')
 plt.xlabel('Time')
-plt.show()  
+#plt.show()  
 
 #2016to2024
-pseudo_washout = []
-pseudo_washout_attention = []
-pseudo_nowashout_attention = []
-pseudo_attention_deli = []
-pseudo_3lstm_attention_deli = []
-path = os.getcwd()
-new_path = path.replace("\\","/")
-
-csvFile = open(new_path + "/data/2259/Brier_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
-for item in reader:
-    data = []
-
-    #if reader.line_num == 1:
-        #continue
-    for i in range(10):
-        data.append(item[i])
-    result.append(data)
-
-csvFile.close()
-df = pd.DataFrame(result)
-
-pseudo_washout = df.iloc[2:36,1]
-pseudo_washout_attention = df.iloc[2:36,3]
-pseudo_nowashout_attention = df.iloc[2:36,5]
-pseudo_attention_deli = df.iloc[2:36,7]
-pseudo_3lstm_attention_deli = df.iloc[2:36,9]
 
 
 #draw the curve of AUC from 2016 to 2024
 x_axis = []
 hr = []
-print('Brier Score(2016-2024): ')
-for k in range(0,len(pseudo_3lstm_attention_deli)):
+print('Pseudo-R-square (2016-2024): ')
+for k in range(0,len(pseudo_3lstm_attention_deli2)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 5))
+#plt.figure(figsize=(9, 5))
+plt.subplot(1, 2, 2) 
+ax1 = plt.gca()
+ax1.set_ylim([-1,1])
+plt.plot(x_axis,pseudo_washout2.astype(float),'blue',label='LSTM + wo')
+plt.plot(x_axis,pseudo_washout_attention2.astype(float),'red',label='LSTM + attn + wo',linestyle='--')
+plt.plot(x_axis,pseudo_nowashout_attention2.astype(float),'grey',label='LSTM + attn' )
+plt.plot(x_axis,pseudo_attention_deli2.astype(float),'green',label='LSTM + attn + wo + deli')
+plt.plot(x_axis,pseudo_3lstm_attention_deli2.astype(float),'black',label='3LSTM + attn + wo + deli',linewidth=2)
 
-plt.plot(x_axis,pseudo_washout.astype(float),'blue',label='LSTM + wo')
-plt.plot(x_axis,pseudo_washout_attention.astype(float),'red',label='LSTM + attn + wo',linestyle='--')
-plt.plot(x_axis,pseudo_nowashout_attention.astype(float),'grey',label='LSTM + attn' )
-plt.plot(x_axis,pseudo_attention_deli.astype(float),'green',label='LSTM + attn + wo + deli')
-plt.plot(x_axis,pseudo_3lstm_attention_deli.astype(float),'black',label='3LSTM + attn + wo + deli',linewidth=2)
 
-
-plt.legend(prop = {'size':5})
-plt.title('Brier Score(2016-2024)')
+plt.legend(loc='lower left',prop = {'size':5})
+plt.title('Pseudo-R-square (2016-2024)')
 plt.xlabel('Time')
-plt.ylim(0, 0.0014)
 plt.show()  

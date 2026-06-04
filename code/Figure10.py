@@ -1,11 +1,4 @@
-#The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-#Model weights are saved in the saved_model folder within the saved directory.           
-#The code presented here enables readers to train and validate the model independently.
-#The following code provides an example of validating the output results. Readers may adapt it as needed.
-########################################################################################################
-#whether to open the calculation of exposure
 exposure = False
-
 import tensorflow.compat.v1 as tf
 from sklearn.metrics import roc_curve, auc
 import matplotlib as mpl  
@@ -45,8 +38,7 @@ ym = 2004
 q = 1
 n_vintage = 1 
 print("Loading may take a while, please wait.")
-print("This needs to be run repeatedly, outputting the results for each quarter between 2004 and 2024.")
-print("A higher AUC score indicates better model performance. Model performance can be compared by comparing the scores of each model in each round. The final results are summarized in a graph, as shown in Figure 9 of the paper.")
+
 
 for prs in range(n_vintage):
     if(prs == 0):
@@ -1918,6 +1910,37 @@ for prs in range(n_vintage):
             self.train_log_txt = open(self.train_log_txt_filename, 'a')
             self.train_log_txt.write(log)
             self.train_log_txt.close()
+            
+    pseudo_washout = []
+    pseudo_washout_attention = []
+    pseudo_nowashout_attention = []
+    pseudo_attention_deli = []
+    pseudo_3lstm_attention_deli = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+
+    csvFile = open(new_path + "/data/2259/Brier_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+
+
+    result = []
+    for item in reader:
+        data = []
+
+        #if reader.line_num == 1:
+            #continue
+        for i in range(10):
+            data.append(item[i])
+        result.append(data)
+
+    csvFile.close()
+    df = pd.DataFrame(result)
+
+    pseudo_washout = df.iloc[2:50,1]
+    pseudo_washout_attention = df.iloc[2:50,3]
+    pseudo_nowashout_attention = df.iloc[2:50,5]
+    pseudo_attention_deli = df.iloc[2:50,7]
+    pseudo_3lstm_attention_deli = df.iloc[2:50,9]        
 
     #print('no deli')
 
@@ -2475,8 +2498,7 @@ for prs in range(n_vintage):
         #AUC
         if(is_default != 0):
             auc_score = roc_auc_score(conditional_labels,prediction)
-            if(auc_score<0.5):
-                auc_score = 1- auc_score
+
             AUC.append(auc_score)
             #print('AUC ',time_window[m],':',auc_score)
 
@@ -2548,8 +2570,7 @@ for prs in range(n_vintage):
         #AUC
         if(is_default != 0):
             auc_score = roc_auc_score(conditional_labels,prediction)
-            if(auc_score<0.5):
-                auc_score = 1- auc_score
+
             AUC.append(auc_score)
             #print('AUC ',time_window[m],':',auc_score)
 
@@ -2564,7 +2585,38 @@ for prs in range(n_vintage):
     #print('LSTM with washout brier score: ',brier_score/len(unbalanced_prediction_lstm_washout))
 
 
-    pseudo_washout.append(brier_score/len(unbalanced_prediction_lstm_washout))
+    #pseudo_washout.append(brier_score/len(unbalanced_prediction_lstm_washout))
+    
+    pseudo_washout2 = []
+    pseudo_washout_attention2 = []
+    pseudo_nowashout_attention2 = []
+    pseudo_attention_deli2 = []
+    pseudo_3lstm_attention_deli2 = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+
+    csvFile = open(new_path + "/data/2259/Brier_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+
+
+    result = []
+    for item in reader:
+        data = []
+
+        #if reader.line_num == 1:
+            #continue
+        for i in range(10):
+            data.append(item[i])
+        result.append(data)
+
+    csvFile.close()
+    df = pd.DataFrame(result)
+
+    pseudo_washout2 = df.iloc[2:36,1]
+    pseudo_washout_attention2 = df.iloc[2:36,3]
+    pseudo_nowashout_attention2 = df.iloc[2:36,5]
+    pseudo_attention_deli2 = df.iloc[2:36,7]
+    pseudo_3lstm_attention_deli2 = df.iloc[2:36,9]    
 
 
     print('LSTM+Washout+Attention...')
@@ -4324,8 +4376,7 @@ for prs in range(n_vintage):
                 #AUC
                 if(is_default != 0):
                     auc_score = roc_auc_score(conditional_labels,prediction)
-                    if(auc_score<0.5):
-                        auc_score = 1- auc_score
+
                     AUC.append(auc_score)
                     #print('AUC ',time_window[m],':',auc_score)
 
@@ -4488,6 +4539,8 @@ for prs in range(n_vintage):
             self.train_log_txt = open(self.train_log_txt_filename, 'a')
             self.train_log_txt.write(log)
             self.train_log_txt.close()
+    
+            
 
     state_size = 16
     batch_size = 512
@@ -4671,7 +4724,7 @@ for prs in range(n_vintage):
     step = 100000
 
 
-    pseudo_3lstm_attention_deli.append(RUNNING_MODEL.load(meta,ckpt,step))
+    #pseudo_3lstm_attention_deli.append(RUNNING_MODEL.load(meta,ckpt,step))
 
 
     
@@ -6391,8 +6444,6 @@ for prs in range(n_vintage):
                 #AUC
                 if(is_default != 0):
                     auc_score = roc_auc_score(conditional_labels,prediction)
-                    if(auc_score<0.5):
-                        auc_score = 1- auc_score
                     AUC.append(auc_score)
                     #print('AUC ',time_window[m],':',auc_score)
 
@@ -6462,8 +6513,7 @@ for prs in range(n_vintage):
                 #AUC
                 if(is_default != 0):
                     auc_score = roc_auc_score(conditional_labels,prediction)
-                    if(auc_score<0.5):
-                        auc_score = 1- auc_score
+
                     AUC.append(auc_score)
                     #print('AUC ',time_window[m],':',auc_score)
 
@@ -7182,36 +7232,7 @@ for prs in range(n_vintage):
         #plt.show()  
         
 #2004to2015
-pseudo_washout = []
-pseudo_washout_attention = []
-pseudo_nowashout_attention = []
-pseudo_attention_deli = []
-pseudo_3lstm_attention_deli = []
-path = os.getcwd()
-new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/data/2259/Brier_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
-for item in reader:
-    data = []
-
-    #if reader.line_num == 1:
-        #continue
-    for i in range(10):
-        data.append(item[i])
-    result.append(data)
-
-csvFile.close()
-df = pd.DataFrame(result)
-
-pseudo_washout = df.iloc[2:50,1]
-pseudo_washout_attention = df.iloc[2:50,3]
-pseudo_nowashout_attention = df.iloc[2:50,5]
-pseudo_attention_deli = df.iloc[2:50,7]
-pseudo_3lstm_attention_deli = df.iloc[2:50,9]
 
 
 #draw the curve of AUC from 2004 to 2015
@@ -7221,8 +7242,11 @@ print('Brier Score(2004-2015): ')
 for k in range(0,len(pseudo_3lstm_attention_deli)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 5))
-
+#plt.figure(figsize=(9, 5))
+plt.figure(figsize=(20, 4)) 
+plt.subplot(1, 2, 1) 
+ax1 = plt.gca()
+ax1.set_ylim([0,0.0014])
 plt.plot(x_axis,pseudo_washout.astype(float),'blue',label='LSTM + wo')
 plt.plot(x_axis,pseudo_washout_attention.astype(float),'red',label='LSTM + attn + wo',linestyle='--')
 plt.plot(x_axis,pseudo_nowashout_attention.astype(float),'grey',label='LSTM + attn' )
@@ -7234,59 +7258,32 @@ plt.plot(x_axis,pseudo_3lstm_attention_deli.astype(float),'black',label='3LSTM +
 plt.legend(prop = {'size':5})
 plt.title('Brier Score(2004-2015)')
 plt.xlabel('Time')
-plt.show()  
+#plt.show()  
 
 #2016to2024
-pseudo_washout = []
-pseudo_washout_attention = []
-pseudo_nowashout_attention = []
-pseudo_attention_deli = []
-pseudo_3lstm_attention_deli = []
-path = os.getcwd()
-new_path = path.replace("\\","/")
-
-csvFile = open(new_path + "/data/2259/Brier_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
-for item in reader:
-    data = []
-
-    #if reader.line_num == 1:
-        #continue
-    for i in range(10):
-        data.append(item[i])
-    result.append(data)
-
-csvFile.close()
-df = pd.DataFrame(result)
-
-pseudo_washout = df.iloc[2:36,1]
-pseudo_washout_attention = df.iloc[2:36,3]
-pseudo_nowashout_attention = df.iloc[2:36,5]
-pseudo_attention_deli = df.iloc[2:36,7]
-pseudo_3lstm_attention_deli = df.iloc[2:36,9]
 
 
 #draw the curve of AUC from 2016 to 2024
 x_axis = []
 hr = []
 print('Brier Score(2016-2024): ')
-for k in range(0,len(pseudo_3lstm_attention_deli)):
+for k in range(0,len(pseudo_3lstm_attention_deli2)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 5))
+#plt.figure(figsize=(9, 5))
 
-plt.plot(x_axis,pseudo_washout.astype(float),'blue',label='LSTM + wo')
-plt.plot(x_axis,pseudo_washout_attention.astype(float),'red',label='LSTM + attn + wo',linestyle='--')
-plt.plot(x_axis,pseudo_nowashout_attention.astype(float),'grey',label='LSTM + attn' )
-plt.plot(x_axis,pseudo_attention_deli.astype(float),'green',label='LSTM + attn + wo + deli')
-plt.plot(x_axis,pseudo_3lstm_attention_deli.astype(float),'black',label='3LSTM + attn + wo + deli',linewidth=2)
+plt.subplot(1, 2, 2) 
+ax1 = plt.gca()
+ax1.set_ylim([0,0.0014])
+plt.plot(x_axis,pseudo_washout2.astype(float),'blue',label='LSTM + wo')
+plt.plot(x_axis,pseudo_washout_attention2.astype(float),'red',label='LSTM + attn + wo',linestyle='--')
+plt.plot(x_axis,pseudo_nowashout_attention2.astype(float),'grey',label='LSTM + attn' )
+plt.plot(x_axis,pseudo_attention_deli2.astype(float),'green',label='LSTM + attn + wo + deli')
+plt.plot(x_axis,pseudo_3lstm_attention_deli2.astype(float),'black',label='3LSTM + attn + wo + deli',linewidth=2)
 
 
 plt.legend(prop = {'size':5})
 plt.title('Brier Score(2016-2024)')
 plt.xlabel('Time')
-plt.ylim(0, 0.0014)
+
 plt.show()  

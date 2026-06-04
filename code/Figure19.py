@@ -1,9 +1,3 @@
-#The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-#Model weights are saved in the saved_model folder within the saved directory.           
-#The code presented here enables readers to train and validate the model independently.
-#The following code provides an example of validating the output results. Readers may adapt it as needed.
-########################################################################################################
-
 from sklearn.metrics import roc_curve, auc
 import matplotlib as mpl  
 import matplotlib.pyplot as plt
@@ -32,6 +26,10 @@ import string
 import math
 import csv
 import pandas as pd
+import tensorflow.compat.v1 as tf
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 #change dataset
 data_mod = 2
@@ -7283,7 +7281,7 @@ for prs in range(1):
             #print('============================================================')
 
         
-    for prs in range(3):
+    for prs_s in range(3):
         path = os.getcwd()
         new_path = path.replace("\\","/")
 
@@ -12190,7 +12188,7 @@ for prs in range(1):
         result = []
         for item in reader:
             data = []
-            # 忽略第一行
+
             #if reader.line_num == 1:
                 #continue
             for i in range(3):
@@ -12206,10 +12204,8 @@ for prs in range(1):
         pseudo_lstm = np.concatenate((pseudo_lstm, result[prs_s*6+2:prs_s*6+6,2]))
         print('============================================================')
     
-#The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-#Model weights are saved in the saved_model folder within the saved directory.           
-#The code presented here enables readers to train and validate the model independently, 
-#producing the output results that are summarized for each washout step in this work.
+         
+#The code presented here enables readers to train and validate the model independently.
 ##############################################
 
 #draw the curve of forecast of default rate from 2022 to 2024
@@ -12219,7 +12215,7 @@ print('Forecasts of default rate(2022-2024): ')
 for k in range(0,len(pseudo_3lstm)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(10, 4))
+plt.figure(figsize=(9, 4))
 plt.plot(x_axis,r_default.astype(float),'black',label='Real Default Rate',linewidth=2)  
 plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
 plt.plot(x_axis,pseudo_gam.astype(float),'red',label='GAM',linestyle='--')

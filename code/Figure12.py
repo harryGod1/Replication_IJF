@@ -1,8 +1,3 @@
-#The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-#Model weights are saved in the saved_model folder within the saved directory.           
-#The code presented here enables readers to train and validate the model independently.
-#The following code provides an example of validating the output results. Readers may adapt it as needed.
-########################################################################################################
 exposure = False
 
 import os
@@ -41,8 +36,7 @@ ym = 2004
 q = 1
 n_vintage = 1 
 print("Loading may take a while, please wait.")
-print("This needs to be run repeatedly, outputting the results for each quarter between 2004 and 2024.")
-print("A higher Pseudo-R-Square score indicates better model performance. Model performance can be compared by comparing the scores of each model in each round. The final results are summarized in a graph, as shown in Figure 11 of the paper.")
+
 
 for prs in range(n_vintage):
     if(prs == 0):
@@ -1552,7 +1546,7 @@ for prs in range(n_vintage):
 
     baseline_llr = -dr*math.log(dr)-(1-dr)*math.log(1-dr)
 
-    pseudo_dtsm.append(1-((-unbalanced_log_likeli_dtsm)/len(unbalanced_prediction))/baseline_llr)
+    #pseudo_dtsm.append(1-((-unbalanced_log_likeli_dtsm)/len(unbalanced_prediction))/baseline_llr)
 
     #for exposure
     exposure_pd = unbalanced_prediction
@@ -2264,6 +2258,38 @@ for prs in range(n_vintage):
     from sklearn.metrics import precision_recall_curve
     from sklearn.metrics import auc
 
+    pseudo_dtsm = []
+    pseudo_gam = []
+    pseudo_cox = []
+    pseudo_weibull = []
+    pseudo_deephit = []
+    pseudo_3lstm = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+
+    csvFile = open(new_path + "/data/2259/AUC(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+
+
+    result = []
+    for item in reader:
+        data = []
+
+        #if reader.line_num == 1:
+            #continue
+        for i in range(12):
+            data.append(item[i])
+        result.append(data)
+
+    csvFile.close()
+    df = pd.DataFrame(result)
+
+    pseudo_dtsm = df.iloc[2:50,1]
+    pseudo_gam = df.iloc[2:50,3]
+    pseudo_cox = df.iloc[2:50,5]
+    pseudo_weibull = df.iloc[2:50,7]
+    pseudo_deephit = df.iloc[2:50,9]
+    pseudo_3lstm = df.iloc[2:50,11]
     #x_s=x
 
 
@@ -2318,8 +2344,7 @@ for prs in range(n_vintage):
     #print('Unbalanced log_likelyhood_dtsm : ',(-unbalanced_log_likeli_dtsm )/len(predict_gam))
 
     auc_score = roc_auc_score(y2,unbalanced_prediction)
-    if(auc_score<0.5):
-        auc_score = 1 - auc_score
+
     #print('DTSM AUC: ',auc_score)
 
     T3 = time.perf_counter()
@@ -2335,7 +2360,7 @@ for prs in range(n_vintage):
 
     baseline_llr = -dr*math.log(dr)-(1-dr)*math.log(1-dr)
 
-    pseudo_gam.append(1-((-unbalanced_log_likeli_dtsm)/len(unbalanced_prediction))/baseline_llr)
+    #pseudo_gam.append(1-((-unbalanced_log_likeli_dtsm)/len(unbalanced_prediction))/baseline_llr)
 
     #for exposure
     exposure_pd = unbalanced_prediction
@@ -2890,7 +2915,7 @@ for prs in range(n_vintage):
     df_standard2 = df_standard2.join(df2[9])
     df_standard2 = df_standard2.join(df2[10])
 
-    #注意，因为月份从0开始，所以需要加1
+
     df_standard[9] = df_standard[9] + 1
     df_standard2[9] = df_standard2[9] + 1
 
@@ -3450,7 +3475,7 @@ for prs in range(n_vintage):
 
     baseline_llr = -dr*math.log(dr)-(1-dr)*math.log(1-dr)
 
-    pseudo_cox.append(1-((-unbalanced_log_likeli_cph)/len(unbalanced_prediction_cph))/baseline_llr)
+    #pseudo_cox.append(1-((-unbalanced_log_likeli_cph)/len(unbalanced_prediction_cph))/baseline_llr)
 
     auc_score = roc_auc_score(y2,unbalanced_prediction_cph)
     #print('Cox PH AUC: ',auc_score)
@@ -3519,8 +3544,7 @@ for prs in range(n_vintage):
             id = id + seqlen[i]
         if(is_default == 1):
             auc_score = roc_auc_score(conditional_labels,prediction)
-            if(auc_score<0.5):
-                auc_score = 1 - auc_score
+
             #print('time_window:',time_window[m],': ',auc_score)
             AUC.append(auc_score)
 
@@ -3572,7 +3596,7 @@ for prs in range(n_vintage):
 
     baseline_llr = -dr*math.log(dr)-(1-dr)*math.log(1-dr)
 
-    pseudo_weibull.append(1-((-unbalanced_log_likeli_wb)/len(unbalanced_prediction_wb))/baseline_llr)
+    #pseudo_weibull.append(1-((-unbalanced_log_likeli_wb)/len(unbalanced_prediction_wb))/baseline_llr)
 
     auc_score = roc_auc_score(y2,unbalanced_prediction_wb)
     #print('Weibull AUC: ',auc_score)
@@ -3640,8 +3664,7 @@ for prs in range(n_vintage):
             id = id + seqlen[i]
         if(is_default == 1):
             auc_score = roc_auc_score(conditional_labels,prediction)
-            if(auc_score<0.5):
-                auc_score = 1 - auc_score
+
             
             AUC.append(auc_score)
 
@@ -5222,7 +5245,39 @@ for prs in range(n_vintage):
             self.train_log_txt.write(log)
             self.train_log_txt.close()
 
-    
+
+    pseudo_dtsm2 = []
+    pseudo_gam2 = []
+    pseudo_cox2 = []
+    pseudo_weibull2 = []
+    pseudo_deephit2 = []
+    pseudo_3lstm2 = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+
+    csvFile = open(new_path + "/data/2259/AUC(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+
+
+    result = []
+    for item in reader:
+        data = []
+
+        #if reader.line_num == 1:
+            #continue
+        for i in range(12):
+            data.append(item[i])
+        result.append(data)
+
+    csvFile.close()
+    df = pd.DataFrame(result)
+
+    pseudo_dtsm2 = df.iloc[2:36,1]
+    pseudo_gam2 = df.iloc[2:36,3]
+    pseudo_cox2 = df.iloc[2:36,5]
+    pseudo_weibull2 = df.iloc[2:36,7]
+    pseudo_deephit2 = df.iloc[2:36,9]
+    pseudo_3lstm2 = df.iloc[2:36,11]
 
     #deephit standardscaler
     if(prs<48):
@@ -5993,7 +6048,7 @@ for prs in range(n_vintage):
         brier_score = brier_score + (unbalanced_prediction_deephit[i]-int(true_label[i][1]))**2
     #print('Deephit brier score: ',brier_score/len(unbalanced_prediction_deephit))
     
-    pseudo_deephit.append(AUC24)
+    #pseudo_deephit.append(AUC24)
 
     
     print('LSTM+Washout+3LSTM Attention+Deli...')
@@ -7685,7 +7740,7 @@ for prs in range(n_vintage):
             dr = count_bad/(count_bad + count_good)
 
             baseline_llr = -dr*math.log(dr)-(1-dr)*math.log(1-dr)
-            pseudo_3lstm.append(1-((-unbalanced_log_likeli_3lstm_attention_deli)/len(unbalanced_prediction))/baseline_llr)
+            #pseudo_3lstm.append(1-((-unbalanced_log_likeli_3lstm_attention_deli)/len(unbalanced_prediction))/baseline_llr)
 
             unbalanced_prediction_3lstm_attention_deli = unbalanced_prediction
 
@@ -8012,7 +8067,7 @@ for prs in range(n_vintage):
         ckpt = new_path + "/saved_model/model16to21_gpu_forecast_washout40_deli_random_3Weighted LSTM_attention seq selfdot_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     step = 100000
 
-    pseudo_3lstm.append(RUNNING_MODEL.load(meta,ckpt,step))
+    #pseudo_3lstm.append(RUNNING_MODEL.load(meta,ckpt,step))
     
     
     if((q+1)<=4):
@@ -8103,38 +8158,7 @@ import csv
 import pandas as pd
 
 #2004to2015
-pseudo_dtsm = []
-pseudo_gam = []
-pseudo_cox = []
-pseudo_weibull = []
-pseudo_deephit = []
-pseudo_3lstm = []
-path = os.getcwd()
-new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/data/2259/AUC(04to15).csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
-for item in reader:
-    data = []
-
-    #if reader.line_num == 1:
-        #continue
-    for i in range(12):
-        data.append(item[i])
-    result.append(data)
-
-csvFile.close()
-df = pd.DataFrame(result)
-
-pseudo_dtsm = df.iloc[2:50,1]
-pseudo_gam = df.iloc[2:50,3]
-pseudo_cox = df.iloc[2:50,5]
-pseudo_weibull = df.iloc[2:50,7]
-pseudo_deephit = df.iloc[2:50,9]
-pseudo_3lstm = df.iloc[2:50,11]
 
 #draw the curve of AUC from 2004 to 2015
 x_axis = []
@@ -8143,8 +8167,11 @@ print('AUC(2004-2015): ')
 for k in range(0,len(pseudo_3lstm)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 5))
-
+#plt.figure(figsize=(9, 5))
+plt.figure(figsize=(18, 4)) 
+plt.subplot(1, 2, 1) 
+ax1 = plt.gca()
+ax1.set_ylim([0.5,1])
 plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
 plt.plot(x_axis,pseudo_gam.astype(float),'red',label='Linear DTSM + MEVS',linestyle='--')
 plt.plot(x_axis,pseudo_cox.astype(float),'grey',label='DeepHit' )
@@ -8156,57 +8183,28 @@ plt.plot(x_axis,pseudo_3lstm.astype(float),'black',label='3LSTM',linewidth=2)
 plt.legend(prop = {'size':5})
 plt.title('AUC(2004-2015)')
 plt.xlabel('Time')
-plt.show()  
+#plt.show()  
 
 #2016to2024
-pseudo_dtsm = []
-pseudo_gam = []
-pseudo_cox = []
-pseudo_weibull = []
-pseudo_deephit = []
-pseudo_3lstm = []
-path = os.getcwd()
-new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/data/2259/AUC(16to24).csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
-for item in reader:
-    data = []
-
-    #if reader.line_num == 1:
-        #continue
-    for i in range(12):
-        data.append(item[i])
-    result.append(data)
-
-csvFile.close()
-df = pd.DataFrame(result)
-
-pseudo_dtsm = df.iloc[2:36,1]
-pseudo_gam = df.iloc[2:36,3]
-pseudo_cox = df.iloc[2:36,5]
-pseudo_weibull = df.iloc[2:36,7]
-pseudo_deephit = df.iloc[2:36,9]
-pseudo_3lstm = df.iloc[2:36,11]
 
 #draw the curve of AUC from 2016 to 2024
 x_axis = []
 hr = []
 print('AUC(2016-2024): ')
-for k in range(0,len(pseudo_3lstm)):
+for k in range(0,len(pseudo_3lstm2)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 5))
-
-plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
-plt.plot(x_axis,pseudo_gam.astype(float),'red',label='Linear DTSM + MEVS',linestyle='--')
-plt.plot(x_axis,pseudo_cox.astype(float),'grey',label='DeepHit' )
-plt.plot(x_axis,pseudo_weibull.astype(float),'green',label='DeepHit + MEVs')
-plt.plot(x_axis,pseudo_deephit.astype(float),'grey',label='DeepHit',linestyle='--')
-plt.plot(x_axis,pseudo_3lstm.astype(float),'black',label='3LSTM',linewidth=2)
+#plt.figure(figsize=(9, 5))
+plt.subplot(1, 2, 2) 
+ax1 = plt.gca()
+ax1.set_ylim([0.5,1])
+plt.plot(x_axis,pseudo_dtsm2.astype(float),'blue',label='Linear DTSM')
+plt.plot(x_axis,pseudo_gam2.astype(float),'red',label='Linear DTSM + MEVS',linestyle='--')
+plt.plot(x_axis,pseudo_cox2.astype(float),'grey',label='DeepHit' )
+plt.plot(x_axis,pseudo_weibull2.astype(float),'green',label='DeepHit + MEVs')
+plt.plot(x_axis,pseudo_deephit2.astype(float),'grey',label='DeepHit',linestyle='--')
+plt.plot(x_axis,pseudo_3lstm2.astype(float),'black',label='3LSTM',linewidth=2)
 
 plt.legend(prop = {'size':5})
 plt.title('AUC(2016-2024)')
