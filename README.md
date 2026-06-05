@@ -60,7 +60,7 @@
 
 | Component | Reproduction (laptop) | 
 |---|---|
-| **OS** | Any |
+| **OS** | Any(tested on Centos and windows10) |
 | **CPU** | Intel Core i7 |
 | **GPU** | NVIDIA GeForce GTX 1650 |
 | **RAM** | 32 GB |
@@ -98,7 +98,19 @@ conda activate replication_ijf
 > 
 > **⚠️ Important — Due to the presence of data files exceeding 100 MB, Git Large File Storage (LFS) is required to handle them. Readers should first download the appropriate Git LFS installation package for their operating system.**
 
-#### Example for installing git lfs in Linux(unbuntu)
+#### Example for installing git lfs in Centos
+
+##### Run the following command to install the EPEL repository (skip this step if it is already installed):
+```bash
+sudo yum install epel-release
+#(Note: For CentOS 8/9 or newer versions, replace yum with sudo dnf install epel-release.)
+```
+##### Download, install, and initialize Git LFS:
+```bash
+sudo yum install git-lfs
+git lfs install
+```
+#### Example for installing git lfs in unbuntu
 ```bash
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 apt-get install git-lfs
