@@ -1,5 +1,5 @@
 
-## Reproducibility Package Information
+## 📅 Assembly date and authorship
 
 - **Date assembled:** June 2026
 - **Authors:** Hao Wang(scxhw1@nottingham.edu.cn), Anthony Bellotti(Anthony-Graham.Bellotti@nottingham.edu.cn)
@@ -7,7 +7,7 @@
 
 ---
 
-## Repository Structure
+## 🗂️ Repository Structure
 # Long Short-Term Memory Network with Adapted Attention Mechanism for Credit Risk Modelling
 
 [![Python 3.8.19](https://img.shields.io/badge/python-3.8.19-blue.svg)](https://www.python.org/downloads/release/python-3819/)
@@ -56,7 +56,7 @@
 
 ---
 
-## Computing Environment
+## 💻 Computing Environment
 
 | Component | Reproduction (laptop) | 
 |---|---|
@@ -139,20 +139,20 @@ The following shows a running example of the Figure14.py script.：
 python code/Figure14.py
 ```
 
-## Data Description
+## 🗃️ Data — what it is and how to get it
 
 ### Freddie Mac Mortgage data(2004 to 2024)
-The Freddie Mac single-family loan-level dataset is a publicly available collection of residential mortgage origination and monthly performance data provided by Freddie Mac. It covers a substantial portion of the U.S. mortgage market over multiple decades, including loan characteristics (e.g., credit score, loan-to-value ratio, debt-to-income ratio), property details, and dynamic repayment behavior (e.g., prepayments and defaults). This dataset has become a benchmark for research on mortgage default prediction, prepayment modeling, and other related tasks in finance and econometrics. Due to its large scale, temporal depth, and real-world relevance, it is widely used to evaluate state-of-the-art forecasting models.
+The Freddie Mac single-family loan-level dataset is a publicly available collection of residential mortgage origination and monthly performance data provided by Freddie Mac(https://www.freddiemac.com/home).The detailed data dictionary and descriptive statistics is available from this website. It covers a substantial portion of the U.S. mortgage market over multiple decades, including loan characteristics (e.g., credit score, loan-to-value ratio, debt-to-income ratio), property details, and dynamic repayment behavior (e.g., prepayments and defaults). This dataset has become a benchmark for research on mortgage default prediction, prepayment modeling, and other related tasks in finance and econometrics. Due to its large scale, temporal depth, and real-world relevance, it is widely used to evaluate state-of-the-art forecasting models.
 
--The download link for the raw data is provided here:[Freddie Mac](https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset)
+-The download link for the raw data is provided here:[Freddie Mac Download](https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset)
 
-### Intermediary data files
+### Intermediary Datasets
 The data/ folder contains all data used in the experiments and testing. Readers do not need to generate all data files from scratch; instead, they can directly utilize the intermediate data located in the `data/` folder to execute all code and generate the corresponding outputs.
 
 ---
 
 
-## Paper Tables and Figures — Output Mapping
+## 📊 Which code produces which outputs
 
 | Paper Item | Script | Brief Description |
 |---|---|---|
@@ -182,7 +182,7 @@ The data/ folder contains all data used in the experiments and testing. Readers 
 
 ---
 
-## Expected Runtimes
+## ⏱️ Expected Runtimes
 
 | Script | Laptop | 
 |---|---|
@@ -209,6 +209,10 @@ The data/ folder contains all data used in the experiments and testing. Readers 
 | **Total (from scratch)** | **4hours** | 
 
 ---
+
+## ⚙️ Special setup requirements
+
+None
 
 ## References
 
