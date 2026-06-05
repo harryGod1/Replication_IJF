@@ -60,7 +60,7 @@
 
 | Component | Reproduction (laptop) | 
 |---|---|
-| **OS** | Any(tested on Centos and windows10) |
+| **OS** | Any (tested on Centos and windows10) |
 | **CPU** | Intel Core i7 |
 | **GPU** | NVIDIA GeForce GTX 1650 |
 | **RAM** | 32 GB |
@@ -124,7 +124,7 @@ git lfs install
 
 ```bash
 git lfs clone https://github.com/harryGod1/Replication_IJF.git
-#reader can just use the traditional command: git clone https://github.com/harryGod1/Replication_IJF.git. Mannually download the big data from github and put them #to data/2259/ folder
+#reader can also use the traditional command: git clone https://github.com/harryGod1/Replication_IJF.git. Mannually download the big data from github and put them #to data/2259/ folder
 cd Replication_IJF
 pip install -r env/requirements.txt
 pip install lifelines==0.27.8
