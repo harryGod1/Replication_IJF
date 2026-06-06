@@ -4656,7 +4656,7 @@ for prs in range(n_vintage):
     from sklearn.metrics import roc_auc_score
     from sklearn.metrics import precision_recall_curve
     from sklearn.metrics import auc
-    csvFile.close()
+
     #lstm washout 3lstm attention deli testing
     if(int(ym%100)<10):
         path = os.getcwd()
@@ -4714,7 +4714,7 @@ for prs in range(n_vintage):
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
     show_survival_curve = False
-
+    csvFile.close()
     class SparseData():
 
         def shuffle(self):
