@@ -60,7 +60,7 @@
 
 | Component | Reproduction (laptop) | 
 |---|---|
-| **OS** | Any (tested on Centos and windows10) |
+| **OS** | Any (tested on Centos and Windows10) |
 | **CPU** | Intel Core i7 |
 | **GPU** | NVIDIA GeForce GTX 1650 |
 | **RAM** | 32 GB |
