@@ -7215,8 +7215,13 @@ for prs in range(n_vintage):
         
 #print('Delong Test for AUC prediction ====================================')
 
+<<<<<<< HEAD
 
 
+=======
+     
+#The code presented here enables readers to train and validate the model independently.
+>>>>>>> bc50ddd0294faf8000ce469f8b3043db3a52b69d
 #The following code provides an example of validating the output results. Readers may adapt it as needed.
 ########################################################################################################
 #Delong test for DTSM Version
