@@ -7224,7 +7224,7 @@ for prs in range(n_vintage):
         
 #print('Delong Test for AUC prediction ====================================')
 
-#The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.         
+     
 #The code presented here enables readers to train and validate the model independently.
 #The following code provides an example of validating the output results. Readers may adapt it as needed.
 ########################################################################################################
@@ -7263,7 +7263,7 @@ class DelongTest():
         return V10, V01
  
     def _get_S_entry(self,V_A, V_B, auc_A, auc_B)->float:
-        if(len(V_A) == 1):#报错的原因就是因为整个数据集里只有一个defauly
+        if(len(V_A) == 1):
             return 0
         else:
             return 1/(len(V_A)-1) * sum([(a-auc_A)*(b-auc_B) for a,b in zip(V_A, V_B)])
