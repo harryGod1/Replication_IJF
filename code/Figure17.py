@@ -2183,13 +2183,10 @@ for prs in range(1):
 
         result = []
         for item in reader:
-            data = []
-
-            #if reader.line_num == 1:
-                #continue
+            dt = []
             for i in range(3):
-                data.append(item[i])
-            result.append(data)
+                dt.append(item[i])
+            result.append(dt)
 
         csvFile.close()
         df = pd.DataFrame(result)
@@ -3053,13 +3050,10 @@ for prs in range(1):
 
         result = []
         for item in reader:
-            data = []
-
-            #if reader.line_num == 1:
-                #continue
+            dt = []
             for i in range(3):
-                data.append(item[i])
-            result.append(data)
+                dt.append(item[i])
+            result.append(dt)
 
         csvFile.close()
         df = pd.DataFrame(result)
@@ -4490,13 +4484,10 @@ for prs in range(1):
 
         result = []
         for item in reader:
-            data = []
-
-            #if reader.line_num == 1:
-                #continue
+            dt = []
             for i in range(3):
-                data.append(item[i])
-            result.append(data)
+                dt.append(item[i])
+            result.append(dt)
 
         csvFile.close()
         df = pd.DataFrame(result)
@@ -4677,13 +4668,10 @@ for prs in range(1):
 
         result = []
         for item in reader:
-            data = []
-
-            #if reader.line_num == 1:
-                #continue
+            dt = []
             for i in range(3):
-                data.append(item[i])
-            result.append(data)
+                dt.append(item[i])
+            result.append(dt)
 
         csvFile.close()
         df = pd.DataFrame(result)
@@ -7296,13 +7284,10 @@ for prs in range(1):
 
         result = []
         for item in reader:
-            data = []
-
-            #if reader.line_num == 1:
-                #continue
+            dt = []
             for i in range(3):
-                data.append(item[i])
-            result.append(data)
+                dt.append(item[i])
+            result.append(dt)
 
         csvFile.close()
         df = pd.DataFrame(result)
@@ -9825,13 +9810,10 @@ for prs in range(1):
 
         result = []
         for item in reader:
-            data = []
-
-            #if reader.line_num == 1:
-                #continue
+            dt = []
             for i in range(3):
-                data.append(item[i])
-            result.append(data)
+                dt.append(item[i])
+            result.append(dt)
 
         csvFile.close()
         df = pd.DataFrame(result)
@@ -12196,13 +12178,10 @@ for prs in range(1):
 
         result = []
         for item in reader:
-            data = []
-
-            #if reader.line_num == 1:
-                #continue
+            dt = []
             for i in range(3):
-                data.append(item[i])
-            result.append(data)
+                dt.append(item[i])
+            result.append(dt)
 
         csvFile.close()
         df = pd.DataFrame(result)

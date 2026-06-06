@@ -2503,13 +2503,10 @@ for prs in range(1):
 
             result = []
             for item in reader:
-                data = []
-                # 忽略第一行
-                #if reader.line_num == 1:
-                    #continue
+                dt = []
                 for i in range(3):
-                    data.append(item[i])
-                result.append(data)
+                    dt.append(item[i])
+                result.append(dt)
 
             csvFile.close()
             df = pd.DataFrame(result)
@@ -3349,13 +3346,10 @@ for prs in range(1):
 
             result = []
             for item in reader:
-                data = []
-                # 忽略第一行
-                #if reader.line_num == 1:
-                    #continue
+                dt = []
                 for i in range(3):
-                    data.append(item[i])
-                result.append(data)
+                    dt.append(item[i])
+                result.append(dt)
 
             csvFile.close()
             df = pd.DataFrame(result)
@@ -4743,13 +4737,10 @@ for prs in range(1):
 
             result = []
             for item in reader:
-                data = []
-                # 忽略第一行
-                #if reader.line_num == 1:
-                    #continue
+                dt = []
                 for i in range(3):
-                    data.append(item[i])
-                result.append(data)
+                    dt.append(item[i])
+                result.append(dt)
 
             csvFile.close()
             df = pd.DataFrame(result)
@@ -4917,13 +4908,10 @@ for prs in range(1):
 
             result = []
             for item in reader:
-                data = []
-                # 忽略第一行
-                #if reader.line_num == 1:
-                    #continue
+                dt = []
                 for i in range(3):
-                    data.append(item[i])
-                result.append(data)
+                    dt.append(item[i])
+                result.append(dt)
 
             csvFile.close()
             df = pd.DataFrame(result)
@@ -7525,13 +7513,10 @@ for prs in range(1):
 
             result = []
             for item in reader:
-                data = []
-                # 忽略第一行
-                #if reader.line_num == 1:
-                    #continue
+                dt = []
                 for i in range(3):
-                    data.append(item[i])
-                result.append(data)
+                    dt.append(item[i])
+                result.append(dt)
 
             csvFile.close()
             df = pd.DataFrame(result)
@@ -10029,13 +10014,11 @@ for prs in range(1):
 
             result = []
             for item in reader:
-                data = []
-                # 忽略第一行
-                #if reader.line_num == 1:
-                    #continue
+                dt = []
+
                 for i in range(3):
-                    data.append(item[i])
-                result.append(data)
+                    dt.append(item[i])
+                result.append(dt)
 
             csvFile.close()
             df = pd.DataFrame(result)
@@ -12383,19 +12366,13 @@ for prs in range(1):
 
             csvFile = open(new_path + "/data/2259/lstm_forecast_exposure(22to24).csv", "r",encoding='gb18030', errors='ignore')
             reader = csv.reader(csvFile)
-
-
             result = []
             for item in reader:
-                data = []
-                # 忽略第一行
-                #if reader.line_num == 1:
-                    #continue
-                for i in range(3):
-                    data.append(item[i])
-                result.append(data)
+                dt = []
 
-            csvFile.close()
+                for i in range(3):
+                    dt.append(item[i])
+                result.append(dt)
             df = pd.DataFrame(result)
             print("LSTM:")
             print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
@@ -12407,6 +12384,7 @@ for prs in range(1):
         
 #The code presented here enables readers to train and validate the model independently.
 ##############################################
+csvFile.close()
 
 #draw the curve of forecast of default rate from 2022 to 2024
 x_axis = []

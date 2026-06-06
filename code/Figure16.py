@@ -3257,7 +3257,17 @@ for prs in range(n_vintage):
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
     show_survival_curve = False
-
+    pseudo_dtsm = []
+    pseudo_dtsm_mev = []
+    pseudo_deephit = []
+    pseudo_deephit_mev = []
+    pseudo_3lstm = []
+    pseudo_3lstm_mev = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/AUC_MEV(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     class SparseData():
 
         def shuffle(self):
@@ -4798,32 +4808,13 @@ for prs in range(n_vintage):
             self.train_log_txt.write(log)
             self.train_log_txt.close()
 
-    pseudo_dtsm = []
-    pseudo_dtsm_mev = []
-    pseudo_deephit = []
-    pseudo_deephit_mev = []
-    pseudo_3lstm = []
-    pseudo_3lstm_mev = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/AUC_MEV(04to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(12):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)    
     df = pd.DataFrame(result)
-
     pseudo_dtsm = df.iloc[2:50,1]
     pseudo_dtsm_mev = df.iloc[2:50,3]
     pseudo_deephit = df.iloc[2:50,5]
@@ -4872,7 +4863,7 @@ for prs in range(n_vintage):
     lag_deli = []
     current_deli = []
     final_data = []
-
+    csvFile.close()
     x = []
     y = []
     b2 = []
@@ -5115,7 +5106,18 @@ for prs in range(n_vintage):
         new_path = path.replace("\\","/")
         TEST_FILE = new_path + "/data/2259/" + "test" + str(int(ym%100)) + "_" + str(q) + "_unbalanced_dtsm_x_Deli.txt"
     RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
+    pseudo_dtsm2 = []
+    pseudo_dtsm_mev2 = []
+    pseudo_deephit2 = []
+    pseudo_deephit_mev2 = []
+    pseudo_3lstm2 = []
+    pseudo_3lstm_mev2 = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
 
+    csvFile = open(new_path + "/data/2259/AUC_MEV(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     if(prs<48):     
         path = os.getcwd()
         new_path = path.replace("\\","/")
@@ -5343,7 +5345,6 @@ for prs in range(n_vintage):
     for i in range(1,remaining):
         all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 0
     cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
-
 
 
     bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
@@ -5600,32 +5601,13 @@ for prs in range(n_vintage):
     for i in range(len(unbalanced_prediction_deephit)):
         brier_score = brier_score + (unbalanced_prediction_deephit[i]-int(true_label[i][1]))**2
         
-    pseudo_dtsm2 = []
-    pseudo_dtsm_mev2 = []
-    pseudo_deephit2 = []
-    pseudo_deephit_mev2 = []
-    pseudo_3lstm2 = []
-    pseudo_3lstm_mev2 = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/AUC_MEV(16to24).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(12):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_dtsm2 = df.iloc[2:36,1]
     pseudo_dtsm_mev2 = df.iloc[2:36,3]
     pseudo_deephit2 = df.iloc[2:36,5]
@@ -5654,6 +5636,7 @@ for prs in range(n_vintage):
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
     show_survival_curve = False
+    csvFile.close()
 
     class SparseData():
 
@@ -12028,9 +12011,7 @@ for prs in range(n_vintage):
         q = 1
         ym += 1
      
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently.
+
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ########################################################################################################
     #index_g = prs

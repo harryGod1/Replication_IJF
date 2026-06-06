@@ -1656,7 +1656,17 @@ for prs in range(n_vintage):
     import math
     from sklearn import preprocessing
     import time
-
+    pseudo_dtsm = []
+    pseudo_gam = []
+    pseudo_cox = []
+    pseudo_weibull = []
+    pseudo_deephit = []
+    pseudo_3lstm = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/AUC(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
 
     #computational time
     T1 = time.perf_counter()
@@ -1865,18 +1875,6 @@ for prs in range(n_vintage):
             #print('after_delete_x:',x[len(x)-1])
             #print('after_delete_y:',y[len(y)-1])
 
-
-    #print(x2.shape)
-    #print(y2.shape)
-
-
-
-    #print(len(x),len(x[0]))
-
-    #最终版本Linear DTSM代码 -- 给类别变量编码的部分
-    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    #For delinquency version
-    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for i in range(len(x)):
         #FTHF:N=1,Y=2,9=3
         #OS:P=1,I=2,S=3,9=4
@@ -2251,39 +2249,18 @@ for prs in range(n_vintage):
         if(x2[i][8]==99):
             x2[i][8]=0.5   
 
-    #最终版本Linear DTSM代码 -- 测试每个季度模型的部分
+
     from sklearn import preprocessing
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import roc_auc_score
     from sklearn.metrics import precision_recall_curve
     from sklearn.metrics import auc
-
-    pseudo_dtsm = []
-    pseudo_gam = []
-    pseudo_cox = []
-    pseudo_weibull = []
-    pseudo_deephit = []
-    pseudo_3lstm = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/AUC(04to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(12):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_dtsm = df.iloc[2:50,1]
     pseudo_gam = df.iloc[2:50,3]
     pseudo_cox = df.iloc[2:50,5]
@@ -2349,7 +2326,7 @@ for prs in range(n_vintage):
 
     T3 = time.perf_counter()
     #print('Forecasting Time:' , ((T3 - T2)))
-
+    csvFile.close()
     #dtsm+in_time
     general_auc = auc_score
 
@@ -4195,7 +4172,17 @@ for prs in range(n_vintage):
             self.batch_id = self.batch_id + batch_size
             self.batch_all_id = self.batch_all_id + all_count
             return np.array(batch_data), np.array(batch_data2),np.array(batch_labels), np.array(batch_seqlen), np.array(batch_labels2)
-
+    pseudo_dtsm2 = []
+    pseudo_gam2 = []
+    pseudo_cox2 = []
+    pseudo_weibull2 = []
+    pseudo_deephit2 = []
+    pseudo_3lstm2 = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/AUC(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     class biSparseData():
         def __init__(self, INPUT_FILE, discount):
             random.seed(time.time())
@@ -5243,34 +5230,12 @@ for prs in range(n_vintage):
             self.train_log_txt = open(self.train_log_txt_filename, 'a')
             self.train_log_txt.write(log)
             self.train_log_txt.close()
-
-
-    pseudo_dtsm2 = []
-    pseudo_gam2 = []
-    pseudo_cox2 = []
-    pseudo_weibull2 = []
-    pseudo_deephit2 = []
-    pseudo_3lstm2 = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/AUC(16to24).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(12):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_dtsm2 = df.iloc[2:36,1]
     pseudo_gam2 = df.iloc[2:36,3]
     pseudo_cox2 = df.iloc[2:36,5]
@@ -5319,7 +5284,7 @@ for prs in range(n_vintage):
     lag_deli = []
     current_deli = []
     final_data = []
-
+    csvFile.close()
     x = []
     y = []
     b2 = []
@@ -8075,9 +8040,6 @@ for prs in range(n_vintage):
         q = 1
         ym += 1
     
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently.
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ########################################################################################################
     #index_g = prs
@@ -8172,9 +8134,9 @@ plt.subplot(1, 2, 1)
 ax1 = plt.gca()
 ax1.set_ylim([0.5,1])
 plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
-plt.plot(x_axis,pseudo_gam.astype(float),'red',label='Linear DTSM + MEVS',linestyle='--')
-plt.plot(x_axis,pseudo_cox.astype(float),'grey',label='DeepHit' )
-plt.plot(x_axis,pseudo_weibull.astype(float),'green',label='DeepHit + MEVs')
+plt.plot(x_axis,pseudo_gam.astype(float),'red',label='GAM',linestyle='--')
+plt.plot(x_axis,pseudo_cox.astype(float),'grey',label='Cox PH' )
+plt.plot(x_axis,pseudo_weibull.astype(float),'green',label='Weilbull')
 plt.plot(x_axis,pseudo_deephit.astype(float),'grey',label='DeepHit',linestyle='--')
 plt.plot(x_axis,pseudo_3lstm.astype(float),'black',label='3LSTM',linewidth=2)
 
@@ -8199,9 +8161,9 @@ plt.subplot(1, 2, 2)
 ax1 = plt.gca()
 ax1.set_ylim([0.5,1])
 plt.plot(x_axis,pseudo_dtsm2.astype(float),'blue',label='Linear DTSM')
-plt.plot(x_axis,pseudo_gam2.astype(float),'red',label='Linear DTSM + MEVS',linestyle='--')
-plt.plot(x_axis,pseudo_cox2.astype(float),'grey',label='DeepHit' )
-plt.plot(x_axis,pseudo_weibull2.astype(float),'green',label='DeepHit + MEVs')
+plt.plot(x_axis,pseudo_gam2.astype(float),'red',label='GAM',linestyle='--')
+plt.plot(x_axis,pseudo_cox2.astype(float),'grey',label='Cox PH' )
+plt.plot(x_axis,pseudo_weibull2.astype(float),'green',label='Weilbull')
 plt.plot(x_axis,pseudo_deephit2.astype(float),'grey',label='DeepHit',linestyle='--')
 plt.plot(x_axis,pseudo_3lstm2.astype(float),'black',label='3LSTM',linewidth=2)
 

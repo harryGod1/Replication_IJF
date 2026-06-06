@@ -483,8 +483,17 @@ for prs in range(n_vintage):
     import math
     import matplotlib.pyplot as plt
     import statistics
-
     from sklearn import preprocessing
+    pseudo_washout = []
+    pseudo_washout_attention = []
+    pseudo_nowashout_attention = []
+    pseudo_attention_deli = []
+    pseudo_3lstm_attention_deli = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/Brier_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     TRAING_TIME = 15
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
@@ -1911,31 +1920,13 @@ for prs in range(n_vintage):
             self.train_log_txt.write(log)
             self.train_log_txt.close()
             
-    pseudo_washout = []
-    pseudo_washout_attention = []
-    pseudo_nowashout_attention = []
-    pseudo_attention_deli = []
-    pseudo_3lstm_attention_deli = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/Brier_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(10):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_washout = df.iloc[2:50,1]
     pseudo_washout_attention = df.iloc[2:50,3]
     pseudo_nowashout_attention = df.iloc[2:50,5]
@@ -1965,7 +1956,7 @@ for prs in range(n_vintage):
     ALPHA = 1.2 # coefficient for cross entropy
     BETA = 0.2 # coefficient for anlp
     input_file="2259" #toy dataset
-
+    csvFile.close()
     #if len(sys.argv) < 2:
     #    print("Please input learning rate. ex. 0.0001")
     #    sys.exit(0)
@@ -2002,7 +1993,16 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
-
+    pseudo_washout2 = []
+    pseudo_washout_attention2 = []
+    pseudo_nowashout_attention2 = []
+    pseudo_attention_deli2 = []
+    pseudo_3lstm_attention_deli2 = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/Brier_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     #Forecast with no deliquency
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
     #use the second copy of the lstm code
@@ -2583,35 +2583,15 @@ for prs in range(n_vintage):
     for i in range(len(unbalanced_prediction_lstm_washout)):
         brier_score = brier_score + (unbalanced_prediction_lstm_washout[i]-int(true_label[i][1]))**2
     #print('LSTM with washout brier score: ',brier_score/len(unbalanced_prediction_lstm_washout))
-
-
     #pseudo_washout.append(brier_score/len(unbalanced_prediction_lstm_washout))
     
-    pseudo_washout2 = []
-    pseudo_washout_attention2 = []
-    pseudo_nowashout_attention2 = []
-    pseudo_attention_deli2 = []
-    pseudo_3lstm_attention_deli2 = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/Brier_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(10):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_washout2 = df.iloc[2:36,1]
     pseudo_washout_attention2 = df.iloc[2:36,3]
     pseudo_nowashout_attention2 = df.iloc[2:36,5]
@@ -2653,7 +2633,7 @@ for prs in range(n_vintage):
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
     show_survival_curve = False
-
+    csvFile.close()
     class SparseData():
 
         def shuffle(self):
@@ -7181,9 +7161,7 @@ for prs in range(n_vintage):
         q = 1
         ym += 1
      
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently.
+
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ########################################################################################################
     #index_g = prs

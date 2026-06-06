@@ -267,6 +267,16 @@ for prs in range(n_vintage):
         #print(x[0][5])
         #print(len(x),len(x[0]))
         scaler = preprocessing.StandardScaler().fit(x)
+        pseudo_washout = []
+        pseudo_washout_attention = []
+        pseudo_nowashout_attention = []
+        pseudo_attention_deli = []
+        pseudo_3lstm_attention_deli = []
+        path = os.getcwd()
+        new_path = path.replace("\\","/")
+        csvFile = open(new_path + "/data/2259/PRS_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
+        reader = csv.reader(csvFile)
+        result = []
     else:
         path = os.getcwd()
         new_path = path.replace("\\","/")
@@ -465,32 +475,12 @@ for prs in range(n_vintage):
         #print(x[0][5])
         #print(len(x),len(x[0]))
         scaler = preprocessing.StandardScaler().fit(x)
-
-    pseudo_washout = []
-    pseudo_washout_attention = []
-    pseudo_nowashout_attention = []
-    pseudo_attention_deli = []
-    pseudo_3lstm_attention_deli = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/PRS_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(11):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_washout = df.iloc[2:50,2]
     pseudo_washout_attention = df.iloc[2:50,4]
     pseudo_nowashout_attention = df.iloc[2:50,6]
@@ -513,8 +503,8 @@ for prs in range(n_vintage):
     import math
     import matplotlib.pyplot as plt
     import statistics
-
     from sklearn import preprocessing
+    csvFile.close()
     TRAING_TIME = 15
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
@@ -2615,13 +2605,22 @@ for prs in range(n_vintage):
     from sklearn.compose import ColumnTransformer 
     import string
     import math
-
     from sklearn import preprocessing
+    pseudo_washout2 = []
+    pseudo_washout_attention2 = []
+    pseudo_nowashout_attention2 = []
+    pseudo_attention_deli2 = []
+    pseudo_3lstm_attention_deli2 = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/PRS_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     TRAING_TIME = 15
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
     show_survival_curve = False
-    #导入数据和处理阶段先做标准化处理！！！！！别等到批次读取数据的时候再做处理
+
     class SparseData():
 
         def shuffle(self):
@@ -4647,31 +4646,13 @@ for prs in range(n_vintage):
     #pseudo_attention_deli.append(RUNNING_MODEL.load(meta,ckpt,step))
 
     
-    pseudo_washout2 = []
-    pseudo_washout_attention2 = []
-    pseudo_nowashout_attention2 = []
-    pseudo_attention_deli2 = []
-    pseudo_3lstm_attention_deli2 = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/PRS_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(11):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_washout2 = df.iloc[2:36,2]
     pseudo_washout_attention2 = df.iloc[2:36,4]
     pseudo_nowashout_attention2 = df.iloc[2:36,6]
@@ -4736,12 +4717,12 @@ for prs in range(n_vintage):
     import signal
     import math
     import matplotlib.pyplot as plt
-
     from sklearn import preprocessing
     TRAING_TIME = 15
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
     show_survival_curve = False
+    csvFile.close()
 
     class SparseData():
 
@@ -7177,9 +7158,7 @@ for prs in range(n_vintage):
         q = 1
         ym += 1
      
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently.
+
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ########################################################################################################
     #index_g = prs

@@ -1799,6 +1799,10 @@ for i in range(len(x)):
 #print(x[0][5])
 scaler = preprocessing.StandardScaler().fit(x)
 
+path = os.getcwd()
+new_path = path.replace("\\","/")
+TEST_FILE = new_path + "/data/2259" + "/train_test_all_dtsm_x_forecast_Deli_random_debug0.txt"
+
 #description for the dataset
 from sklearn import preprocessing
 import seaborn as sns
@@ -1812,8 +1816,5 @@ print("======================================================================")
 print("The descriptive statistics of the dataset used in analysis (2004-2013):")
 print("\n")  
 
-path = os.getcwd()
-new_path = path.replace("\\","/")
-TEST_FILE = new_path + "/data/2259" + "/train_test_all_dtsm_x_forecast_Deli_random_debug0.txt"
 RUNNING_MODEL.test_data_win = SparseData(TEST_FILE, True, False,1, 512)
 RUNNING_MODEL.test_data_win.next(RUNNING_MODEL.BATCH_SIZE)

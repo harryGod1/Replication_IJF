@@ -2167,7 +2167,17 @@ for prs in range(n_vintage):
             #print('after_delete_seq:',final_data[len(final_data)-1])
             #print('after_delete_x:',x2[len(x2)-1])
             #print('after_delete_y:',y2[len(y2)-1])
-
+    pseudo_dtsm = []
+    pseudo_gam = []
+    pseudo_cox = []
+    pseudo_weibull = []
+    pseudo_deephit = []
+    pseudo_3lstm = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/Brier(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     count_len = 0
     last_age = 0
     is_nonzero = 0
@@ -2420,32 +2430,13 @@ for prs in range(n_vintage):
         brier_score = brier_score + (time_auc[i]-y2[i])**2
     #print('DTSM Brier Score: ',brier_score/len(time_auc))
 
-    pseudo_dtsm = []
-    pseudo_gam = []
-    pseudo_cox = []
-    pseudo_weibull = []
-    pseudo_deephit = []
-    pseudo_3lstm = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/Brier(04to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(12):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_dtsm = df.iloc[2:50,1]
     pseudo_gam = df.iloc[2:50,3]
     pseudo_cox = df.iloc[2:50,5]
@@ -2501,7 +2492,7 @@ for prs in range(n_vintage):
     import string
     import math
     import pandas as pd
-
+    csvFile.close()
 
     #data for forecast
     if(prs<48):
@@ -5510,7 +5501,17 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
-
+    pseudo_dtsm2 = []
+    pseudo_gam2 = []
+    pseudo_cox2 = []
+    pseudo_weibull2 = []
+    pseudo_deephit2 = []
+    pseudo_3lstm2 = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/Brier(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     #DeepHit
     #Forecast
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
@@ -6016,35 +6017,15 @@ for prs in range(n_vintage):
     for i in range(len(unbalanced_prediction_deephit)):
         brier_score = brier_score + (unbalanced_prediction_deephit[i]-int(true_label[i][1]))**2
     #print('Deephit brier score: ',brier_score/len(unbalanced_prediction_deephit))
-    
     #pseudo_deephit.append(brier_score/len(unbalanced_prediction_deephit))
     
-    pseudo_dtsm2 = []
-    pseudo_gam2 = []
-    pseudo_cox2 = []
-    pseudo_weibull2 = []
-    pseudo_deephit2 = []
-    pseudo_3lstm2 = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/Brier(16to24).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(12):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_dtsm2 = df.iloc[2:36,1]
     pseudo_gam2 = df.iloc[2:36,3]
     pseudo_cox2 = df.iloc[2:36,5]
@@ -6087,7 +6068,7 @@ for prs in range(n_vintage):
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
     show_survival_curve = False
-
+    csvFile.close()
     class SparseData():
 
         def shuffle(self):
@@ -8078,9 +8059,7 @@ for prs in range(n_vintage):
         q = 1
         ym += 1
     
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently.
+
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ########################################################################################################
     #index_g = prs
@@ -8174,9 +8153,9 @@ plt.subplot(1, 2, 1)
 ax1 = plt.gca()
 ax1.set_ylim([0,0.0014])
 plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
-plt.plot(x_axis,pseudo_gam.astype(float),'red',label='Linear DTSM + MEVS',linestyle='--')
-plt.plot(x_axis,pseudo_cox.astype(float),'grey',label='DeepHit' )
-plt.plot(x_axis,pseudo_weibull.astype(float),'green',label='DeepHit + MEVs')
+plt.plot(x_axis,pseudo_gam.astype(float),'red',label='GAM',linestyle='--')
+plt.plot(x_axis,pseudo_cox.astype(float),'grey',label='Cox PH' )
+plt.plot(x_axis,pseudo_weibull.astype(float),'green',label='Weilbull')
 plt.plot(x_axis,pseudo_deephit.astype(float),'grey',label='DeepHit',linestyle='--')
 plt.plot(x_axis,pseudo_3lstm.astype(float),'black',label='3LSTM',linewidth=2)
 
@@ -8202,9 +8181,9 @@ plt.subplot(1, 2, 2)
 ax1 = plt.gca()
 ax1.set_ylim([0,0.0014])
 plt.plot(x_axis,pseudo_dtsm2.astype(float),'blue',label='Linear DTSM')
-plt.plot(x_axis,pseudo_gam2.astype(float),'red',label='Linear DTSM + MEVS',linestyle='--')
-plt.plot(x_axis,pseudo_cox2.astype(float),'grey',label='DeepHit' )
-plt.plot(x_axis,pseudo_weibull2.astype(float),'green',label='DeepHit + MEVs')
+plt.plot(x_axis,pseudo_gam2.astype(float),'red',label='GAM',linestyle='--')
+plt.plot(x_axis,pseudo_cox2.astype(float),'grey',label='Cox PH' )
+plt.plot(x_axis,pseudo_weibull2.astype(float),'green',label='Weibull')
 plt.plot(x_axis,pseudo_deephit2.astype(float),'grey',label='DeepHit',linestyle='--')
 plt.plot(x_axis,pseudo_3lstm2.astype(float),'black',label='3LSTM',linewidth=2)
 

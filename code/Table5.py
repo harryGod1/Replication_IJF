@@ -6649,6 +6649,14 @@ for prs in range(n_vintage):
             self.train_log_txt.write(log)
             self.train_log_txt.close()
 
+    test_data = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/statistical_test.csv", "r",encoding='gb18030', errors='ignore')
+
+    reader = csv.reader(csvFile)
+    result = []
+
     if(prs<48):
         from sklearn import preprocessing
         #f1 = open("./train_data.txt")
@@ -7053,27 +7061,11 @@ for prs in range(n_vintage):
         #print(x[0][5])
         #print(len(x),len(x[0]))
         scaler = preprocessing.StandardScaler().fit(x)
-
-    test_data = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/statistical_test.csv", "r",encoding='gb18030', errors='ignore')
-
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(5):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
-
+            dt.append(item[i])
+        result.append(dt)
     state_size = 16
     batch_size = 512
     #initial_extend8 + washout:40 + forecast + Batch_size:512 + State_size:16 + exclude exception!
@@ -7093,6 +7085,7 @@ for prs in range(n_vintage):
     BETA = 0.2 # coefficient for anlp
     input_file="2259" #toy dataset
 
+    csvFile.close()
     #if len(sys.argv) < 2:
     #    print("Please input learning rate. ex. 0.0001")
     #    sys.exit(0)
@@ -7172,9 +7165,7 @@ for prs in range(n_vintage):
         q = 1
         ym += 1
      
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently.
+   
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ########################################################################################################
     #index_g = prs
@@ -7224,8 +7215,8 @@ for prs in range(n_vintage):
         
 #print('Delong Test for AUC prediction ====================================')
 
-#The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.         
-#The code presented here enables readers to train and validate the model independently.
+
+
 #The following code provides an example of validating the output results. Readers may adapt it as needed.
 ########################################################################################################
 #Delong test for DTSM Version
@@ -7263,7 +7254,7 @@ class DelongTest():
         return V10, V01
  
     def _get_S_entry(self,V_A, V_B, auc_A, auc_B)->float:
-        if(len(V_A) == 1):#报错的原因就是因为整个数据集里只有一个defauly
+        if(len(V_A) == 1):
             return 0
         else:
             return 1/(len(V_A)-1) * sum([(a-auc_A)*(b-auc_B) for a,b in zip(V_A, V_B)])

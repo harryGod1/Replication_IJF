@@ -537,7 +537,11 @@ for prs in range(n_vintage):
             self.batch_id = self.batch_id + batch_size
             self.batch_all_id = self.batch_all_id + all_count
             return np.array(batch_data), np.array(batch_data2),np.array(batch_labels), np.array(batch_seqlen), np.array(batch_labels2)
-
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/summary.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     class biSparseData():
         def __init__(self, INPUT_FILE, discount):
             random.seed(time.time())
@@ -1495,27 +1499,12 @@ for prs in range(n_vintage):
             self.train_log_txt = open(self.train_log_txt_filename, 'a')
             self.train_log_txt.write(log)
             self.train_log_txt.close()
-
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/summary.csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(13):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()      
-    
-    
+            dt.append(item[i])
+        result.append(dt)
+    df = pd.DataFrame(result)    
     #3lstm standardscaler
     if(prs<48):
         path = os.getcwd()
@@ -1557,6 +1546,7 @@ for prs in range(n_vintage):
     lag_deli = []
     current_deli = []
     final_data = []
+    csvFile.close() 
 
     x = []
     y = []
@@ -2244,6 +2234,6 @@ print("======================================================================")
 print("Summary of results across models for both dataset periods:")
 print("\n")  
 
-df = pd.DataFrame(result)
+
 print("Summary:")
 print(df.to_string(index=False))

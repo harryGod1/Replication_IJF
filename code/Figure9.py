@@ -2586,8 +2586,17 @@ for prs in range(n_vintage):
     from sklearn.compose import ColumnTransformer 
     import string
     import math
-
     from sklearn import preprocessing
+    pseudo_washout = []
+    pseudo_washout_attention = []
+    pseudo_nowashout_attention = []
+    pseudo_attention_deli = []
+    pseudo_3lstm_attention_deli = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/AUC_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     TRAING_TIME = 15
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
@@ -4569,35 +4578,15 @@ for prs in range(n_vintage):
         #meta = new_path + "/saved_model/model16to21_gpu5_forecast_washout40_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
         #ckpt = new_path + "/saved_model/model16to21_gpu5_forecast_washout40_nodeli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     #step = 100000
-
-    
     #pseudo_washout_attention.append(RUNNING_MODEL.load(meta,ckpt,step))
     
-    pseudo_washout = []
-    pseudo_washout_attention = []
-    pseudo_nowashout_attention = []
-    pseudo_attention_deli = []
-    pseudo_3lstm_attention_deli = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/AUC_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(10):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_washout = df.iloc[2:50,1]
     pseudo_washout_attention = df.iloc[2:50,3]
     pseudo_nowashout_attention = df.iloc[2:50,5]
@@ -4615,11 +4604,21 @@ for prs in range(n_vintage):
     #use the second copy of the lstm code
     #remember to substract 8 also in count length of the crossentropy
     #import seaborn as sns
+    csvFile.close()
     from scipy import stats
     from sklearn.metrics import roc_auc_score
     from sklearn.metrics import precision_recall_curve
     from sklearn.metrics import auc
-
+    pseudo_washout2 = []
+    pseudo_washout_attention2 = []
+    pseudo_nowashout_attention2 = []
+    pseudo_attention_deli2 = []
+    pseudo_3lstm_attention_deli2 = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/AUC_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     ##lstm washout attention deli testing
     #if(int(ym%100)<10):
         #path = os.getcwd()
@@ -4642,44 +4641,8 @@ for prs in range(n_vintage):
         #new_path = path.replace("\\","/")
         #meta = new_path + "/saved_model/model16to21_gpu5_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
         #ckpt = new_path + "/saved_model/model16to21_gpu5_forecast_washout40_deli_random data_attention seq selfdot_noL2_512_16_exclude_exception" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
-    #step = 100000
-
-    
+    #step = 100000 
     #pseudo_attention_deli.append(RUNNING_MODEL.load(meta,ckpt,step))
-
-    
-    pseudo_washout2 = []
-    pseudo_washout_attention2 = []
-    pseudo_nowashout_attention2 = []
-    pseudo_attention_deli2 = []
-    pseudo_3lstm_attention_deli2 = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/AUC_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
-    for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
-        for i in range(10):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
-    df = pd.DataFrame(result)
-
-    pseudo_washout2 = df.iloc[2:36,1]
-    pseudo_washout_attention2 = df.iloc[2:36,3]
-    pseudo_nowashout_attention2 = df.iloc[2:36,5]
-    pseudo_attention_deli2 = df.iloc[2:36,7]
-    pseudo_3lstm_attention_deli2 = df.iloc[2:36,9]
-
-    
 
 
     print('LSTM+Washout+3LSTM Attention+Deli...')
@@ -4693,7 +4656,7 @@ for prs in range(n_vintage):
     from sklearn.metrics import roc_auc_score
     from sklearn.metrics import precision_recall_curve
     from sklearn.metrics import auc
-
+    csvFile.close()
     #lstm washout 3lstm attention deli testing
     if(int(ym%100)<10):
         path = os.getcwd()
@@ -4721,8 +4684,6 @@ for prs in range(n_vintage):
     #pseudo_3lstm_attention_deli.append(RUNNING_MODEL.load(meta,ckpt,step))
 
 
-    
-
     print('LSTM+NoWashout+Attention...')
 
     import tensorflow.compat.v1 as tf
@@ -4737,8 +4698,18 @@ for prs in range(n_vintage):
     import signal
     import math
     import matplotlib.pyplot as plt
-
     from sklearn import preprocessing
+    for item in reader:
+        dt = []
+        for i in range(10):
+            dt.append(item[i])
+        result.append(dt)
+    df = pd.DataFrame(result)
+    pseudo_washout2 = df.iloc[2:36,1]
+    pseudo_washout_attention2 = df.iloc[2:36,3]
+    pseudo_nowashout_attention2 = df.iloc[2:36,5]
+    pseudo_attention_deli2 = df.iloc[2:36,7]
+    pseudo_3lstm_attention_deli2 = df.iloc[2:36,9]
     TRAING_TIME = 15
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
@@ -7177,9 +7148,6 @@ for prs in range(n_vintage):
         q = 1
         ym += 1
      
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently.
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ########################################################################################################
     #index_g = prs

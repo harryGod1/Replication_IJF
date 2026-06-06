@@ -480,6 +480,13 @@ class SparseData():
         self.batch_all_id = self.batch_all_id + all_count
         return np.array(batch_data), np.array(batch_data2),np.array(batch_labels), np.array(batch_seqlen), np.array(batch_labels2)
 
+path = os.getcwd()
+new_path = path.replace("\\","/")
+
+csvFile = open(new_path + "/data/2259/washout phases.csv", "r",encoding='gb18030', errors='ignore')
+reader = csv.reader(csvFile)
+result = []
+
 class biSparseData():
     def __init__(self, INPUT_FILE, discount):
         random.seed(time.time())
@@ -1639,22 +1646,13 @@ class BASE_RNN():
 
         return auc_score,mean_loss
 
-path = os.getcwd()
-new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/data/2259/washout phases.csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
-
-
-result = []
 for item in reader:
-    data = []
+    dt = []
 
-    #if reader.line_num == 1:
-        #continue
     for i in range(3):
-        data.append(item[i])
-    result.append(data)
+        dt.append(item[i])
+    result.append(dt)
 
 csvFile.close()
 
@@ -1720,8 +1718,7 @@ washout_AUC = []
 washout_LLR = []
 
 
-#The experimental results can be reproduced by running washout.py (located in the training directory) to perform model training under different washout step configurations.
-#Model weights are saved in the saved_model folder within the saved directory.
+
 #The following code provides an example of loading model weights and validating the output results. Readers may adapt it as needed.
 
 ###########################################################
@@ -1755,14 +1752,9 @@ washout_LLR = []
         #meta = new_path + "/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
         #ckpt = new_path + "/saved_model/model_forecast_washout" + str(phase) + "_noL2_512_8_exclude_exception" + "/drsa32_512_8_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
     #step = 21000
+   
     
-    
-    #RUNNING_MODEL.results(meta,ckpt,step)
-    
-
-#The code presented here enables readers to train and validate the model independently, 
-#producing the output results that are summarized for each washout step in this work.
-#table4
+#RUNNING_MODEL.results(meta,ckpt,step)
 #print("==============================================")
 #print("The results from the model may vary slightly on different computers and configurations, but this will not affect the conclusions of the experiment.")
 #print("A higher AUC and a lower -log-likelihood indicate better model performance.")
@@ -1772,6 +1764,10 @@ washout_LLR = []
 #print("20 steps: ",f"{(washout_AUC[1]):.5f}",f"{(washout_LLR[1]):.5f}")
 #print("30 steps: ",f"{(washout_AUC[2]):.5f}",f"{(washout_LLR[2]):.5f}")
 #print("40 steps: ",f"{(washout_AUC[3]):.5f}",f"{(washout_LLR[3]):.5f}")
+
+
+
+#producing the output results that are summarized in this work.
 
 print("\n")  
 print("======================================================================")

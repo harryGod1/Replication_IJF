@@ -727,6 +727,13 @@ for prs in range(n_vintage):
             self.batch_all_id = self.batch_all_id + all_count
             return np.array(batch_data), np.array(batch_data2),np.array(batch_labels), np.array(batch_seqlen), np.array(batch_labels2)
 
+    pseudo_3lstm = []
+    pseudo_3lstm_unbalanced = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/PRS_ablation.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     class biSparseData():
         def __init__(self, INPUT_FILE, discount):
             random.seed(time.time())
@@ -1742,29 +1749,12 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
-
-    pseudo_3lstm = []
-    pseudo_3lstm_unbalanced = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/PRS_ablation.csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt= []
         for i in range(5):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
     pseudo_3lstm = df.iloc[2:36,2]
     pseudo_3lstm_unbalanced = df.iloc[2:36,4]
     
@@ -1778,6 +1768,7 @@ for prs in range(n_vintage):
     from sklearn.metrics import roc_auc_score
     from sklearn.metrics import precision_recall_curve
     from sklearn.metrics import auc
+    csvFile.close()
 
     #lstm washout 3lstm attention deli testing
     if(int(ym%100)<10):
@@ -2015,7 +2006,13 @@ for prs in range(n_vintage):
         all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 40
     cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
 
-
+    score_3lstm = []
+    score_3lstm_unbalanced = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/AUC_ablation.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
 
     bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
         [cross_entropy2,survival_rate0,RUNNING_MODEL.t2,true_label2,predicted_label2,seqlen2,all_count],
@@ -2267,33 +2264,14 @@ for prs in range(n_vintage):
     for i in range(len(unbalanced_prediction_3lstm_attention_deli)):
         brier_score = brier_score + (unbalanced_prediction_3lstm_attention_deli[i]-int(true_label[i][1]))**2
     #print('3lstm_attention_deli brier score: ',brier_score/len(unbalanced_prediction_3lstm_attention_deli))
-    
-    score_3lstm = []
-    score_3lstm_unbalanced = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-
-    csvFile = open(new_path + "/data/2259/AUC_ablation.csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-
-
-    result = []
     for item in reader:
-        data = []
-
-        #if reader.line_num == 1:
-            #continue
+        dt = []
         for i in range(4):
-            data.append(item[i])
-        result.append(data)
-
-    csvFile.close()
+            dt.append(item[i])
+        result.append(dt)
     df = pd.DataFrame(result)
-
-
     score_3lstm = df.iloc[2:36,1]
-    score_3lstm_unbalanced = df.iloc[2:36,3]
-    
+    score_3lstm_unbalanced = df.iloc[2:36,3]  
     print('LSTM+unbalanced_ablation+Washout+3LSTM Attention+Deli...')
     #data for forecast
     path = os.getcwd()
@@ -2331,7 +2309,7 @@ for prs in range(n_vintage):
     lag_deli = []
     current_deli = []
     final_data = []
-
+    csvFile.close()
     x = []
     y = []
     b2 = []
@@ -2984,9 +2962,7 @@ for prs in range(n_vintage):
         q = 1
         ym += 1
     
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently.
+
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ########################################################################################################
     #index_g = prs
