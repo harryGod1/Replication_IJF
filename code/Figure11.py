@@ -1665,7 +1665,7 @@ for prs in range(n_vintage):
     pseudo_3lstm = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/PRS(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/ps.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -2265,12 +2265,7 @@ for prs in range(n_vintage):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
-    pseudo_dtsm = df.iloc[2:50,2]
-    pseudo_gam = df.iloc[2:50,4]
-    pseudo_cox = df.iloc[2:50,6]
-    pseudo_weibull = df.iloc[2:50,8]
-    pseudo_deephit = df.iloc[2:50,10]
-    pseudo_3lstm = df.iloc[2:50,12]
+
 
     #x_s=x
 
@@ -2496,7 +2491,12 @@ for prs in range(n_vintage):
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
     #train_data = f1.readline()
-
+    pseudo_dtsm = df.iloc[2:50,2]
+    pseudo_gam = df.iloc[2:50,4]
+    pseudo_cox = df.iloc[2:50,6]
+    pseudo_weibull = df.iloc[2:50,8]
+    pseudo_deephit = df.iloc[2:50,10]
+    pseudo_3lstm = df.iloc[2:50,12]
     #test_data = f2.readline()
     test_data = []
     for line in f2:
@@ -6035,7 +6035,7 @@ for prs in range(n_vintage):
     pseudo_3lstm2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/PRS(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/ps2.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     TRAING_TIME = 15
@@ -7939,12 +7939,7 @@ for prs in range(n_vintage):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
-    pseudo_dtsm2 = df.iloc[2:36,2]
-    pseudo_gam2 = df.iloc[2:36,4]
-    pseudo_cox2 = df.iloc[2:36,6]
-    pseudo_weibull2 = df.iloc[2:36,8]
-    pseudo_deephit2 = df.iloc[2:36,10]
-    pseudo_3lstm2 = df.iloc[2:36,12]
+
             
             
     state_size = 16
@@ -8005,6 +8000,12 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
+    pseudo_dtsm2 = df.iloc[2:36,2]
+    pseudo_gam2 = df.iloc[2:36,4]
+    pseudo_cox2 = df.iloc[2:36,6]
+    pseudo_weibull2 = df.iloc[2:36,8]
+    pseudo_deephit2 = df.iloc[2:36,10]
+    pseudo_3lstm2 = df.iloc[2:36,12]
 
     #Forecast
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code

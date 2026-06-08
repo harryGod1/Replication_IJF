@@ -35,7 +35,7 @@ tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 data_mod = 2
 
 def forecast_exp():
-    #DTSM exposure
+
     path = os.getcwd()
     new_path = path.replace("\\","/")
     f2 = open(new_path + "/data/2259/forecast/test2224_forecast_exposure_dtsm_x_Deli.txt")
@@ -1110,9 +1110,6 @@ for prs in range(1):
                 #print('after_delete_y:',y[len(y)-1])
 
 
-        #print(x2.shape)
-        #print(y2.shape)
-
 
 
         #print(len(x),len(x[0]))
@@ -1431,7 +1428,11 @@ for prs in range(1):
             if(x2[i][13]==3):
                 x2[i][13]=3 
         
-    #Linear DTSM final
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/dm_fe2.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []  
     from sklearn import preprocessing
 
     #print(x[0],x[1])
@@ -1441,7 +1442,7 @@ for prs in range(1):
     x = scaler.transform(x)
     #print(x[0],x[1])
 
-    #用训练集的标准差进行标准化还是用测试集自己的标准差进行标准化？
+
     #x_s2=x2
     #scaler = preprocessing.StandardScaler().fit(x_s2)
     x2 = scaler.transform(x2)
@@ -1500,7 +1501,6 @@ for prs in range(1):
 
     #for i in range(len(s2)):
         #score=score+math.log(s2[i]/(1-s2[i]))
-
 
     #print(score/len(s2))
 
@@ -1801,7 +1801,6 @@ for prs in range(1):
         if(x2[i][8]==99):
             x2[i][8]=0.5   
 
-    #最终版本Linear DTSM代码 -- 测试每个季度模型的部分
     from sklearn import preprocessing
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import roc_auc_score
@@ -2193,7 +2192,11 @@ for prs in range(1):
             #print('after_delete_seq:',final_data[len(final_data)-1])
             #print('after_delete_x:',x2[len(x2)-1])
             #print('after_delete_y:',y2[len(y2)-1])
-
+    for item in reader:
+        dt = []
+        for i in range(3):
+            dt.append(item[i])
+        result.append(dt)
     count_len = 0
     last_age = 0
     is_nonzero = 0
@@ -2216,7 +2219,7 @@ for prs in range(1):
     #print(y2.shape)
 
     #print(len(x2),len(x2[0]))
-
+    csvFile.close()
     import math
     good = 0
     bad = 0
@@ -2274,7 +2277,7 @@ for prs in range(1):
         if(x2[i][8]==99):
             x2[i][8]=0.5   
 
-    #最终版本Linear DTSM代码 -- 测试每个季度模型的部分
+
     from sklearn import preprocessing
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import roc_auc_score
@@ -2494,21 +2497,6 @@ for prs in range(1):
     if(exposure):
         #forecast_exp()
         for prs_s in range(3):
-            path = os.getcwd()
-            new_path = path.replace("\\","/")
-
-            csvFile = open(new_path + "/data/2259/dtsm_forecast_exposure(22to24).csv", "r",encoding='gb18030', errors='ignore')
-            reader = csv.reader(csvFile)
-
-
-            result = []
-            for item in reader:
-                dt = []
-                for i in range(3):
-                    dt.append(item[i])
-                result.append(dt)
-
-            csvFile.close()
             df = pd.DataFrame(result)
             print("DTSM:")
             print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
@@ -2537,8 +2525,11 @@ for prs in range(1):
     import math
     from sklearn import preprocessing
     import time
-
-
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/gm_fe2.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     #computational time
     T1 = time.perf_counter()
 
@@ -2558,6 +2549,7 @@ for prs in range(1):
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
     #train_data = f1.readline()
+
 
     #test_data = f2.readline()
     test_data = []
@@ -2739,11 +2731,11 @@ for prs in range(1):
             #print('after_delete_seq:',final_data[len(final_data)-1])
             #print('after_delete_x:',x[len(x)-1])
             #print('after_delete_y:',y[len(y)-1])
-
-
-    #print(x2.shape)
-    #print(y2.shape)
-
+    for item in reader:
+        dt = []
+        for i in range(3):
+            dt.append(item[i])
+        result.append(dt)
 
 
     #print(len(x),len(x[0]))
@@ -2943,7 +2935,7 @@ for prs in range(1):
             #print('after_delete_seq:',final_data[len(final_data)-1])
             #print('after_delete_x:',x2[len(x2)-1])
             #print('after_delete_y:',y2[len(y2)-1])
-
+    csvFile.close()
     count_len = 0
     last_age = 0
     is_nonzero = 0
@@ -3337,21 +3329,6 @@ for prs in range(1):
         #forecast_exp()
 
         for prs_s in range(3):
-            path = os.getcwd()
-            new_path = path.replace("\\","/")
-
-            csvFile = open(new_path + "/data/2259/gam_forecast_exposure(22to24).csv", "r",encoding='gb18030', errors='ignore')
-            reader = csv.reader(csvFile)
-
-
-            result = []
-            for item in reader:
-                dt = []
-                for i in range(3):
-                    dt.append(item[i])
-                result.append(dt)
-
-            csvFile.close()
             df = pd.DataFrame(result)
             print("GAM:")
             print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
@@ -3394,11 +3371,16 @@ for prs in range(1):
 
     #computational time
     T1 = time.perf_counter()
-
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/cp_fe2.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     #import pandas as pd
     #import lifelines
     #from lifelines import CoxPHFitter
     #Linear DTSM + delinquency
+
 
     print('Cox PH ...')
 
@@ -3853,7 +3835,11 @@ for prs in range(1):
     wbf.fit(df_standard[9], df_standard[10])
 
     T4 = time.perf_counter()
-
+    for item in reader:
+        dt = []
+        for i in range(3):
+            dt.append(item[i])
+        result.append(dt)
 
     print('Cox PH and Weibell fitted')
 
@@ -4045,7 +4031,7 @@ for prs in range(1):
             #print('after_delete_y:',y2[len(y2)-1])
         #else:
             #seqlen.append(max_seqlen+1) 
-
+    csvFile.close()
     #print(x2.shape)
     #print(y2.shape)
     labels3 = [] #for account level
@@ -4728,21 +4714,6 @@ for prs in range(1):
     if(exposure):
         #forecast_exp()
         for prs_s in range(3):
-            path = os.getcwd()
-            new_path = path.replace("\\","/")
-
-            csvFile = open(new_path + "/data/2259/cox_forecast_exposure(22to24).csv", "r",encoding='gb18030', errors='ignore')
-            reader = csv.reader(csvFile)
-
-
-            result = []
-            for item in reader:
-                dt = []
-                for i in range(3):
-                    dt.append(item[i])
-                result.append(dt)
-
-            csvFile.close()
             df = pd.DataFrame(result)
             print("Cox PH:")
             print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
@@ -4752,14 +4723,20 @@ for prs in range(1):
             print('============================================================')
 
     print("Forecasts of default rate:Weibull...")
-
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/wb_fe2.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
     #Weibull
     #lagged 12
     #process for the dataset of the time from 2014 to 2024
     #case for delinquency, delete the account that don't start from 0 month.
     #all data
+
     #f2 = open("./train_all_dtsm_x.txt")
     from sklearn import preprocessing
+
     #data for forecast
     path = os.getcwd()
     new_path = path.replace("\\","/")
@@ -4791,6 +4768,11 @@ for prs in range(1):
     data = []
     data2 = []
     seq = []
+    for item in reader:
+        dt = []
+        for i in range(3):
+            dt.append(item[i])
+        result.append(dt)
 
     current_deli = []
     last_seq = ''
@@ -4831,6 +4813,7 @@ for prs in range(1):
         b.append(int(train_calendar[i]))
         x2.append(b)
         y2.append(int(train_Def[i]))
+    csvFile.close()
     #print(x[0])
     #x = np.array(x)
     #y = np.array(y)
@@ -4899,21 +4882,6 @@ for prs in range(1):
     if(exposure):
         #forecast_exp()
         for prs_s in range(3):
-            path = os.getcwd()
-            new_path = path.replace("\\","/")
-
-            csvFile = open(new_path + "/data/2259/weibull_forecast_exposure(22to24).csv", "r",encoding='gb18030', errors='ignore')
-            reader = csv.reader(csvFile)
-
-
-            result = []
-            for item in reader:
-                dt = []
-                for i in range(3):
-                    dt.append(item[i])
-                result.append(dt)
-
-            csvFile.close()
             df = pd.DataFrame(result)
             print("Weibull:")
             print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
@@ -6875,6 +6843,11 @@ for prs in range(1):
     #print(y.shape)
 
     account_vintage = x2
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/dp_fe2.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
 
     #DeepHit+Deli
     #Forecast
@@ -6908,7 +6881,7 @@ for prs in range(1):
         new_path = path.replace("\\","/")
         meta = new_path + "/saved_model/model16to21_DeepHit_lag36_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1.meta"
         ckpt = new_path + "/saved_model/model16to21_DeepHit_lag36_gpu_forecast_deli_noL2_512_16" + "/drsa32_512_16_0.000100_0.100000_2259_1.20_0.20_True_False_1_1"
-        
+     
     step = 100000
 
     sess = RUNNING_MODEL.load(meta,ckpt,step)
@@ -7195,7 +7168,11 @@ for prs in range(1):
     for i in range(1,remaining):
         all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 0
     cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
-
+    for item in reader:
+        dt = []
+        for i in range(3):
+            dt.append(item[i])
+        result.append(dt)
 
 
     bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
@@ -7261,7 +7238,7 @@ for prs in range(1):
 
     #for log_likelihoo_ratio test
     #llr_test_deephit = -mean_loss*count 
-
+    csvFile.close()
     #mean_loss = np.array(loss_arr).mean()
 
     #print('length of true label:',len(true_label))
@@ -7503,22 +7480,6 @@ for prs in range(1):
 
         #forecast_exp()
         for prs_s in range(3):
-
-            path = os.getcwd()
-            new_path = path.replace("\\","/")
-
-            csvFile = open(new_path + "/data/2259/deephit_forecast_exposure(22to24).csv", "r",encoding='gb18030', errors='ignore')
-            reader = csv.reader(csvFile)
-
-
-            result = []
-            for item in reader:
-                dt = []
-                for i in range(3):
-                    dt.append(item[i])
-                result.append(dt)
-
-            csvFile.close()
             df = pd.DataFrame(result)
             print("DeepHit:")
             print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
@@ -9435,6 +9396,13 @@ for prs in range(1):
     #print(y.shape)
 
     account_vintage = x2
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/3ls_fe2.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
+
+
 
     #3LSTM+Deli
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
@@ -9445,6 +9413,7 @@ for prs in range(1):
     from sklearn.metrics import roc_auc_score
     from sklearn.metrics import precision_recall_curve
     from sklearn.metrics import auc
+    
 
     path = os.getcwd()
     new_path = path.replace("\\","/")
@@ -9724,7 +9693,11 @@ for prs in range(1):
     for i in range(1,remaining):
         all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 40
     cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
-
+    for item in reader:
+        dt = []
+        for i in range(3):
+            dt.append(item[i])
+        result.append(dt)
 
 
     bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
@@ -9750,7 +9723,7 @@ for prs in range(1):
     #if(RUNNING_MODEL.SHOW_SURVIVAL_CURVE == True):
 
     #print('test_trainable_attention_mul_weight',test_trainable_attention_mul_weight)
-
+    csvFile.close() 
 
 
     mean_loss = 0
@@ -10005,22 +9978,6 @@ for prs in range(1):
     if(exposure):
         #forecast_exp()
         for prs_s in range(3):
-            path = os.getcwd()
-            new_path = path.replace("\\","/")
-
-            csvFile = open(new_path + "/data/2259/3lstm_forecast_exposure(22to24).csv", "r",encoding='gb18030', errors='ignore')
-            reader = csv.reader(csvFile)
-
-
-            result = []
-            for item in reader:
-                dt = []
-
-                for i in range(3):
-                    dt.append(item[i])
-                result.append(dt)
-
-            csvFile.close()
             df = pd.DataFrame(result)
             print("3LSTM:")
             print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
@@ -11850,7 +11807,11 @@ for prs in range(1):
     #print(x[0][5])
     #print(len(x),len(x[0]))
     scaler = preprocessing.StandardScaler().fit(x)
-
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/ls_fe2.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
 
 
     #LSTM+Deli
@@ -11885,7 +11846,11 @@ for prs in range(1):
     step = 100000
 
     sess = RUNNING_MODEL.load(meta,ckpt,step)
-
+    for item in reader:
+        dt = []
+        for i in range(3):
+            dt.append(item[i])
+        result.append(dt)
     #RUNNING_MODEL.run_test(sess)
     auc_arr = []
     loss_arr = []
@@ -12089,7 +12054,7 @@ for prs in range(1):
                     #self.tf_market_price: test_batch_market_price
                     })
     #print('lentgh:',test_length)
-
+    csvFile.close() 
 
     count = count + test_count
     loss_arr.append(bid_loss*test_count)
@@ -12361,18 +12326,6 @@ for prs in range(1):
     if(exposure):
         #forecast_exp()
         for prs_s in range(3):    
-            path = os.getcwd()
-            new_path = path.replace("\\","/")
-
-            csvFile = open(new_path + "/data/2259/lstm_forecast_exposure(22to24).csv", "r",encoding='gb18030', errors='ignore')
-            reader = csv.reader(csvFile)
-            result = []
-            for item in reader:
-                dt = []
-
-                for i in range(3):
-                    dt.append(item[i])
-                result.append(dt)
             df = pd.DataFrame(result)
             print("LSTM:")
             print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
@@ -12384,7 +12337,7 @@ for prs in range(1):
         
 #The code presented here enables readers to train and validate the model independently.
 ##############################################
-csvFile.close()
+
 
 #draw the curve of forecast of default rate from 2022 to 2024
 x_axis = []
@@ -12393,7 +12346,7 @@ print('Forecasts Exposure at Default(2022-2024): ')
 for k in range(0,len(pseudo_3lstm)):
     x_axis.append((k+1))
 
-plt.figure(figsize=(9, 4))
+plt.figure(figsize=(12, 3))
 plt.plot(x_axis,r_default.astype(float),'black',label='Real Default Rate',linewidth=2)  
 plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
 plt.plot(x_axis,pseudo_gam.astype(float),'red',label='GAM',linestyle='--')

@@ -464,7 +464,16 @@ for prs in range(n_vintage):
         #print(x[0][5])
         #print(len(x),len(x[0]))
         scaler = preprocessing.StandardScaler().fit(x)
-
+    pseudo_washout = []
+    pseudo_washout_attention = []
+    pseudo_nowashout_attention = []
+    pseudo_attention_deli = []
+    pseudo_3lstm_attention_deli = []
+    path = os.getcwd()
+    new_path = path.replace("\\","/")
+    csvFile = open(new_path + "/data/2259/bl.csv", "r",encoding='gb18030', errors='ignore')
+    reader = csv.reader(csvFile)
+    result = []
 
 
 
@@ -484,16 +493,12 @@ for prs in range(n_vintage):
     import matplotlib.pyplot as plt
     import statistics
     from sklearn import preprocessing
-    pseudo_washout = []
-    pseudo_washout_attention = []
-    pseudo_nowashout_attention = []
-    pseudo_attention_deli = []
-    pseudo_3lstm_attention_deli = []
-    path = os.getcwd()
-    new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/Brier_lstm(04to15).csv", "r",encoding='gb18030', errors='ignore')
-    reader = csv.reader(csvFile)
-    result = []
+    for item in reader:
+        dt = []
+        for i in range(10):
+            dt.append(item[i])
+        result.append(dt)
+    df = pd.DataFrame(result)
     TRAING_TIME = 15
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
@@ -961,6 +966,7 @@ for prs in range(n_vintage):
             self.batch_id = self.batch_id + batch_size
             self.batch_all_id = self.batch_all_id + all_count
             return np.array(batch_data), np.array(batch_data2),np.array(batch_labels), np.array(batch_seqlen), np.array(batch_labels2)
+
 
     class biSparseData():
         def __init__(self, INPUT_FILE, discount):
@@ -1919,14 +1925,6 @@ for prs in range(n_vintage):
             self.train_log_txt = open(self.train_log_txt_filename, 'a')
             self.train_log_txt.write(log)
             self.train_log_txt.close()
-            
-
-    for item in reader:
-        dt = []
-        for i in range(10):
-            dt.append(item[i])
-        result.append(dt)
-    df = pd.DataFrame(result)
     pseudo_washout = df.iloc[2:50,1]
     pseudo_washout_attention = df.iloc[2:50,3]
     pseudo_nowashout_attention = df.iloc[2:50,5]
@@ -2000,7 +1998,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_attention_deli2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/Brier_lstm(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/bl2.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     #Forecast with no deliquency
@@ -2256,7 +2254,12 @@ for prs in range(n_vintage):
     for i in range(1,remaining):
         all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 40
     cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
-
+    for item in reader:
+        dt = []
+        for i in range(10):
+            dt.append(item[i])
+        result.append(dt)
+    df = pd.DataFrame(result)
 
     bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
             [cross_entropy2,survival_rate,RUNNING_MODEL.t2,true_label2,predicted_label2,seqlen2,all_count],
@@ -2586,12 +2589,6 @@ for prs in range(n_vintage):
     #pseudo_washout.append(brier_score/len(unbalanced_prediction_lstm_washout))
     
 
-    for item in reader:
-        dt = []
-        for i in range(10):
-            dt.append(item[i])
-        result.append(dt)
-    df = pd.DataFrame(result)
     pseudo_washout2 = df.iloc[2:36,1]
     pseudo_washout_attention2 = df.iloc[2:36,3]
     pseudo_nowashout_attention2 = df.iloc[2:36,5]

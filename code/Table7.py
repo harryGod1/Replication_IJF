@@ -539,7 +539,7 @@ for prs in range(n_vintage):
             return np.array(batch_data), np.array(batch_data2),np.array(batch_labels), np.array(batch_seqlen), np.array(batch_labels2)
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/summary.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/mr.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     class biSparseData():
@@ -2215,7 +2215,7 @@ for prs in range(n_vintage):
     #fTo make the PRS indicator clear
     PRS = (1-(-unbalanced_log_likeli_3lstm_attention_deli)/len(unbalanced_prediction)/baseline_llr)
     
-    print(PRS,AUC24.mean(),brier_score/len(unbalanced_prediction_3lstm_attention_deli_lag3_12))
+    #print(PRS,AUC24.mean(),brier_score/len(unbalanced_prediction_3lstm_attention_deli_lag3_12))
     overall_PRS += PRS
     overall_AUC += AUC24.mean()
     overall_BS += brier_score/len(unbalanced_prediction_3lstm_attention_deli_lag3_12)

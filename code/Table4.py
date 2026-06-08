@@ -483,7 +483,7 @@ class SparseData():
 path = os.getcwd()
 new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/data/2259/washout phases.csv", "r",encoding='gb18030', errors='ignore')
+csvFile = open(new_path + "/data/2259/wp.csv", "r",encoding='gb18030', errors='ignore')
 reader = csv.reader(csvFile)
 result = []
 

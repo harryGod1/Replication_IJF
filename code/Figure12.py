@@ -1664,7 +1664,7 @@ for prs in range(n_vintage):
     pseudo_3lstm = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/AUC(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/am.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -2261,12 +2261,6 @@ for prs in range(n_vintage):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
-    pseudo_dtsm = df.iloc[2:50,1]
-    pseudo_gam = df.iloc[2:50,3]
-    pseudo_cox = df.iloc[2:50,5]
-    pseudo_weibull = df.iloc[2:50,7]
-    pseudo_deephit = df.iloc[2:50,9]
-    pseudo_3lstm = df.iloc[2:50,11]
     #x_s=x
 
 
@@ -2491,7 +2485,12 @@ for prs in range(n_vintage):
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
     #train_data = f1.readline()
-
+    pseudo_dtsm = df.iloc[2:50,1]
+    pseudo_gam = df.iloc[2:50,3]
+    pseudo_cox = df.iloc[2:50,5]
+    pseudo_weibull = df.iloc[2:50,7]
+    pseudo_deephit = df.iloc[2:50,9]
+    pseudo_3lstm = df.iloc[2:50,11]
     #test_data = f2.readline()
     test_data = []
     for line in f2:
@@ -2716,7 +2715,7 @@ for prs in range(n_vintage):
     #print(len(x2),len(x2[0]))
     #print(x2[0])
 
-    #最终版本Linear DTSM代码 -- 给类别变量编码的部分
+
     for i in range(len(x)):
         #FTHF:N=1,Y=2,9=3
         #OS:P=1,I=2,S=3,9=4
@@ -2838,7 +2837,7 @@ for prs in range(n_vintage):
     df_standard = scaler.transform(df_standard)
     #print(x[0],x[1])
 
-    #用训练集的标准差进行标准化还是用测试集自己的标准差进行标准化？
+
     #x_s2=x2
     #scaler = preprocessing.StandardScaler().fit(x_s2)
     df_standard2 = scaler.transform(df_standard2)
@@ -3024,7 +3023,7 @@ for prs in range(n_vintage):
         current_deli.append(int(line_data[16]))
         final_data.append(line_data)
         y2.append(test_Def[i])
-        #def也放入x2中，为后续coxphfitter做准备，更方便
+
         b2.append(test_Def[i])
         x2.append(b2)
 
@@ -3106,7 +3105,6 @@ for prs in range(n_vintage):
             #print('after_delete_y:',y2[len(y2)-1])
         #else:
             #seqlen.append(max_seqlen+1) 
-
     #print(x2.shape)
     #print(y2.shape)
     labels3 = [] #for account level
@@ -4180,7 +4178,7 @@ for prs in range(n_vintage):
     pseudo_3lstm2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/AUC(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/am2.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     class biSparseData():
@@ -5236,12 +5234,7 @@ for prs in range(n_vintage):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
-    pseudo_dtsm2 = df.iloc[2:36,1]
-    pseudo_gam2 = df.iloc[2:36,3]
-    pseudo_cox2 = df.iloc[2:36,5]
-    pseudo_weibull2 = df.iloc[2:36,7]
-    pseudo_deephit2 = df.iloc[2:36,9]
-    pseudo_3lstm2 = df.iloc[2:36,11]
+
 
     #deephit standardscaler
     if(prs<48):
@@ -5505,6 +5498,12 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
+    pseudo_dtsm2 = df.iloc[2:36,1]
+    pseudo_gam2 = df.iloc[2:36,3]
+    pseudo_cox2 = df.iloc[2:36,5]
+    pseudo_weibull2 = df.iloc[2:36,7]
+    pseudo_deephit2 = df.iloc[2:36,9]
+    pseudo_3lstm2 = df.iloc[2:36,11]
 
     #DeepHit
     #Forecast

@@ -478,7 +478,7 @@ test_data = []
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/computational_time.csv", "r",encoding='gb18030', errors='ignore')
+csvFile = open(new_path + "/data/2259/ct.csv", "r",encoding='gb18030', errors='ignore')
 reader = csv.reader(csvFile)
 result = []
 

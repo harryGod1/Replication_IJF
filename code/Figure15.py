@@ -2968,7 +2968,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_mev = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/PRS_MEV(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/ps_mev.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     count_len = 0
@@ -3240,12 +3240,7 @@ for prs in range(n_vintage):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
-    pseudo_dtsm = df.iloc[2:50,2]
-    pseudo_dtsm_mev = df.iloc[2:50,4]
-    pseudo_deephit = df.iloc[2:50,6]
-    pseudo_deephit_mev = df.iloc[2:50,8]
-    pseudo_3lstm = df.iloc[2:50,10]
-    pseudo_3lstm_mev = df.iloc[2:50,12]    
+
         
     print("DeepHit...")
 
@@ -4809,7 +4804,12 @@ for prs in range(n_vintage):
             self.train_log_txt.write(log)
             self.train_log_txt.close()
 
-    
+    pseudo_dtsm = df.iloc[2:50,2]
+    pseudo_dtsm_mev = df.iloc[2:50,4]
+    pseudo_deephit = df.iloc[2:50,6]
+    pseudo_deephit_mev = df.iloc[2:50,8]
+    pseudo_3lstm = df.iloc[2:50,10]
+    pseudo_3lstm_mev = df.iloc[2:50,12]        
 
     #deephit standardscaler
     if(prs<48):
@@ -5081,7 +5081,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_mev2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/PRS_MEV(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/ps_mev2.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     #DeepHit
@@ -5595,12 +5595,7 @@ for prs in range(n_vintage):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
-    pseudo_dtsm2 = df.iloc[2:36,2]
-    pseudo_dtsm_mev2 = df.iloc[2:36,4]
-    pseudo_deephit2 = df.iloc[2:36,6]
-    pseudo_deephit_mev2 = df.iloc[2:36,8]
-    pseudo_3lstm2 = df.iloc[2:36,10]
-    pseudo_3lstm_mev2 = df.iloc[2:36,12]    
+  
 
     print("Deephit + MEVs ...")
     #DeepHit
@@ -7702,7 +7697,12 @@ for prs in range(n_vintage):
     RUNNING_MODEL.create_graph()
     
     import time
-
+    pseudo_dtsm2 = df.iloc[2:36,2]
+    pseudo_dtsm_mev2 = df.iloc[2:36,4]
+    pseudo_deephit2 = df.iloc[2:36,6]
+    pseudo_deephit_mev2 = df.iloc[2:36,8]
+    pseudo_3lstm2 = df.iloc[2:36,10]
+    pseudo_3lstm_mev2 = df.iloc[2:36,12]  
     #computational time
     T1 = time.perf_counter()
     #data for forecast

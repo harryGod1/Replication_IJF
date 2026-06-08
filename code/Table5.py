@@ -6652,7 +6652,7 @@ for prs in range(n_vintage):
     test_data = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/statistical_test.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/st.csv", "r",encoding='gb18030', errors='ignore')
 
     reader = csv.reader(csvFile)
     result = []
@@ -7215,13 +7215,11 @@ for prs in range(n_vintage):
         
 #print('Delong Test for AUC prediction ====================================')
 
-<<<<<<< HEAD
 
 
-=======
      
 #The code presented here enables readers to train and validate the model independently.
->>>>>>> bc50ddd0294faf8000ce469f8b3043db3a52b69d
+
 #The following code provides an example of validating the output results. Readers may adapt it as needed.
 ########################################################################################################
 #Delong test for DTSM Version

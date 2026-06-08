@@ -1447,7 +1447,7 @@ for prs in range(n_vintage):
         if(x2[i][8]==99):
             x2[i][8]=0.5   
 
-    #最终版本Linear DTSM代码 -- 测试每个季度模型的部分
+
     from sklearn import preprocessing
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import roc_auc_score
@@ -1874,8 +1874,8 @@ for prs in range(n_vintage):
 
     #print(len(x),len(x[0]))
 
-    #最终版本Linear DTSM代码 -- 给类别变量编码的部分
-    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
     #For delinquency version
     #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for i in range(len(x)):
@@ -2175,7 +2175,7 @@ for prs in range(n_vintage):
     pseudo_3lstm = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/Brier(04to15).csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/bs.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     count_len = 0
@@ -2262,7 +2262,6 @@ for prs in range(n_vintage):
         if(x2[i][8]==99):
             x2[i][8]=0.5   
 
-    #最终版本Linear DTSM代码 -- 测试每个季度模型的部分
     from sklearn import preprocessing
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import roc_auc_score
@@ -2437,12 +2436,7 @@ for prs in range(n_vintage):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
-    pseudo_dtsm = df.iloc[2:50,1]
-    pseudo_gam = df.iloc[2:50,3]
-    pseudo_cox = df.iloc[2:50,5]
-    pseudo_weibull = df.iloc[2:50,7]
-    pseudo_deephit = df.iloc[2:50,9]
-    pseudo_3lstm = df.iloc[2:50,11]
+
     
     #whether to open the calculation of exposure
     is_exposure_cph = True
@@ -2727,12 +2721,16 @@ for prs in range(n_vintage):
 
         b2=[]
 
-
+    pseudo_dtsm = df.iloc[2:50,1]
+    pseudo_gam = df.iloc[2:50,3]
+    pseudo_cox = df.iloc[2:50,5]
+    pseudo_weibull = df.iloc[2:50,7]
+    pseudo_deephit = df.iloc[2:50,9]
+    pseudo_3lstm = df.iloc[2:50,11]
 
     #print(len(x2),len(x2[0]))
     #print(x2[0])
 
-    #最终版本Linear DTSM代码 -- 给类别变量编码的部分
     for i in range(len(x)):
         #FTHF:N=1,Y=2,9=3
         #OS:P=1,I=2,S=3,9=4
@@ -5509,7 +5507,7 @@ for prs in range(n_vintage):
     pseudo_3lstm2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/Brier(16to24).csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/bs2.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     #DeepHit
@@ -6018,21 +6016,12 @@ for prs in range(n_vintage):
         brier_score = brier_score + (unbalanced_prediction_deephit[i]-int(true_label[i][1]))**2
     #print('Deephit brier score: ',brier_score/len(unbalanced_prediction_deephit))
     #pseudo_deephit.append(brier_score/len(unbalanced_prediction_deephit))
-    
-
     for item in reader:
         dt = []
         for i in range(12):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
-    pseudo_dtsm2 = df.iloc[2:36,1]
-    pseudo_gam2 = df.iloc[2:36,3]
-    pseudo_cox2 = df.iloc[2:36,5]
-    pseudo_weibull2 = df.iloc[2:36,7]
-    pseudo_deephit2 = df.iloc[2:36,9]
-    pseudo_3lstm2 = df.iloc[2:36,11]
-
     
     print('LSTM+Washout+3LSTM Attention+Deli...')
 
@@ -6546,6 +6535,7 @@ for prs in range(n_vintage):
             else:
                 a, b, c, d, e = self.loseData.next(batch)
                 return a, b, c, d, e, f, g, False
+
 
     class BASE_RNN():
 
@@ -8017,6 +8007,12 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
+    pseudo_dtsm2 = df.iloc[2:36,1]
+    pseudo_gam2 = df.iloc[2:36,3]
+    pseudo_cox2 = df.iloc[2:36,5]
+    pseudo_weibull2 = df.iloc[2:36,7]
+    pseudo_deephit2 = df.iloc[2:36,9]
+    pseudo_3lstm2 = df.iloc[2:36,11]
 
     #Forecast
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code

@@ -731,7 +731,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_unbalanced = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/PRS_ablation.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/ps_abl.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     class biSparseData():
@@ -1755,8 +1755,7 @@ for prs in range(n_vintage):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
-    pseudo_3lstm = df.iloc[2:36,2]
-    pseudo_3lstm_unbalanced = df.iloc[2:36,4]
+
     
 
     #Forecast
@@ -1798,7 +1797,8 @@ for prs in range(n_vintage):
     cross_entropy = []
     RUNNING_MODEL.TRUE_LABEL2 = []
     RUNNING_MODEL.PREDICTED_LABEL2 = []
-
+    pseudo_3lstm = df.iloc[2:36,2]
+    pseudo_3lstm_unbalanced = df.iloc[2:36,4]
     #print self.test_data_win.size + self.test_data_lose.size, \"total size\"
     total_time = 0
     log_good = 0
@@ -2010,7 +2010,7 @@ for prs in range(n_vintage):
     score_3lstm_unbalanced = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/AUC_ablation.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/am_abl.csv", "r",encoding='gb18030', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -2269,9 +2269,7 @@ for prs in range(n_vintage):
         for i in range(4):
             dt.append(item[i])
         result.append(dt)
-    df = pd.DataFrame(result)
-    score_3lstm = df.iloc[2:36,1]
-    score_3lstm_unbalanced = df.iloc[2:36,3]  
+    df = pd.DataFrame(result) 
     print('LSTM+unbalanced_ablation+Washout+3LSTM Attention+Deli...')
     #data for forecast
     path = os.getcwd()
@@ -2473,7 +2471,8 @@ for prs in range(n_vintage):
     #print(len(x),len(x[0]))
     scaler = preprocessing.StandardScaler().fit(x)
     #print('ave_default_row_level:',count_default/len(x))
-
+    score_3lstm = df.iloc[2:36,1]
+    score_3lstm_unbalanced = df.iloc[2:36,3] 
     #Forecast
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
     #use the second copy of the lstm code
