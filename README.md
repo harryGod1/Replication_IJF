@@ -169,12 +169,12 @@ The data/ folder contains all data used in the experiments and testing. Readers 
 | Paper Item | Script | Brief Description |
 |---|---|---|
 | **Table 1** | — | Literature review (not computationally generated) |
-| **Table 2** | `Table2.py` | Console Output:Descriptive statistics of the dataset used in analysis (2004-2013): |
-| **Table 3** | `Table3.py` | Console Output:Descriptive statistics of the dataset used in analysis (2016-2024): |
-| **Table 4** | `Table4.py` | Console Output:Model performance with different washout phases |
-| **Table 5** | `Table5.py` | Console Output:Statistical tests of comparative performance |
-| **Table 6** | `Table6.py` | Console Output:Computational time for all the models trained in this paper |
-| **Table 7** | `Table7.py` | Console Output:Summary of results across models for both dataset periods |
+| **Table 2** | `Table2.py` | Console Output: Descriptive statistics of the dataset used in analysis (2004-2013): |
+| **Table 3** | `Table3.py` | Console Output: Descriptive statistics of the dataset used in analysis (2016-2024): |
+| **Table 4** | `Table4.py` | Console Output: Model performance with different washout phases |
+| **Table 5** | `Table5.py` | Console Output: Statistical tests of comparative performance |
+| **Table 6** | `Table6.py` | Console Output: Computational time for all the models trained in this paper |
+| **Table 7** | `Table7.py` | Console Output: Summary of results across models for both dataset periods |
 | **Figure 1-5** | — | Conceptual illustration (not computationally generated) |
 | **Figure 6**  | `Figure6.py` | hazard rate & survival rate for an account in 2007 4th quarter|
 | **Figure 7**  | `Figure7.py` | Estimated hazard rates from the model for different washout phases |
