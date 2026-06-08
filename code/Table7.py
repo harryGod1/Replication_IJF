@@ -1501,7 +1501,7 @@ for prs in range(n_vintage):
             self.train_log_txt.close()
     for item in reader:
         dt = []
-        for i in range(13):
+        for i in range(12):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)    
