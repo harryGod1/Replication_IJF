@@ -154,8 +154,9 @@ python code/Figure14.py
 ## 🗃️ Data — what it is and how to get it
 
 ### Freddie Mac Mortgage data(2004 to 2024)
-The Freddie Mac single-family loan-level dataset is a publicly available collection of residential mortgage origination and monthly performance data provided by Freddie Mac(https://www.freddiemac.com/home).The detailed data dictionary and descriptive statistics is available from this website. It covers a substantial portion of the U.S. mortgage market over multiple decades, including loan characteristics (e.g., credit score, loan-to-value ratio, debt-to-income ratio), property details, and dynamic repayment behavior (e.g., prepayments and defaults). This dataset has become a benchmark for research on mortgage default prediction, prepayment modeling, and other related tasks in finance and econometrics. Due to its large scale, temporal depth, and real-world relevance, it is widely used to evaluate state-of-the-art forecasting models.
+The Freddie Mac single-family loan-level dataset is a publicly available collection of residential mortgage origination and monthly performance data provided by Freddie Mac(https://www.freddiemac.com/home). The detailed data dictionary and descriptive statistics is available from this website. It covers a substantial portion of the U.S. mortgage market over multiple decades, including loan characteristics (e.g., credit score, loan-to-value ratio, debt-to-income ratio), property details, and dynamic repayment behavior (e.g., prepayments and defaults). This dataset has become a benchmark for research on mortgage default prediction, prepayment modeling, and other related tasks in finance and econometrics. Due to its large scale, temporal depth, and real-world relevance, it is widely used to evaluate state-of-the-art forecasting models.
 
+For copyright reasons, the original data are not provided directly in this repository. Readers can download the data by clicking the link below.
 -The download link for the raw data is provided here:[Freddie Mac Download](https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset)
 
 ### Intermediary Datasets
