@@ -46,6 +46,8 @@
 ├── example/                    # Demonstration of Code Execution
 │   └── example_figure14.png    # An example screenshot of the execution of Figure14.py in the real environment.
 │
+├── output/                     # The execution results of the code (corresponding to the figures in the paper) are saved in this folder.
+│
 ├── saved_model/                # All models used in the experiments
 │
 ├── train_model/                # Demonstration of Code Execution
