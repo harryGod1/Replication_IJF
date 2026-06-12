@@ -7253,4 +7253,7 @@ plt.plot(x_axis,pseudo_3lstm_attention_deli2.astype(float),'black',label='3LSTM 
 plt.legend(loc='lower left',prop = {'size':5})
 plt.title('Pseudo-R-square (2016-2024)')
 plt.xlabel('Time')
-plt.show()  
+path = os.getcwd()
+new_path = path.replace("\\","/")
+plt.savefig(new_path + "/output/Figure8.png")
+#plt.show()  

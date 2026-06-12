@@ -12573,4 +12573,7 @@ plt.plot(x_axis,pseudo_3lstm_mev2.astype(float),'black',label='3LSTM + MEVs',lin
 plt.legend(prop = {'size':5})
 plt.title('Pseudo-R-Square(2016-2024)')
 plt.xlabel('Time')
-plt.show()  
+path = os.getcwd()
+new_path = path.replace("\\","/")
+plt.savefig(new_path + "/output/Figure15.png")
+#plt.show()  

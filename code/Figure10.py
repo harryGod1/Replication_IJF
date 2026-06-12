@@ -7260,5 +7260,7 @@ plt.plot(x_axis,pseudo_3lstm_attention_deli2.astype(float),'black',label='3LSTM 
 plt.legend(prop = {'size':5})
 plt.title('Brier Score(2016-2024)')
 plt.xlabel('Time')
-
-plt.show()  
+path = os.getcwd()
+new_path = path.replace("\\","/")
+plt.savefig(new_path + "/output/Figure10.png")
+#plt.show()  

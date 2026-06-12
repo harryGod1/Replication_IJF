@@ -3049,4 +3049,7 @@ plt.plot(x_axis,score_3lstm.astype(float),'black',label='unbalanced 3LSTM',linew
 plt.legend(prop = {'size':5})
 plt.title('AUC(2016-2024)')
 plt.xlabel('Time')
-plt.show()   
+path = os.getcwd()
+new_path = path.replace("\\","/")
+plt.savefig(new_path + "/output/Figure14.png")
+#plt.show()   

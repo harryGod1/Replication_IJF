@@ -7249,4 +7249,7 @@ plt.plot(x_axis,pseudo_3lstm_attention_deli2.astype(float),'black',label='3LSTM 
 plt.legend(loc='lower right',prop = {'size':4})
 plt.title('AUC(2016-2024)')
 plt.xlabel('Time')
-plt.show()   
+path = os.getcwd()
+new_path = path.replace("\\","/")
+plt.savefig(new_path + "/output/Figure9.png")
+#plt.show()   

@@ -1946,7 +1946,10 @@ for k in range(6):
 
 
 plt.suptitle("Estimated hazard rates for a specific account opened in the fourth quarter of 2007 for different washout phases")
-plt.show()
+path = os.getcwd()
+new_path = path.replace("\\","/")
+plt.savefig(new_path + "/output/Figure7.png")
+#plt.show()
 
 
      

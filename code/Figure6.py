@@ -1727,5 +1727,7 @@ for k in range(1,2):
 
 #plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1, hspace=0.4)
 plt.tight_layout() 
-
-plt.show()
+path = os.getcwd()
+new_path = path.replace("\\","/")
+plt.savefig(new_path + "/output/Figure6.png")
+#plt.show()
