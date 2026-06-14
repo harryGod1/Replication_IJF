@@ -172,12 +172,12 @@ The data/ folder contains all data used in the experiments and testing. Readers 
 | Paper Item | Script | Output File |
 |---|---|---|
 | **Table 1** | — | Literature review (not computationally generated) |
-| **Table 2** | `Table2.py` | Console Output: Descriptive statistics of the dataset used in analysis (2004-2013): |
-| **Table 3** | `Table3.py` | Console Output: Descriptive statistics of the dataset used in analysis (2016-2024): |
-| **Table 4** | `Table4.py` | Console Output: Model performance with different washout phases |
-| **Table 5** | `Table5.py` | Console Output: Statistical tests of comparative performance |
-| **Table 6** | `Table6.py` | Console Output: Computational time for all the models trained in this paper |
-| **Table 7** | `Table7.py` | Console Output: Summary of results across models for both dataset periods |
+| **Table 2** | `Table2.py` | Console Output |
+| **Table 3** | `Table3.py` | Console Output |
+| **Table 4** | `Table4.py` | Console Output |
+| **Table 5** | `Table5.py` | Console Output |
+| **Table 6** | `Table6.py` | Console Output |
+| **Table 7** | `Table7.py` | Console Output |
 | **Figure 1-5** | — | Conceptual illustration (not computationally generated) |
 | **Figure 6**  | `Figure6.py` | output/Figure6.png|
 | **Figure 7**  | `Figure7.py` | output/Figure7.png |
