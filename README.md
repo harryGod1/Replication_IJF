@@ -39,7 +39,7 @@
 │   ├── washout_phase/          # data for washout testing
 │   ├── DTSM.sql                # script designed to process raw data into the intermediate datasets; requires MySQL to run.
 │   ├── Out_file.sql            # script for exporting datasets from the database as text data suitable for model execution.requires MySQL to run.
-│   └── raw data.txt            # Data Usage Guidelines: Readers are strongly advised to read this document first. It contains download links for the raw data, as 
+│   └── raw data.txt            # Data Usage Guidelines: It contains download links for the raw data, as 
 │                               # well as step-by-step instructions on how to use sample scripts to process the raw data into an intermediate dataset.
 ├── env/                        # Environment and Dependencies
 │   ├── requirements.txt        # First, run this file to install the required Python dependencies with their specified versions.
