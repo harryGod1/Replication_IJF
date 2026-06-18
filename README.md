@@ -50,11 +50,9 @@
 │
 ├── output/                     # The execution results of the code (corresponding to the figures in the paper) are saved in this folder.
 │
-├── saved_model/                # All models used in the experiments
-│
-├── train_model/                # Demonstration of Code Execution
-│   ├── 3LSTM_train.py          # Training code for the proposed state-of-the-art model (Attention + 3-layer LSTM).
-│   └── DeepHit_train.py        # Training code for the baseline model (DeepHit).
+└── saved_model/                # All models used in the experiments
+
+
 
 ```
 

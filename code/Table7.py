@@ -1501,7 +1501,7 @@ for prs in range(n_vintage):
             self.train_log_txt.close()
     for item in reader:
         dt = []
-        for i in range(12):
+        for i in range(10):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)    
@@ -1678,6 +1678,9 @@ for prs in range(n_vintage):
         last_seq = new_seq        
         b2=[]
 
+    rst = []
+    atp = []
+    attp = []
     if(max_seqlen != 0):
         if(max_seqlen+1 != len(current_deli)-1):
 
@@ -1768,7 +1771,6 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
-
 
 
 
@@ -2010,6 +2012,95 @@ for prs in range(n_vintage):
                     })
     #print('lentgh:',test_length)
 
+    attp.extend([' ',' '," 2004–2015",' ',' ',' ',' ',"2016-2024Q2",' ',' ',' ',' ']) 
+    rst.append(attp) 
+    attp = []
+    attp.extend(["Row","Model","PRS","AUC","BS","DR","EAD","PRS","AUC","BS","DR","EAD"])
+    rst.append(attp) 
+    attp = []
+    attp.extend([1,"Cox PH"])
+    atp.extend(row for row in result[0])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([2,"Weibull"])
+    atp.extend(row for row in result[1])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([3,"Linear DTSM"])
+    atp.extend(row for row in result[2])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([4,"GAM"])
+    atp.extend(row for row in result[3])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([5,"DeepHit"])
+    atp.extend(row for row in result[4])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([6,"LSTM+wo"])
+    atp.extend(row for row in result[5])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([7,"LSTM+attn"])
+    atp.extend(row for row in result[6])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([8,"LSTM+wo+attn"])
+    atp.extend(row for row in result[7])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([9,"LSTM+wo+attn+deli"])
+    atp.extend(row for row in result[8])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([10,"3LSTM"])
+    atp.extend(row for row in result[9])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([11,"3LSTM (unbalanced)"])
+    atp.extend(row for row in result[10])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([12,"Linear DTSM + MEVs"])
+    atp.extend(row for row in result[11])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([13,"DeepHit + MEVs"])
+    atp.extend(row for row in result[12])
+    attp.extend(atp)
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.extend([14,"3LSTM + MEVs"])
+    atp.extend(row for row in result[13])
+    attp.extend(atp)
+    rst.append(attp) 
+    df = pd.DataFrame(rst)
 
     count = count + test_count
     loss_arr.append(bid_loss*test_count)
@@ -2231,9 +2322,8 @@ for prs in range(n_vintage):
 
 print("\n")  
 print("======================================================================")
-print("Summary of results across models for both dataset periods:")
+print("The results for Table 7 are generated as follows::")
 print("\n")  
 
 
-print("Summary:")
 print(df.to_string(index=False))
