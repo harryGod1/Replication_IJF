@@ -3265,7 +3265,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_mev = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/am_mev.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     class SparseData():
@@ -4811,7 +4811,7 @@ for prs in range(n_vintage):
 
     for item in reader:
         dt = []
-        for i in range(12):
+        for i in range(45):
             dt.append(item[i])
         result.append(dt)    
     df = pd.DataFrame(result)
@@ -5079,12 +5079,12 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
-    pseudo_dtsm = df.iloc[2:50,1]
-    pseudo_dtsm_mev = df.iloc[2:50,3]
-    pseudo_deephit = df.iloc[2:50,5]
-    pseudo_deephit_mev = df.iloc[2:50,7]
-    pseudo_3lstm = df.iloc[2:50,9]
-    pseudo_3lstm_mev = df.iloc[2:50,11]
+    pseudo_dtsm = df.iloc[0:48,34]
+    pseudo_dtsm_mev = df.iloc[0:48,36]
+    pseudo_deephit = df.iloc[0:48,38]
+    pseudo_deephit_mev = df.iloc[0:48,40]
+    pseudo_3lstm = df.iloc[0:48,42]
+    pseudo_3lstm_mev = df.iloc[0:48,44]
     #DeepHit
     #Forecast
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
@@ -5115,7 +5115,7 @@ for prs in range(n_vintage):
     path = os.getcwd()
     new_path = path.replace("\\","/")
 
-    csvFile = open(new_path + "/data/2259/am_mev2.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     if(prs<48):     
@@ -5604,7 +5604,7 @@ for prs in range(n_vintage):
 
     for item in reader:
         dt = []
-        for i in range(12):
+        for i in range(45):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -7241,12 +7241,12 @@ for prs in range(n_vintage):
     RUNNING_MODEL.create_graph()
     
     import time
-    pseudo_dtsm2 = df.iloc[2:36,1]
-    pseudo_dtsm_mev2 = df.iloc[2:36,3]
-    pseudo_deephit2 = df.iloc[2:36,5]
-    pseudo_deephit_mev2 = df.iloc[2:36,7]
-    pseudo_3lstm2 = df.iloc[2:36,9]
-    pseudo_3lstm_mev2 = df.iloc[2:36,11]
+    pseudo_dtsm2 = df.iloc[48:82,34]
+    pseudo_dtsm_mev2 = df.iloc[48:82,36]
+    pseudo_deephit2 = df.iloc[48:82,38]
+    pseudo_deephit_mev2 = df.iloc[48:82,40]
+    pseudo_3lstm2 = df.iloc[48:82,42]
+    pseudo_3lstm_mev2 = df.iloc[48:82,44]
     #computational time
     T1 = time.perf_counter()
     #data for forecast

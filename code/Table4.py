@@ -145,6 +145,9 @@ TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
 show_survival_curve = False
+rst = []
+attp = []
+atp = []
 
 class SparseData():
 
@@ -483,7 +486,7 @@ class SparseData():
 path = os.getcwd()
 new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/data/2259/wp.csv", "r",encoding='gb18030', errors='ignore')
+csvFile = open(new_path + "/data/2259/wp_ct.csv", "r",encoding='utf-8-sig', errors='ignore')
 reader = csv.reader(csvFile)
 result = []
 
@@ -502,6 +505,15 @@ class biSparseData():
         else:
             a, b, c, d, e = self.loseData.next(batch)
             return a, b, c, d, e, False
+
+for item in reader:
+    dt = []
+
+    for i in range(2):
+        dt.append(item[i])
+    result.append(dt)
+
+csvFile.close()
 
 class BASE_RNN():
 
@@ -1646,15 +1658,24 @@ class BASE_RNN():
 
         return auc_score,mean_loss
 
+attp.extend(["Washout Phase"," AUC"," -log-likelihood"]) 
+rst.append(attp) 
+atp = []
+attp = []
+attp.append("No Washout:")
+atp.extend(row for row in result[0])
+attp.extend(atp[0:2])
+rst.append(attp) 
+for i in range(1,6):
+    atp = []
+    attp = []
+    attp.append(str(i*10) + "steps: ")
+    atp.extend(row for row in result[i])
+    attp.extend(atp[0:2])
+    rst.append(attp) 
 
-for item in reader:
-    dt = []
+df = pd.DataFrame(rst)
 
-    for i in range(3):
-        dt.append(item[i])
-    result.append(dt)
-
-csvFile.close()
 
 state_size = 8
 batch_size = 512
@@ -1717,6 +1738,12 @@ RUNNING_MODEL.create_graph()
 washout_AUC = []
 washout_LLR = []
 
+print("\n")  
+print("======================================================================")
+print("The results for Table 4 are generated as follows:")
+print("\n")  
+
+print(df.to_string(index=False))
 
 
 #The following code provides an example of loading model weights and validating the output results. Readers may adapt it as needed.
@@ -1769,10 +1796,4 @@ washout_LLR = []
 
 #producing the output results that are summarized in this work.
 
-print("\n")  
-print("======================================================================")
-print("Model performance with different washout phases:")
-print("\n")  
 
-df = pd.DataFrame(result)
-print(df.to_string(index=False))

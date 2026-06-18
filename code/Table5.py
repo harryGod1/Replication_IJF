@@ -522,6 +522,8 @@ for prs in range(n_vintage):
     SHUFFLE = True
     LOAD_LITTLE_DATA = False
     show_survival_curve = False
+    rst = []
+    attp = []
 
     class SparseData():
 
@@ -6652,7 +6654,7 @@ for prs in range(n_vintage):
     test_data = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/st.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/wp_ct.csv", "r",encoding='utf-8-sig', errors='ignore')
 
     reader = csv.reader(csvFile)
     result = []
@@ -7063,7 +7065,7 @@ for prs in range(n_vintage):
         scaler = preprocessing.StandardScaler().fit(x)
     for item in reader:
         dt = []
-        for i in range(5):
+        for i in range(6):
             dt.append(item[i])
         result.append(dt)
     state_size = 16
@@ -7117,7 +7119,48 @@ for prs in range(n_vintage):
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
 
-
+    atp = []
+    attp.extend(['Comparative model'," 2004–2015"," 2004–2015"," 2016–2024"," 2016–2024"]) 
+    rst.append(attp) 
+    attp = []
+    attp.extend([" "," Delong AUC"," Vuong test"," Delong AUC"," Vuong test"])
+    rst.append(attp) 
+    attp = []
+    attp.append("Linear DTSM")
+    atp.extend(row for row in result[0])
+    attp.extend(atp[2:6])
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.append("DeepHit")
+    atp.extend(row for row in result[1])
+    attp.extend(atp[2:6])
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.append("LSTM + washout")
+    atp.extend(row for row in result[2])
+    attp.extend(atp[2:6])
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.append("LSTM + washout + Attention")
+    atp.extend(row for row in result[3])
+    attp.extend(atp[2:6])
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.append("LSTM + Deli + washout + Attention")
+    atp.extend(row for row in result[4])
+    attp.extend(atp[2:6])
+    rst.append(attp) 
+    attp = []
+    atp = []
+    attp.append("LSTM + Attention + no washout")
+    atp.extend(row for row in result[5])
+    attp.extend(atp[2:6])
+    rst.append(attp) 
+    df = pd.DataFrame(rst)
 
     #Forecast with no deliquency
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
@@ -7216,9 +7259,13 @@ for prs in range(n_vintage):
 #print('Delong Test for AUC prediction ====================================')
 
 
+print("\n")  
+print("======================================================================")
+print("The results for Table 5 are generated as follows::")
+print("\n")  
 
+print(df.to_string(index=False))
      
-#The code presented here enables readers to train and validate the model independently.
 
 #The following code provides an example of validating the output results. Readers may adapt it as needed.
 ########################################################################################################
@@ -7339,12 +7386,6 @@ class DelongTest():
 #elif(V > 1.645):
     #print('There is a significant difference.3LSTM is better.')
 #elif(V < -1.645):
-    #print('There is a significant difference.The latter is better.')          
+    #print('There is a significant difference.The latter is better.')       
 
-print("\n")  
-print("======================================================================")
-print("Results of statistical tests of comparative performance:")
-print("\n")  
 
-df = pd.DataFrame(result)
-print(df.to_string(index=False))

@@ -478,7 +478,7 @@ test_data = []
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/ct.csv", "r",encoding='gb18030', errors='ignore')
+csvFile = open(new_path + "/data/2259/u_ct.csv", "r",encoding='utf-8-sig', errors='ignore')
 reader = csv.reader(csvFile)
 result = []
 
@@ -2369,9 +2369,12 @@ class BASE_RNN():
         self.train_log_txt = open(self.train_log_txt_filename, 'a')
         self.train_log_txt.write(log)
         self.train_log_txt.close()
+rst = []
+atp = []
+attp = []
 for item in reader:
     dt = []
-    for i in range(3):
+    for i in range(2):
         dt.append(item[i])
     result.append(dt)
 state_size = 16
@@ -2402,6 +2405,40 @@ csvFile.close()
 #    print("Please input learning rate. ex. 0.0001")
 #    sys.exit(0)
 
+attp.extend(['Comparative model'," 2004–2012"," 2016–2021"]) 
+rst.append(attp) 
+attp = []
+attp.extend([" "," Computational Time"," Computational Time"])
+rst.append(attp) 
+attp = []
+attp.append("Linear DTSM")
+attp.extend([str("{:.2f}".format(round(int(result[6][0])*int(result[6][1])/1000/60,2)))+"min",str(round(int(result[13][0])*int(result[13][1])/1000/60,2))+"min"])
+rst.append(attp) 
+attp = []
+attp.append("DeepHit")
+attp.extend([str(round(int(result[0][0])*int(result[0][1])/1000/60/60,2))+"h",str(round(int(result[7][0])*int(result[7][1])/1000/60/60,2))+"h"])
+rst.append(attp) 
+attp = []
+attp.append("LSTM + washout")
+attp.extend([str(round(int(result[1][0])*int(result[1][1])/1000/60/60,2))+"h",str(round(int(result[8][0])*int(result[8][1])/1000/60/60,2))+"h"])
+rst.append(attp) 
+attp = []
+attp.append("LSTM + washout + Attention")
+attp.extend([str(round(int(result[2][0])*int(result[2][1])/1000/60/60,2))+"h",str(round(int(result[9][0])*int(result[9][1])/1000/60/60,2))+"h"])
+rst.append(attp) 
+attp = []
+attp.append("LSTM + Deli + washout + Attention")
+attp.extend([str(round(int(result[3][0])*int(result[3][1])/1000/60/60,2))+"h",str(round(int(result[10][0])*int(result[10][1])/1000/60/60,2))+"h"])
+rst.append(attp) 
+attp = []
+attp.append("LSTM + Attention + no washout")
+attp.extend([str(round(int(result[4][0])*int(result[4][1])/1000/60/60,2))+"h",str(round(int(result[11][0])*int(result[11][1])/1000/60/60,2))+"h"])
+rst.append(attp) 
+attp = []
+attp.append("3LSTM based Attention + Deli + washout")
+attp.extend([str(round(int(result[5][0])*int(result[5][1])/1000/60/60,2))+"h",str(round(int(result[12][0])*int(result[12][1])/1000/60/60,2))+"h"])
+rst.append(attp) 
+df = pd.DataFrame(rst)
 
 LR = float(0.0001)
 LR_ANLP = LR
@@ -2435,7 +2472,7 @@ RUNNING_MODEL = BASE_RNN(EMB_DIM=EMB_DIM,
                          LOG_PREFIX="drsa")
 RUNNING_MODEL.create_graph()
 
-#Forecast
+
 #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
 #use the second copy of the lstm code
 #remember to substract 8 also in count length of the crossentropy
@@ -2469,16 +2506,18 @@ step = 100000
 
 pseudo_3lstm.append(RUNNING_MODEL.load(meta,ckpt,step))
 
+print("\n")  
+print("======================================================================")
+print("The results for Table 6 are generated as follows::")
+print("\n")  
+
+
+print(df.to_string(index=False))
+
 
 #computational time
 T2 = time.perf_counter()
          
-#print('forecast computational time:',(T2 - T1))
 
-print("\n")  
-print("======================================================================")
-print("Comparative study of computational time for all the models trained in this paper:")
-print("\n")  
 
-df = pd.DataFrame(result)
-print(df.to_string(index=False))
+

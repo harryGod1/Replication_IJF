@@ -274,7 +274,7 @@ for prs in range(n_vintage):
         pseudo_3lstm_attention_deli = []
         path = os.getcwd()
         new_path = path.replace("\\","/")
-        csvFile = open(new_path + "/data/2259/pl.csv", "r",encoding='gb18030', errors='ignore')
+        csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
         reader = csv.reader(csvFile)
         result = []
     else:
@@ -477,7 +477,7 @@ for prs in range(n_vintage):
         scaler = preprocessing.StandardScaler().fit(x)
     for item in reader:
         dt = []
-        for i in range(11):
+        for i in range(15):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -1924,11 +1924,11 @@ for prs in range(n_vintage):
             self.train_log_txt = open(self.train_log_txt_filename, 'a')
             self.train_log_txt.write(log)
             self.train_log_txt.close()
-    pseudo_washout = df.iloc[2:50,2]
-    pseudo_washout_attention = df.iloc[2:50,4]
-    pseudo_nowashout_attention = df.iloc[2:50,6]
-    pseudo_attention_deli = df.iloc[2:50,8]
-    pseudo_3lstm_attention_deli = df.iloc[2:50,10]
+    pseudo_washout = df.iloc[0:48,0]
+    pseudo_washout_attention = df.iloc[0:48,3]
+    pseudo_nowashout_attention = df.iloc[0:48,6]
+    pseudo_attention_deli = df.iloc[0:48,9]
+    pseudo_3lstm_attention_deli = df.iloc[0:48,12]
     #print('no deli')
 
     state_size = 16
@@ -2611,7 +2611,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_attention_deli2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/pl2.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     TRAING_TIME = 15
@@ -4565,7 +4565,7 @@ for prs in range(n_vintage):
 
     for item in reader:
         dt = []
-        for i in range(11):
+        for i in range(15):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -4648,11 +4648,11 @@ for prs in range(n_vintage):
     
     #pseudo_attention_deli.append(RUNNING_MODEL.load(meta,ckpt,step))
 
-    pseudo_washout2 = df.iloc[2:36,2]
-    pseudo_washout_attention2 = df.iloc[2:36,4]
-    pseudo_nowashout_attention2 = df.iloc[2:36,6]
-    pseudo_attention_deli2 = df.iloc[2:36,8]
-    pseudo_3lstm_attention_deli2 = df.iloc[2:36,10]
+    pseudo_washout2 = df.iloc[48:82,0]
+    pseudo_washout_attention2 = df.iloc[48:82,3]
+    pseudo_nowashout_attention2 = df.iloc[48:82,6]
+    pseudo_attention_deli2 = df.iloc[48:82,9]
+    pseudo_3lstm_attention_deli2 = df.iloc[48:82,12]
 
     
 
@@ -7216,6 +7216,7 @@ plt.figure(figsize=(18, 4))
 plt.subplot(1, 2, 1) 
 ax1 = plt.gca()
 ax1.set_ylim([-1,1])
+ax1.set_yticks(np.arange(-1, 1.2, 0.2))
 plt.plot(x_axis,pseudo_washout.astype(float),'blue',label='LSTM + wo')
 plt.plot(x_axis,pseudo_washout_attention.astype(float),'red',label='LSTM + attn + wo',linestyle='--')
 plt.plot(x_axis,pseudo_nowashout_attention.astype(float),'grey',label='LSTM + attn' )
@@ -7243,6 +7244,7 @@ for k in range(0,len(pseudo_3lstm_attention_deli2)):
 plt.subplot(1, 2, 2) 
 ax1 = plt.gca()
 ax1.set_ylim([-1,1])
+ax1.set_yticks(np.arange(-1, 1.2, 0.2))
 plt.plot(x_axis,pseudo_washout2.astype(float),'blue',label='LSTM + wo')
 plt.plot(x_axis,pseudo_washout_attention2.astype(float),'red',label='LSTM + attn + wo',linestyle='--')
 plt.plot(x_axis,pseudo_nowashout_attention2.astype(float),'grey',label='LSTM + attn' )

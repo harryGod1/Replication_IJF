@@ -1665,7 +1665,7 @@ for prs in range(n_vintage):
     pseudo_3lstm = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/ps.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -2261,7 +2261,7 @@ for prs in range(n_vintage):
     from sklearn.metrics import auc
     for item in reader:
         dt = []
-        for i in range(13):
+        for i in range(33):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -2491,12 +2491,12 @@ for prs in range(n_vintage):
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
     #train_data = f1.readline()
-    pseudo_dtsm = df.iloc[2:50,2]
-    pseudo_gam = df.iloc[2:50,4]
-    pseudo_cox = df.iloc[2:50,6]
-    pseudo_weibull = df.iloc[2:50,8]
-    pseudo_deephit = df.iloc[2:50,10]
-    pseudo_3lstm = df.iloc[2:50,12]
+    pseudo_dtsm = df.iloc[0:48,15]
+    pseudo_gam = df.iloc[0:48,18]
+    pseudo_cox = df.iloc[0:48,21]
+    pseudo_weibull = df.iloc[0:48,24]
+    pseudo_deephit = df.iloc[0:48,27]
+    pseudo_3lstm = df.iloc[0:48,30]
     #test_data = f2.readline()
     test_data = []
     for line in f2:
@@ -2843,8 +2843,6 @@ for prs in range(n_vintage):
     df_standard = scaler.transform(df_standard)
     #print(x[0],x[1])
 
-    #用训练集的标准差进行标准化还是用测试集自己的标准差进行标准化？
-    #x_s2=x2
     #scaler = preprocessing.StandardScaler().fit(x_s2)
     df_standard2 = scaler.transform(df_standard2)
 
@@ -6035,7 +6033,7 @@ for prs in range(n_vintage):
     pseudo_3lstm2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/ps2.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     TRAING_TIME = 15
@@ -7935,7 +7933,7 @@ for prs in range(n_vintage):
             self.train_log_txt.close()
     for item in reader:
         dt = []
-        for i in range(13):
+        for i in range(33):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -8000,12 +7998,12 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
-    pseudo_dtsm2 = df.iloc[2:36,2]
-    pseudo_gam2 = df.iloc[2:36,4]
-    pseudo_cox2 = df.iloc[2:36,6]
-    pseudo_weibull2 = df.iloc[2:36,8]
-    pseudo_deephit2 = df.iloc[2:36,10]
-    pseudo_3lstm2 = df.iloc[2:36,12]
+    pseudo_dtsm2 = df.iloc[48:82,15]
+    pseudo_gam2 = df.iloc[48:82,18]
+    pseudo_cox2 = df.iloc[48:82,21]
+    pseudo_weibull2 = df.iloc[48:82,24]
+    pseudo_deephit2 = df.iloc[48:82,27]
+    pseudo_3lstm2 = df.iloc[48:82,30]
 
     #Forecast
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code

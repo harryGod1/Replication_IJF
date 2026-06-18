@@ -312,7 +312,7 @@ def forecast_exp():
 
     #forecasting for corresponding lag time
     lag_time = int(lag / 3)
-    print(lag_time)
+    
     for i in range(lag_time):
 
         seqlen_id = 0
@@ -1436,7 +1436,7 @@ for prs in range(1):
     from sklearn import preprocessing
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/dm_fe.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     #print(x[0],x[1])
@@ -1745,7 +1745,7 @@ for prs in range(1):
         seqlen.append(count_len+1)
     for item in reader:
         dt = []
-        for i in range(3):
+        for i in range(16):
             dt.append(item[i])
         result.append(dt)
 
@@ -2459,7 +2459,7 @@ for prs in range(1):
 
     #forecasting for corresponding lag time
     lag_time = int(lag / 3)
-    #print(lag_time)
+    #
     for i in range(lag_time):
         #
         seqlen_id = 0
@@ -2503,14 +2503,12 @@ for prs in range(1):
         #forecast_exp()
         for prs_s in range(3):
             df = pd.DataFrame(result)
-            print("DTSM:")
-            print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
             r_default = np.array(r_default)
             pseudo_dtsm = np.array(pseudo_dtsm)
             result = np.array(result)
-            r_default = np.concatenate((r_default, result[prs_s*6+2:prs_s*6+6,1]))
-            pseudo_dtsm = np.concatenate((pseudo_dtsm, result[prs_s*6+2:prs_s*6+6,2]))
-            print('============================================================')
+            r_default = np.concatenate((r_default, result[prs_s*4:prs_s*4+4,8]))
+            pseudo_dtsm = np.concatenate((pseudo_dtsm, result[prs_s*4:prs_s*4+4,9]))
+        print('============================================================')
             
 
     print("GAM...")
@@ -2532,7 +2530,7 @@ for prs in range(1):
     import time
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/gm_fe.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     #computational time
@@ -2943,7 +2941,7 @@ for prs in range(1):
 
     for item in reader:
         dt = []
-        for i in range(3):
+        for i in range(16):
             dt.append(item[i])
         result.append(dt)
     count_len = 0
@@ -3297,7 +3295,7 @@ for prs in range(1):
 
     #forecasting for corresponding lag time
     lag_time = int(lag / 3)
-    print(lag_time)
+
     for i in range(lag_time):
         
         seqlen_id = 0
@@ -3341,12 +3339,10 @@ for prs in range(1):
         #forecast_exp()
         for prs_s in range(3):
             df = pd.DataFrame(result)
-            print("GAM:")
-            print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
             pseudo_gam = np.array(pseudo_gam)
             result = np.array(result)
-            pseudo_gam = np.concatenate((pseudo_gam, result[prs_s*6+2:prs_s*6+6,2]))
-            print('============================================================')
+            pseudo_gam = np.concatenate((pseudo_gam, result[prs_s*4:prs_s*4+4,10]))
+        print('============================================================')
 
     print("Cox and Weibull...")
 
@@ -3381,7 +3377,7 @@ for prs in range(1):
     import time
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/cp_fe.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -4044,7 +4040,7 @@ for prs in range(1):
             #seqlen.append(max_seqlen+1) 
     for item in reader:
         dt = []
-        for i in range(3):
+        for i in range(16):
             dt.append(item[i])
         result.append(dt)
 
@@ -4681,7 +4677,7 @@ for prs in range(1):
 
     #forecasting for corresponding lag time
     lag_time = int(lag / 3)
-    print(lag_time)
+    
     for i in range(lag_time):
         #
         seqlen_id = 0
@@ -4731,15 +4727,14 @@ for prs in range(1):
         #forecast_exp()
         for prs_s in range(3):
             df = pd.DataFrame(result)
-            print("Cox PH:")
-            print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
             pseudo_cox = np.array(pseudo_cox)
             result = np.array(result)
-            pseudo_cox = np.concatenate((pseudo_cox, result[prs_s*6+2:prs_s*6+6,2]))
-            print('============================================================')
+            pseudo_cox = np.concatenate((pseudo_cox, result[prs_s*4:prs_s*4+4,11]))
+        print('============================================================')
+    
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/wb_fe.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -4786,7 +4781,7 @@ for prs in range(1):
     seq = []
     for item in reader:
         dt = []
-        for i in range(3):
+        for i in range(16):
             dt.append(item[i])
         result.append(dt)
 
@@ -4851,7 +4846,7 @@ for prs in range(1):
 
     #forecasting for corresponding lag time
     lag_time = int(lag / 3)
-    print(lag_time)
+    
     for i in range(lag_time):
         
         seqlen_id = 0
@@ -4900,12 +4895,10 @@ for prs in range(1):
         #forecast_exp()
         for prs_s in range(3):        
             df = pd.DataFrame(result)
-            print("Weibull:")
-            print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
             pseudo_weibull = np.array(pseudo_weibull)
             result = np.array(result)
-            pseudo_weibull = np.concatenate((pseudo_weibull, result[prs_s*6+2:prs_s*6+6,2]))
-            print('============================================================')
+            pseudo_weibull = np.concatenate((pseudo_weibull, result[prs_s*4:prs_s*4+4,12]))
+        print('============================================================')
 
     print("Deephit...")
 
@@ -6716,7 +6709,7 @@ for prs in range(1):
             self.train_log_txt.close()
             path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/dp_fe.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -7189,7 +7182,7 @@ for prs in range(1):
     cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
     for item in reader:
         dt = []
-        for i in range(3):
+        for i in range(16):
             dt.append(item[i])
         result.append(dt)
 
@@ -7451,7 +7444,7 @@ for prs in range(1):
 
     #forecasting for corresponding lag time
     lag_time = int(lag / 3)
-    print(lag_time)
+    
     for i in range(lag_time):
         
         seqlen_id = 0
@@ -7500,12 +7493,10 @@ for prs in range(1):
         #forecast_exp()
         for prs_s in range(3):
             df = pd.DataFrame(result)
-            print("DeepHit:")
-            print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
             pseudo_deephit = np.array(pseudo_deephit)
             result = np.array(result)
-            pseudo_deephit = np.concatenate((pseudo_deephit, result[prs_s*6+2:prs_s*6+6,2]))
-            print('============================================================')
+            pseudo_deephit = np.concatenate((pseudo_deephit, result[prs_s*4:prs_s*4+4,13]))
+        print('============================================================')
         
         
     print("LSTM+Washout+3LSTM Attention+Deli...")
@@ -9339,7 +9330,7 @@ for prs in range(1):
     scaler = preprocessing.StandardScaler().fit(x)
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/3ls_fe.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -9723,7 +9714,7 @@ for prs in range(1):
     cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
     for item in reader:
         dt = []
-        for i in range(3):
+        for i in range(16):
             dt.append(item[i])
         result.append(dt)
 
@@ -9958,7 +9949,7 @@ for prs in range(1):
 
     #forecasting for corresponding lag time
     lag_time = int(lag / 3)
-    print(lag_time)
+    
     for i in range(lag_time):
         
         seqlen_id = 0
@@ -10008,14 +9999,11 @@ for prs in range(1):
         #forecast_exp()
         for prs_s in range(3):
             df = pd.DataFrame(result)
-            print("3LSTM:")
-            print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
             pseudo_3lstm = np.array(pseudo_3lstm)
             result = np.array(result)
-            pseudo_3lstm = np.concatenate((pseudo_3lstm, result[prs_s*6+2:prs_s*6+6,2]))
-            print('============================================================')
+            pseudo_3lstm = np.concatenate((pseudo_3lstm, result[prs_s*4:prs_s*4+4,14]))
+        print('============================================================')
 
-    print("LSTM+Washout+Attention+Deli...")
 
 
     #version for lagged HPI&UNRATE + LSTM with Deli
@@ -11837,7 +11825,7 @@ for prs in range(1):
     scaler = preprocessing.StandardScaler().fit(x)
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/ls_fe.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -12067,7 +12055,7 @@ for prs in range(1):
 
     for item in reader:
         dt = []
-        for i in range(3):
+        for i in range(16):
             dt.append(item[i])
         result.append(dt)
 
@@ -12310,7 +12298,7 @@ for prs in range(1):
 
     #forecasting for corresponding lag time
     lag_time = int(lag / 3)
-    print(lag_time)
+    
     for i in range(lag_time):
         
         seqlen_id = 0
@@ -12361,21 +12349,18 @@ for prs in range(1):
         #forecast_exp()
         for prs_s in range(3):
             df = pd.DataFrame(result)
-            print("LSTM:")
-            print(df.iloc[prs_s*6:prs_s*6+6].to_string(index=False))
             pseudo_lstm = np.array(pseudo_lstm)
             result = np.array(result)
-            pseudo_lstm = np.concatenate((pseudo_lstm, result[prs_s*6+2:prs_s*6+6,2]))
-            print('============================================================')
+            pseudo_lstm = np.concatenate((pseudo_lstm, result[prs_s*4:prs_s*4+4,15]))
+        print('============================================================')
 
         
-#The code presented here enables readers to train and validate the model independently.
-##############################################
+
 
 #draw the curve of forecast of default rate from 2013 to 2015
 x_axis = []
 hr = []
-print('Forecasts Exposure at Default(2013-2015): ')
+print('The results for Figure 18 have been generated and saved in the output folder.')
 for k in range(0,len(pseudo_3lstm)):
     x_axis.append((k+1))
 

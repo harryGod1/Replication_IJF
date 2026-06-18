@@ -1664,7 +1664,7 @@ for prs in range(n_vintage):
     pseudo_3lstm = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/am.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -2257,7 +2257,7 @@ for prs in range(n_vintage):
     from sklearn.metrics import auc
     for item in reader:
         dt = []
-        for i in range(12):
+        for i in range(33):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -2485,12 +2485,12 @@ for prs in range(n_vintage):
     #f2 = open("./test4_data.txt")
     #f2 = open("./test3.txt")
     #train_data = f1.readline()
-    pseudo_dtsm = df.iloc[2:50,1]
-    pseudo_gam = df.iloc[2:50,3]
-    pseudo_cox = df.iloc[2:50,5]
-    pseudo_weibull = df.iloc[2:50,7]
-    pseudo_deephit = df.iloc[2:50,9]
-    pseudo_3lstm = df.iloc[2:50,11]
+    pseudo_dtsm = df.iloc[0:48,16]
+    pseudo_gam = df.iloc[0:48,19]
+    pseudo_cox = df.iloc[0:48,22]
+    pseudo_weibull = df.iloc[0:48,25]
+    pseudo_deephit = df.iloc[0:48,28]
+    pseudo_3lstm = df.iloc[0:48,31]
     #test_data = f2.readline()
     test_data = []
     for line in f2:
@@ -4178,7 +4178,7 @@ for prs in range(n_vintage):
     pseudo_3lstm2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/am2.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     class biSparseData():
@@ -5230,7 +5230,7 @@ for prs in range(n_vintage):
             self.train_log_txt.close()
     for item in reader:
         dt = []
-        for i in range(12):
+        for i in range(33):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -5498,12 +5498,12 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
-    pseudo_dtsm2 = df.iloc[2:36,1]
-    pseudo_gam2 = df.iloc[2:36,3]
-    pseudo_cox2 = df.iloc[2:36,5]
-    pseudo_weibull2 = df.iloc[2:36,7]
-    pseudo_deephit2 = df.iloc[2:36,9]
-    pseudo_3lstm2 = df.iloc[2:36,11]
+    pseudo_dtsm2 = df.iloc[48:82,16]
+    pseudo_gam2 = df.iloc[48:82,19]
+    pseudo_cox2 = df.iloc[48:82,22]
+    pseudo_weibull2 = df.iloc[48:82,25]
+    pseudo_deephit2 = df.iloc[48:82,28]
+    pseudo_3lstm2 = df.iloc[48:82,31]
 
     #DeepHit
     #Forecast

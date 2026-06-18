@@ -2968,7 +2968,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_mev = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/ps_mev.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     count_len = 0
@@ -3236,7 +3236,7 @@ for prs in range(n_vintage):
 
     for item in reader:
         dt = []
-        for i in range(13):
+        for i in range(45):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -4804,12 +4804,12 @@ for prs in range(n_vintage):
             self.train_log_txt.write(log)
             self.train_log_txt.close()
 
-    pseudo_dtsm = df.iloc[2:50,2]
-    pseudo_dtsm_mev = df.iloc[2:50,4]
-    pseudo_deephit = df.iloc[2:50,6]
-    pseudo_deephit_mev = df.iloc[2:50,8]
-    pseudo_3lstm = df.iloc[2:50,10]
-    pseudo_3lstm_mev = df.iloc[2:50,12]        
+    pseudo_dtsm = df.iloc[0:48,33]
+    pseudo_dtsm_mev = df.iloc[0:48,35]
+    pseudo_deephit = df.iloc[0:48,37]
+    pseudo_deephit_mev = df.iloc[0:48,39]
+    pseudo_3lstm = df.iloc[0:48,41]
+    pseudo_3lstm_mev = df.iloc[0:48,43]        
 
     #deephit standardscaler
     if(prs<48):
@@ -5081,7 +5081,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_mev2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/ps_mev2.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     #DeepHit
@@ -5591,7 +5591,7 @@ for prs in range(n_vintage):
 
     for item in reader:
         dt = []
-        for i in range(13):
+        for i in range(45):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -7697,12 +7697,12 @@ for prs in range(n_vintage):
     RUNNING_MODEL.create_graph()
     
     import time
-    pseudo_dtsm2 = df.iloc[2:36,2]
-    pseudo_dtsm_mev2 = df.iloc[2:36,4]
-    pseudo_deephit2 = df.iloc[2:36,6]
-    pseudo_deephit_mev2 = df.iloc[2:36,8]
-    pseudo_3lstm2 = df.iloc[2:36,10]
-    pseudo_3lstm_mev2 = df.iloc[2:36,12]  
+    pseudo_dtsm2 = df.iloc[48:82,33]
+    pseudo_dtsm_mev2 = df.iloc[48:82,35]
+    pseudo_deephit2 = df.iloc[48:82,37]
+    pseudo_deephit_mev2 = df.iloc[48:82,39]
+    pseudo_3lstm2 = df.iloc[48:82,41]
+    pseudo_3lstm_mev2 = df.iloc[48:82,43]  
     #computational time
     T1 = time.perf_counter()
     #data for forecast

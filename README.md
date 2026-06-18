@@ -12,6 +12,8 @@
 
 [![Python 3.8.19](https://img.shields.io/badge/python-3.8.19-blue.svg)](https://www.python.org/downloads/release/python-3819/)
 
+**⚠️Important:** 
+> We have updated the documentation and file structure to enhance usability for the review process. All core analysis code, data, and empirical results remain identical. For the best experience, we recommend using the latest commit.
 
 **Reproducibility package for:**
 > Hao Wang, Anthony Bellotti. *Long Short-Term Memory Network with Adapted Attention Mechanism for Credit Risk Modelling*. International Journal of Forecasting, 2026.
@@ -37,7 +39,7 @@
 │   ├── washout_phase/          # data for washout testing
 │   ├── DTSM.sql                # script designed to process raw data into the intermediate datasets; requires MySQL to run.
 │   ├── Out_file.sql            # script for exporting datasets from the database as text data suitable for model execution.requires MySQL to run.
-│   └── raw data.txt            # Data Usage Guidelines: Readers are strongly advised to read this document first. It contains download links for the raw data, as 
+│   └── raw data.txt            # Data Usage Guidelines: It contains download links for the raw data, as 
 │                               # well as step-by-step instructions on how to use sample scripts to process the raw data into an intermediate dataset.
 ├── env/                        # Environment and Dependencies
 │   ├── requirements.txt        # First, run this file to install the required Python dependencies with their specified versions.
@@ -45,6 +47,8 @@
 │
 ├── example/                    # Demonstration of Code Execution
 │   └── example_figure14.png    # An example screenshot of the execution of Figure14.py in the real environment.
+│
+├── output/                     # The execution results of the code (corresponding to the figures in the paper) are saved in this folder.
 │
 ├── saved_model/                # All models used in the experiments
 │
@@ -167,31 +171,31 @@ The data/ folder contains all data used in the experiments and testing. Readers 
 
 ## 📊 Which code produces which outputs
 
-| Paper Item | Script | Brief Description |
+| Paper Item | Script | Output File |
 |---|---|---|
 | **Table 1** | — | Literature review (not computationally generated) |
-| **Table 2** | `Table2.py` | Console Output: Descriptive statistics of the dataset used in analysis (2004-2013): |
-| **Table 3** | `Table3.py` | Console Output: Descriptive statistics of the dataset used in analysis (2016-2024): |
-| **Table 4** | `Table4.py` | Console Output: Model performance with different washout phases |
-| **Table 5** | `Table5.py` | Console Output: Statistical tests of comparative performance |
-| **Table 6** | `Table6.py` | Console Output: Computational time for all the models trained in this paper |
-| **Table 7** | `Table7.py` | Console Output: Summary of results across models for both dataset periods |
+| **Table 2** | `Table2.py` | Console Output |
+| **Table 3** | `Table3.py` | Console Output |
+| **Table 4** | `Table4.py` | Console Output |
+| **Table 5** | `Table5.py` | Console Output |
+| **Table 6** | `Table6.py` | Console Output |
+| **Table 7** | `Table7.py` | Console Output |
 | **Figure 1-5** | — | Conceptual illustration (not computationally generated) |
-| **Figure 6**  | `Figure6.py` | hazard rate & survival rate for an account in 2007 4th quarter|
-| **Figure 7**  | `Figure7.py` | Estimated hazard rates from the model for different washout phases |
-| **Figure 8**  | `Figure8.py` | Pseudo-R-square for different versions of LSTM |
-| **Figure 9**  | `Figure9.py` | Time dependent AUC for different versions of LSTM |
-| **Figure 10**  | `Figure10.py` | Brier Score for different versions of LSTM |
-| **Figure 11**  | `Figure11.py` | Pseudo-R-square comparing LSTM with 3LSTMs alongside baseline models |
-| **Figure 12**  | `Figure12.py` | Time dependent AUC comparing LSTM with 3LSTMs alongside baseline models |
-| **Figure 13**  | `Figure13.py` | Brier Score comparing LSTM with 3LSTMs alongside baseline models |
-| **Figure 14**  | `Figure14.py` | Ablation study showing Pseudo-R-Square & AUC on balanced and unbalanced datasets. |
-| **Figure 15**  | `Figure15.py` | Pseudo-R-Square for comparing models with and without inclusion of MEVs. |
-| **Figure 16**  | `Figure16.py` | AUC for comparing models with and without inclusion of MEVs. |
-| **Figure 17**  | `Figure17.py` | Forecasts of default rate for proposed model along with bechmarks(04 to 15). |
-| **Figure 18**  | `Figure18.py` | Forecasts of exposure at default for proposed model along with bechmark(04 to 15)s. |
-| **Figure 19**  | `Figure19.py` | Forecasts of default rate for proposed model along with bechmarks(16 to 24). |
-| **Figure 20**  | `Figure20.py` | Forecasts of exposure at default for proposed model along with bechmarks(16 to 24). |
+| **Figure 6**  | `Figure6.py` | output/Figure6.png|
+| **Figure 7**  | `Figure7.py` | output/Figure7.png |
+| **Figure 8**  | `Figure8.py` | output/Figure8.png |
+| **Figure 9**  | `Figure9.py` | output/Figure9.png |
+| **Figure 10**  | `Figure10.py` | output/Figure10.png |
+| **Figure 11**  | `Figure11.py` | output/Figure11.png |
+| **Figure 12**  | `Figure12.py` | output/Figure12.png |
+| **Figure 13**  | `Figure13.py` | output/Figure13.png |
+| **Figure 14**  | `Figure14.py` | output/Figure14.png |
+| **Figure 15**  | `Figure15.py` | output/Figure15.png |
+| **Figure 16**  | `Figure16.py` | output/Figure16.png |
+| **Figure 17**  | `Figure17.py` | output/Figure17.png |
+| **Figure 18**  | `Figure18.py` | output/Figure18.png |
+| **Figure 19**  | `Figure19.py` | output/Figure19.png |
+| **Figure 20**  | `Figure20.py` | output/Figure20.png |
 
 ---
 

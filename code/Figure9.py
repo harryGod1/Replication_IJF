@@ -2594,7 +2594,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_attention_deli = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/al.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     TRAING_TIME = 15
@@ -4486,7 +4486,7 @@ for prs in range(n_vintage):
             self.train_log_txt.close()
     for item in reader:
         dt = []
-        for i in range(10):
+        for i in range(15):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -4587,11 +4587,11 @@ for prs in range(n_vintage):
     
 
 
-    pseudo_washout = df.iloc[2:50,1]
-    pseudo_washout_attention = df.iloc[2:50,3]
-    pseudo_nowashout_attention = df.iloc[2:50,5]
-    pseudo_attention_deli = df.iloc[2:50,7]
-    pseudo_3lstm_attention_deli = df.iloc[2:50,9]
+    pseudo_washout = df.iloc[0:48,1]
+    pseudo_washout_attention = df.iloc[0:48,4]
+    pseudo_nowashout_attention = df.iloc[0:48,7]
+    pseudo_attention_deli = df.iloc[0:48,10]
+    pseudo_3lstm_attention_deli = df.iloc[0:48,13]
 
 
 
@@ -4616,7 +4616,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_attention_deli2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/al2.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     ##lstm washout attention deli testing
@@ -4658,7 +4658,7 @@ for prs in range(n_vintage):
     from sklearn.metrics import auc
     for item in reader:
         dt = []
-        for i in range(10):
+        for i in range(15):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -6638,11 +6638,11 @@ for prs in range(n_vintage):
             self.train_log_txt = open(self.train_log_txt_filename, 'a')
             self.train_log_txt.write(log)
             self.train_log_txt.close()
-    pseudo_washout2 = df.iloc[2:36,1]
-    pseudo_washout_attention2 = df.iloc[2:36,3]
-    pseudo_nowashout_attention2 = df.iloc[2:36,5]
-    pseudo_attention_deli2 = df.iloc[2:36,7]
-    pseudo_3lstm_attention_deli2 = df.iloc[2:36,9]
+    pseudo_washout2 = df.iloc[48:82,1]
+    pseudo_washout_attention2 = df.iloc[48:82,4]
+    pseudo_nowashout_attention2 = df.iloc[48:82,7]
+    pseudo_attention_deli2 = df.iloc[48:82,10]
+    pseudo_3lstm_attention_deli2 = df.iloc[48:82,13]
 
     if(prs<48):
         from sklearn import preprocessing

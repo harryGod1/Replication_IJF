@@ -471,7 +471,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_attention_deli = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/bl.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -495,7 +495,7 @@ for prs in range(n_vintage):
     from sklearn import preprocessing
     for item in reader:
         dt = []
-        for i in range(10):
+        for i in range(15):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -1925,11 +1925,11 @@ for prs in range(n_vintage):
             self.train_log_txt = open(self.train_log_txt_filename, 'a')
             self.train_log_txt.write(log)
             self.train_log_txt.close()
-    pseudo_washout = df.iloc[2:50,1]
-    pseudo_washout_attention = df.iloc[2:50,3]
-    pseudo_nowashout_attention = df.iloc[2:50,5]
-    pseudo_attention_deli = df.iloc[2:50,7]
-    pseudo_3lstm_attention_deli = df.iloc[2:50,9]        
+    pseudo_washout = df.iloc[0:48,2]
+    pseudo_washout_attention = df.iloc[0:48,5]
+    pseudo_nowashout_attention = df.iloc[0:48,8]
+    pseudo_attention_deli = df.iloc[0:48,11]
+    pseudo_3lstm_attention_deli = df.iloc[0:48,14]        
 
     #print('no deli')
 
@@ -1998,7 +1998,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_attention_deli2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/bl2.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     #Forecast with no deliquency
@@ -2256,7 +2256,7 @@ for prs in range(n_vintage):
     cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
     for item in reader:
         dt = []
-        for i in range(10):
+        for i in range(15):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -2589,11 +2589,11 @@ for prs in range(n_vintage):
     #pseudo_washout.append(brier_score/len(unbalanced_prediction_lstm_washout))
     
 
-    pseudo_washout2 = df.iloc[2:36,1]
-    pseudo_washout_attention2 = df.iloc[2:36,3]
-    pseudo_nowashout_attention2 = df.iloc[2:36,5]
-    pseudo_attention_deli2 = df.iloc[2:36,7]
-    pseudo_3lstm_attention_deli2 = df.iloc[2:36,9]    
+    pseudo_washout2 = df.iloc[48:82,2]
+    pseudo_washout_attention2 = df.iloc[48:82,5]
+    pseudo_nowashout_attention2 = df.iloc[48:82,8]
+    pseudo_attention_deli2 = df.iloc[48:82,11]
+    pseudo_3lstm_attention_deli2 = df.iloc[48:82,14]    
 
 
     print('LSTM+Washout+Attention...')

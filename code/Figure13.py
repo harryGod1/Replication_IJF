@@ -2175,7 +2175,7 @@ for prs in range(n_vintage):
     pseudo_3lstm = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/bs.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     count_len = 0
@@ -2432,7 +2432,7 @@ for prs in range(n_vintage):
 
     for item in reader:
         dt = []
-        for i in range(12):
+        for i in range(33):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -2721,12 +2721,12 @@ for prs in range(n_vintage):
 
         b2=[]
 
-    pseudo_dtsm = df.iloc[2:50,1]
-    pseudo_gam = df.iloc[2:50,3]
-    pseudo_cox = df.iloc[2:50,5]
-    pseudo_weibull = df.iloc[2:50,7]
-    pseudo_deephit = df.iloc[2:50,9]
-    pseudo_3lstm = df.iloc[2:50,11]
+    pseudo_dtsm = df.iloc[0:48,17]
+    pseudo_gam = df.iloc[0:48,20]
+    pseudo_cox = df.iloc[0:48,23]
+    pseudo_weibull = df.iloc[0:48,26]
+    pseudo_deephit = df.iloc[0:48,29]
+    pseudo_3lstm = df.iloc[0:48,32]
 
     #print(len(x2),len(x2[0]))
     #print(x2[0])
@@ -5507,7 +5507,7 @@ for prs in range(n_vintage):
     pseudo_3lstm2 = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/bs2.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     #DeepHit
@@ -6018,7 +6018,7 @@ for prs in range(n_vintage):
     #pseudo_deephit.append(brier_score/len(unbalanced_prediction_deephit))
     for item in reader:
         dt = []
-        for i in range(12):
+        for i in range(33):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -8007,12 +8007,12 @@ for prs in range(n_vintage):
                              NUM_LAYERS = NUM_LAYERS,
                              LOG_PREFIX="drsa")
     RUNNING_MODEL.create_graph()
-    pseudo_dtsm2 = df.iloc[2:36,1]
-    pseudo_gam2 = df.iloc[2:36,3]
-    pseudo_cox2 = df.iloc[2:36,5]
-    pseudo_weibull2 = df.iloc[2:36,7]
-    pseudo_deephit2 = df.iloc[2:36,9]
-    pseudo_3lstm2 = df.iloc[2:36,11]
+    pseudo_dtsm2 = df.iloc[48:82,17]
+    pseudo_gam2 = df.iloc[48:82,20]
+    pseudo_cox2 = df.iloc[48:82,23]
+    pseudo_weibull2 = df.iloc[48:82,26]
+    pseudo_deephit2 = df.iloc[48:82,29]
+    pseudo_3lstm2 = df.iloc[48:82,32]
 
     #Forecast
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code

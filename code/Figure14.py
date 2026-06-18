@@ -731,7 +731,7 @@ for prs in range(n_vintage):
     pseudo_3lstm_unbalanced = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/ps_abl.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_abl.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
     class biSparseData():
@@ -1751,7 +1751,7 @@ for prs in range(n_vintage):
     RUNNING_MODEL.create_graph()
     for item in reader:
         dt= []
-        for i in range(5):
+        for i in range(4):
             dt.append(item[i])
         result.append(dt)
     df = pd.DataFrame(result)
@@ -1797,8 +1797,8 @@ for prs in range(n_vintage):
     cross_entropy = []
     RUNNING_MODEL.TRUE_LABEL2 = []
     RUNNING_MODEL.PREDICTED_LABEL2 = []
-    pseudo_3lstm = df.iloc[2:36,2]
-    pseudo_3lstm_unbalanced = df.iloc[2:36,4]
+    pseudo_3lstm = df.iloc[0:34,0]
+    pseudo_3lstm_unbalanced = df.iloc[0:34,2]
     #print self.test_data_win.size + self.test_data_lose.size, \"total size\"
     total_time = 0
     log_good = 0
@@ -2010,7 +2010,7 @@ for prs in range(n_vintage):
     score_3lstm_unbalanced = []
     path = os.getcwd()
     new_path = path.replace("\\","/")
-    csvFile = open(new_path + "/data/2259/am_abl.csv", "r",encoding='gb18030', errors='ignore')
+    csvFile = open(new_path + "/data/2259/u_abl.csv", "r",encoding='utf-8-sig', errors='ignore')
     reader = csv.reader(csvFile)
     result = []
 
@@ -2471,8 +2471,8 @@ for prs in range(n_vintage):
     #print(len(x),len(x[0]))
     scaler = preprocessing.StandardScaler().fit(x)
     #print('ave_default_row_level:',count_default/len(x))
-    score_3lstm = df.iloc[2:36,1]
-    score_3lstm_unbalanced = df.iloc[2:36,3] 
+    score_3lstm = df.iloc[0:34,1]
+    score_3lstm_unbalanced = df.iloc[0:34,3] 
     #Forecast
     #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
     #use the second copy of the lstm code
