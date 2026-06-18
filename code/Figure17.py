@@ -12148,7 +12148,7 @@ plt.plot(x_axis,pseudo_dtsm.astype(float),'blue',label='Linear DTSM')
 plt.plot(x_axis,pseudo_gam.astype(float),'red',label='GAM',linestyle='--')
 plt.plot(x_axis,pseudo_cox.astype(float),'grey',label='Cox PH' )
 plt.plot(x_axis,pseudo_weibull.astype(float),'green',label='Weibull')
-plt.plot(x_axis,pseudo_deephit.astype(float),'black',label='DeepHit',linewidth=2)
+plt.plot(x_axis,pseudo_deephit.astype(float),'black',label='DeepHit',linewidth=1)
 plt.plot(x_axis,pseudo_3lstm.astype(float),'black',label='3LSTM',linewidth=2,linestyle='--')
 plt.plot(x_axis,pseudo_lstm.astype(float),'yellow',label='LSTM',linewidth=2)
 
