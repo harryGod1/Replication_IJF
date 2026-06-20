@@ -486,7 +486,7 @@ class SparseData():
 path = os.getcwd()
 new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/data/2259/wp_ct.csv", "r",encoding='utf-8-sig', errors='ignore')
+csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_wp_ct.csv", "r",encoding='utf-8-sig', errors='ignore')
 reader = csv.reader(csvFile)
 result = []
 
@@ -510,7 +510,7 @@ for item in reader:
     dt = []
 
     for i in range(2):
-        dt.append(item[i])
+        dt.append(float(item[i]))
     result.append(dt)
 
 csvFile.close()
@@ -1663,15 +1663,15 @@ rst.append(attp)
 atp = []
 attp = []
 attp.append("No Washout:")
-atp.extend(row for row in result[0])
-attp.extend(atp[0:2])
+atp.extend([np.mean(np.array(result)[0:5,0]),np.mean(np.array(result)[0:5,1])])
+attp.extend(atp)
 rst.append(attp) 
 for i in range(1,6):
     atp = []
     attp = []
     attp.append(str(i*10) + "steps: ")
-    atp.extend(row for row in result[i])
-    attp.extend(atp[0:2])
+    atp.extend([np.mean(np.array(result)[i*5:i*5+5,0]),np.mean(np.array(result)[i*5:i*5+5,1])])
+    attp.extend(atp)
     rst.append(attp) 
 
 df = pd.DataFrame(rst)
