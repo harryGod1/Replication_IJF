@@ -1,7 +1,7 @@
 
 ## 📅 Assembly date and authorship
 
-- **Date assembled:** June 2026
+- **Date assembled:** June 2026 
 - **Authors:** Hao Wang(scxhw1@nottingham.edu.cn), Anthony Bellotti(Anthony-Graham.Bellotti@nottingham.edu.cn)
 
 
@@ -13,7 +13,7 @@
 [![Python 3.8.19](https://img.shields.io/badge/python-3.8.19-blue.svg)](https://www.python.org/downloads/release/python-3819/)
 
 **⚠️Important:** 
-> We have updated the documentation and file structure to enhance usability for the review process. All core analysis code, data, and empirical results remain identical. For the best experience, we recommend using the latest commit.
+> We have updated the documentation and file structure to enhance usability for the review process. All core analysis code, data, and empirical results remain identical. For the best experience, we recommend using the latest commit(**Last updated: June 20.**).
 
 **Reproducibility package for:**
 > Hao Wang, Anthony Bellotti. *Long Short-Term Memory Network with Adapted Attention Mechanism for Credit Risk Modelling*. International Journal of Forecasting, 2026.
