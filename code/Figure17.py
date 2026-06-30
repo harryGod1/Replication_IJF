@@ -579,9 +579,9 @@ for i in range(len(x2)):
 from sklearn import preprocessing
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #print(x[0],x[1])
 x_s=x
 
@@ -886,12 +886,18 @@ if(is_nonzero == 0):
 
 if(count_len != 0 ):
     seqlen.append(count_len+1)
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+#for item in reader:
+    #dt = []
+    #for i in range(8):
+        #dt.append(item[i])
+    #result.append(dt)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 #print(x2.shape)
 #print(y2.shape)
 
@@ -1427,7 +1433,7 @@ for i in range(len(x2)):
         x2[i][8]=1 
     if(x2[i][8]==99):
         x2[i][8]=0.5   
-csvFile.close()
+
 
 
 from sklearn import preprocessing
@@ -1700,9 +1706,9 @@ from sklearn import preprocessing
 import time
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #computational time
 T1 = time.perf_counter()
 
@@ -2108,11 +2114,18 @@ if(max_seqlen != 0):
         #print('after_delete_seq:',final_data[len(final_data)-1])
         #print('after_delete_x:',x2[len(x2)-1])
         #print('after_delete_y:',y2[len(y2)-1])
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+#for item in reader:
+    #dt = []
+    #for i in range(8):
+        #dt.append(item[i])
+    #result.append(dt)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 count_len = 0
 last_age = 0
 is_nonzero = 0
@@ -2258,7 +2271,7 @@ for i in range(len(x2)):
         x2[i][12]=3 
 
 #print(x2[2])
-csvFile.close()
+
 
 
 from sklearn import preprocessing
@@ -2567,9 +2580,9 @@ import math
 import time
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #computational time
 T1 = time.perf_counter()
 
@@ -3225,11 +3238,18 @@ if(max_seqlen != 0):
         #print('after_delete_y:',y2[len(y2)-1])
     #else:
         #seqlen.append(max_seqlen+1) 
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)  
+#for item in reader:
+    #dt = []
+    #for i in range(8):
+        #dt.append(item[i])
+    #result.append(dt)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)     
 #print(x2.shape)
 #print(y2.shape)
 labels3 = [] #for account level
@@ -3342,7 +3362,7 @@ max_d = -1
 
 load_data = x2            
 last_seq = load_data[0][9]
-csvFile.close()
+
 for i in range(len(load_data)):
     #if COUNT > 10000 and LOAD_LITTLE_DATA:
         #break\n",
@@ -3958,10 +3978,9 @@ print('============================================================')
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 print("Forecasts of default rate:Weibull...")
 
 #Weibull
@@ -4002,12 +4021,18 @@ train_Deli = []
 data = []
 data2 = []
 seq = []
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+#for item in reader:
+    #dt = []
+    #for i in range(8):
+        #dt.append(item[i])
+    #result.append(dt)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 current_deli = []
 last_seq = ''
@@ -4048,7 +4073,7 @@ for i in range(len(train_vintage)):
     b.append(int(train_calendar[i]))
     x2.append(b)
     y2.append(int(train_Def[i]))
-csvFile.close()
+
 #print(x[0])
 #x = np.array(x)
 #y = np.array(y)
@@ -5939,10 +5964,9 @@ class BASE_RNN():
         self.train_log_txt.close()
     path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 state_size = 16
 batch_size = 512
 
@@ -6411,12 +6435,18 @@ for i in range(1,remaining):
     all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 0
 cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
 
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+#for item in reader:
+    #dt = []
+    #for i in range(8):
+        #dt.append(item[i])
+    #result.append(dt)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
     [cross_entropy2,survival_rate0,RUNNING_MODEL.t2,true_label2,predicted_label2,seqlen2,all_count],
@@ -6556,7 +6586,7 @@ for i in range(len(true_label)):
     if(true_label[i][0] == 0.0):
         bad.append(unbalanced_prediction[i]) 
         count_bad = count_bad + 1
-csvFile.close()
+
 
 all_true = 0
 for i in range(len(true_label)):
@@ -8575,10 +8605,9 @@ for i in range(len(x)):
 scaler = preprocessing.StandardScaler().fit(x)
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #3LSTM+Deli
 #lagged 12
 #process for the dataset of the time from 2014 to 2024
@@ -8956,12 +8985,18 @@ all_count = RUNNING_MODEL.tf_bid_len[0] - 40
 for i in range(1,remaining):
     all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 40
 cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+#for item in reader:
+    #dt = []
+    #for i in range(8):
+        #dt.append(item[i])
+    #result.append(dt)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
     [cross_entropy2,survival_rate,RUNNING_MODEL.t2,true_label2,predicted_label2,seqlen2,all_count],
@@ -9076,7 +9111,7 @@ for i in range(len(true_label)):
         mean_bad = mean_bad + predicted_label[i][1]
         log_bad = log_bad + math.log(predicted_label[i][1])
         count_bad = count_bad + 1
-csvFile.close()
+
 
 all_true = 0
 for i in range(len(true_label)):
@@ -11084,10 +11119,9 @@ for i in range(len(x)):
 scaler = preprocessing.StandardScaler().fit(x)
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 
 
 #LSTM+Deli
@@ -11311,12 +11345,18 @@ all_count = RUNNING_MODEL.tf_bid_len[0] - 40
 for i in range(1,remaining):
     all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 40
 cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+#for item in reader:
+    #dt = []
+    #for i in range(8):
+        #dt.append(item[i])
+    #result.append(dt)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 
 bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
@@ -11438,7 +11478,7 @@ for i in range(len(true_label)):
         mean_bad = mean_bad + predicted_label[i][1]
         log_bad = log_bad + math.log(predicted_label[i][1])
         count_bad = count_bad + 1
-csvFile.close()
+
 
 all_true = 0
 for i in range(len(true_label)):

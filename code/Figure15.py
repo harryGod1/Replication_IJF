@@ -2443,9 +2443,9 @@ pseudo_3lstm = []
 pseudo_3lstm_mev = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 count_len = 0
 last_age = 0
 is_nonzero = 0
@@ -2709,13 +2709,19 @@ brier_score = 0
 for i in range(len(time_auc)):
     brier_score = brier_score + (time_auc[i]-y2[i])**2
 
-for item in reader:
-    dt = []
-    for i in range(45):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(45):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result) 
 
 print("DeepHit...")
 
@@ -2739,7 +2745,7 @@ TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
 show_survival_curve = False
-csvFile.close()
+
 class SparseData():
 
     def shuffle(self):
@@ -4556,9 +4562,9 @@ pseudo_3lstm2 = []
 pseudo_3lstm_mev2 = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 #DeepHit
 #Forecast
 #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
@@ -5064,13 +5070,19 @@ for i in range(len(unbalanced_prediction_deephit)):
     brier_score = brier_score + (unbalanced_prediction_deephit[i]-int(true_label[i][1]))**2
 
 
-for item in reader:
-    dt = []
-    for i in range(45):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(45):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 print("Deephit + MEVs ...")
 #DeepHit
@@ -5093,7 +5105,7 @@ TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
 show_survival_curve = False
-csvFile.close()
+
 class SparseData():
 
     def shuffle(self):
@@ -12031,6 +12043,7 @@ plt.ylim(-0.2,0.8)
 x_axis = []
 hr = []
 print('Pseudo-R-Square:Models with and without MEVs(2016-2024): ')
+print('The results for Figure 15 have been generated and saved in the output folder.')
 for k in range(0,len(pseudo_3lstm2)):
     x_axis.append((k+1))
 
@@ -12048,6 +12061,7 @@ plt.plot(x_axis,pseudo_3lstm_mev2.astype(float),'black',label='3LSTM + MEVs',lin
 plt.legend(prop = {'size':5})
 plt.title('Pseudo-R-Square(2016-2024)')
 plt.xlabel('Time')
+
 path = os.getcwd()
 new_path = path.replace("\\","/")
 plt.savefig(new_path + "/output/Figure15.png")

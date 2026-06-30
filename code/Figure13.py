@@ -1651,9 +1651,9 @@ pseudo_deephit = []
 pseudo_3lstm = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 count_len = 0
 last_age = 0
 is_nonzero = 0
@@ -1906,13 +1906,19 @@ for i in range(len(time_auc)):
 #print('DTSM Brier Score: ',brier_score/len(time_auc))
 
 
-for item in reader:
-    dt = []
-    for i in range(33):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(33):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 #whether to open the calculation of exposure
 is_exposure_cph = True
@@ -1962,7 +1968,7 @@ from sklearn.compose import ColumnTransformer
 import string
 import math
 import pandas as pd
-csvFile.close()
+
 
 #data for forecast
 if(prs<48):
@@ -4983,9 +4989,9 @@ pseudo_deephit2 = []
 pseudo_3lstm2 = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 #DeepHit
 #Forecast
 #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
@@ -5492,12 +5498,19 @@ for i in range(len(unbalanced_prediction_deephit)):
     brier_score = brier_score + (unbalanced_prediction_deephit[i]-int(true_label[i][1]))**2
 #print('Deephit brier score: ',brier_score/len(unbalanced_prediction_deephit))
 #pseudo_deephit.append(brier_score/len(unbalanced_prediction_deephit))
-for item in reader:
-    dt = []
-    for i in range(33):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(33):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 print('LSTM+Washout+3LSTM Attention+Deli...')
 
@@ -5533,7 +5546,6 @@ TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
 show_survival_curve = False
-csvFile.close()
 class SparseData():
 
     def shuffle(self):
@@ -7662,6 +7674,7 @@ plt.plot(x_axis,pseudo_3lstm2.astype(float),'black',label='3LSTM',linewidth=2)
 plt.legend(prop = {'size':5})
 plt.title('Brier Score(2016-2024)')
 plt.xlabel('Time')
+print('The results for Figure 13 have been generated and saved in the output folder.')
 path = os.getcwd()
 new_path = path.replace("\\","/")
 plt.savefig(new_path + "/output/Figure13.png")

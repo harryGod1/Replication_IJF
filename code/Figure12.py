@@ -1137,10 +1137,9 @@ pseudo_deephit = []
 pseudo_3lstm = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 #computational time
 T1 = time.perf_counter()
 
@@ -1728,12 +1727,19 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import auc
-for item in reader:
-    dt = []
-    for i in range(33):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(33):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 #x_s=x
 
 
@@ -1793,7 +1799,6 @@ auc_score = roc_auc_score(y2,unbalanced_prediction)
 
 T3 = time.perf_counter()
 #print('Forecasting Time:' , ((T3 - T2)))
-csvFile.close()
 #dtsm+in_time
 general_auc = auc_score
 
@@ -3651,9 +3656,9 @@ pseudo_deephit2 = []
 pseudo_3lstm2 = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 class biSparseData():
     def __init__(self, INPUT_FILE, discount):
         random.seed(time.time())
@@ -4701,13 +4706,19 @@ class BASE_RNN():
         self.train_log_txt = open(self.train_log_txt_filename, 'a')
         self.train_log_txt.write(log)
         self.train_log_txt.close()
-for item in reader:
-    dt = []
-    for i in range(33):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(33):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 #deephit standardscaler
 if(prs<48):
@@ -4750,7 +4761,7 @@ test_Deli = []
 lag_deli = []
 current_deli = []
 final_data = []
-csvFile.close()
+
 x = []
 y = []
 b2 = []
@@ -7620,7 +7631,7 @@ plt.xlabel('Time')
 
 #2016to2024
 
-
+print('The results for Figure 12 have been generated and saved in the output folder.')
 #draw the curve of AUC from 2016 to 2024
 x_axis = []
 hr = []
@@ -7638,6 +7649,8 @@ plt.plot(x_axis,pseudo_cox2.astype(float),'grey',label='Cox PH' )
 plt.plot(x_axis,pseudo_weibull2.astype(float),'green',label='Weilbull')
 plt.plot(x_axis,pseudo_deephit2.astype(float),'grey',label='DeepHit',linestyle='--')
 plt.plot(x_axis,pseudo_3lstm2.astype(float),'black',label='3LSTM',linewidth=2)
+
+
 
 plt.legend(prop = {'size':5})
 plt.title('AUC(2016-2024)')

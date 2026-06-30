@@ -568,9 +568,9 @@ for i in range(len(x2)):
 from sklearn import preprocessing
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #print(x[0],x[1])
 x_s=x
 
@@ -872,12 +872,13 @@ if(is_nonzero == 0):
 
 if(count_len != 0 ):
     seqlen.append(count_len+1)
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 import math
 good = 0
 bad = 0
@@ -934,7 +935,6 @@ for i in range(len(x2)):
         x2[i][8]=1 
     if(x2[i][8]==99):
         x2[i][8]=0.5   
-csvFile.close()
 
 from sklearn import preprocessing
 from sklearn.preprocessing import StandardScaler
@@ -1619,9 +1619,7 @@ for i in range(lag_time):
     else:
         current_calendar = (int(current_calendar/100))*100 + int(current_calendar%100) + 1
 
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently, 
+
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ############################################################################
     #if(prs == 0 and i<4):
@@ -1681,9 +1679,9 @@ from sklearn import preprocessing
 import time
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #computational time
 T1 = time.perf_counter()
 
@@ -2090,11 +2088,13 @@ if(max_seqlen != 0):
         #print('after_delete_x:',x2[len(x2)-1])
         #print('after_delete_y:',y2[len(y2)-1])
 
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)          
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)          
 count_len = 0
 last_age = 0
 is_nonzero = 0
@@ -2241,7 +2241,6 @@ for i in range(len(x2)):
         x2[i][12]=3 
 
 #print(x2[2])
-csvFile.close()  
 
 #Linear DTSM final
 from sklearn import preprocessing
@@ -2482,9 +2481,7 @@ for i in range(lag_time):
     else:
         current_calendar = (int(current_calendar/100))*100 + int(current_calendar%100) + 1
 
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently, 
+
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ############################################################################
     #if(prs == 0 and i<4):
@@ -2551,9 +2548,9 @@ import math
 import time
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #computational time
 T1 = time.perf_counter()
 
@@ -3210,11 +3207,13 @@ if(max_seqlen != 0):
         #print('after_delete_y:',y2[len(y2)-1])
     #else:
         #seqlen.append(max_seqlen+1) 
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 #print(x2.shape)
 #print(y2.shape)
 labels3 = [] #for account level
@@ -3327,7 +3326,7 @@ max_d = -1
 
 load_data = x2            
 last_seq = load_data[0][9]
-csvFile.close()
+
 for i in range(len(load_data)):
     #if COUNT > 10000 and LOAD_LITTLE_DATA:
         #break\n",
@@ -3903,9 +3902,7 @@ for i in range(lag_time):
     else:
         current_calendar = (int(current_calendar/100))*100 + int(current_calendar%100) + 1
 
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently, 
+
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ############################################################################
     #if(prs == 0 and i<4):
@@ -3939,10 +3936,9 @@ print('============================================================')
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 
 
 print("Forecasts of default rate:Weibull...")
@@ -3985,12 +3981,13 @@ train_Deli = []
 data = []
 data2 = []
 seq = []
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 current_deli = []
 last_seq = ''
 new_seq = ''
@@ -4030,7 +4027,7 @@ for i in range(len(train_vintage)):
     b.append(int(train_calendar[i]))
     x2.append(b)
     y2.append(int(train_Def[i]))
-csvFile.close() 
+
 #print(x[0])
 #x = np.array(x)
 #y = np.array(y)
@@ -4357,10 +4354,9 @@ for i in range(len(x)):
 scaler = preprocessing.StandardScaler().fit(x)
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 
 #DeepHit
 import tensorflow.compat.v1 as tf
@@ -5926,11 +5922,13 @@ class BASE_RNN():
         self.train_log_txt.write(log)
         self.train_log_txt.close()
 
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 state_size = 16
 batch_size = 512
 
@@ -6074,7 +6072,6 @@ for i in range(len(train_vintage)):
 
 #print(x.shape)
 #print(y.shape)
-csvFile.close()
 account_vintage = x2
 
 #DeepHit+Deli
@@ -6690,9 +6687,6 @@ for i in range(lag_time):
     else:
         current_calendar = (int(current_calendar/100))*100 + int(current_calendar%100) + 1
 
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently, 
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ############################################################################
     #if(prs == 0 and i<4):
@@ -8555,10 +8549,9 @@ for i in range(len(x)):
 scaler = preprocessing.StandardScaler().fit(x)
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #3LSTM+Deli
 #lagged 12
 #process for the dataset of the time from 2014 to 2024
@@ -8937,13 +8930,13 @@ for i in range(1,remaining):
     all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 40
 cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
 
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
 
-
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
     [cross_entropy2,survival_rate,RUNNING_MODEL.t2,true_label2,predicted_label2,seqlen2,all_count],
     feed_dict={RUNNING_MODEL.tf_x: test_batch_x,
@@ -8964,7 +8957,6 @@ loss_arr.append(bid_loss*test_count)
 true_label.append(test_true_label)
 seqlen.append(test_seqlen)
 predicted_label.append(test_predicted_label)
-csvFile.close()
 #if(RUNNING_MODEL.SHOW_SURVIVAL_CURVE == True):
 
 #print('test_trainable_attention_mul_weight',test_trainable_attention_mul_weight)
@@ -9206,9 +9198,6 @@ for i in range(lag_time):
         current_calendar = (int(current_calendar/100))*100 + int(current_calendar%100) + 1
 
 
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently, 
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ############################################################################
     #if(prs == 0 and i<4):
@@ -11064,10 +11053,9 @@ for i in range(len(x)):
 scaler = preprocessing.StandardScaler().fit(x)
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 
 #LSTM+Deli
 #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
@@ -11232,13 +11220,14 @@ if(remaining != 0):
 
 for i in range(remaining):
     survival_rate = RUNNING_MODEL.map_parameter[i][40:RUNNING_MODEL.tf_bid_len[i]]
-for item in reader:
-    dt = []
-    for i in range(8):
-        dt.append(item[i])
-    result.append(dt)
-count_predict = 0
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
+count_predict = 0
 #customized loss function according to the number of the remaining test data
 for i in range(remaining):  
     if(i == 0):
@@ -11521,7 +11510,6 @@ for i in range(len(train_vintage)):
 
 account_vintage = x2
 
-csvFile.close()
 #Forecasting
 
 
@@ -11565,9 +11553,6 @@ for i in range(lag_time):
     else:
         current_calendar = (int(current_calendar/100))*100 + int(current_calendar%100) + 1
 
-    #The experimental results can be reproduced by running the corresponding trainning code (located in the training directory) to perform model training under different washout step configurations.
-    #Model weights are saved in the saved_model folder within the saved directory.           
-    #The code presented here enables readers to train and validate the model independently, 
     #The following code provides an example of validating the output results. Readers may adapt it as needed.
     ############################################################################
     #if(prs == 0 and i<4):

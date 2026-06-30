@@ -2378,9 +2378,11 @@ pseudo_attention_deli = []
 pseudo_3lstm_attention_deli = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
+
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
+
 TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
@@ -4268,12 +4270,21 @@ class BASE_RNN():
         self.train_log_txt = open(self.train_log_txt_filename, 'a')
         self.train_log_txt.write(log)
         self.train_log_txt.close()
-for item in reader:
-    dt = []
-    for i in range(15):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(15):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)    
+
 state_size = 16
 batch_size = 512
 
@@ -4388,7 +4399,7 @@ print('LSTM+Washout+Attention+Deli...')
 #use the second copy of the lstm code
 #remember to substract 8 also in count length of the crossentropy
 #import seaborn as sns
-csvFile.close()
+#csvFile.close()
 from scipy import stats
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import precision_recall_curve
@@ -4400,9 +4411,9 @@ pseudo_attention_deli2 = []
 pseudo_3lstm_attention_deli2 = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 ##lstm washout attention deli testing
 #if(int(ym%100)<10):
     #path = os.getcwd()
@@ -4440,12 +4451,19 @@ from scipy import stats
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import auc
-for item in reader:
-    dt = []
-    for i in range(15):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(15):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 #lstm washout 3lstm attention deli testing
 if(int(ym%100)<10):
     path = os.getcwd()
@@ -4493,7 +4511,7 @@ TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
 show_survival_curve = False
-csvFile.close()
+#csvFile.close()
 class SparseData():
 
     def shuffle(self):
@@ -7019,6 +7037,7 @@ plt.plot(x_axis,pseudo_washout_attention2.astype(float),'red',label='LSTM + attn
 plt.plot(x_axis,pseudo_nowashout_attention2.astype(float),'grey',label='LSTM + attn' )
 plt.plot(x_axis,pseudo_attention_deli2.astype(float),'green',label='LSTM + attn + wo + deli')
 plt.plot(x_axis,pseudo_3lstm_attention_deli2.astype(float),'black',label='3LSTM + attn + wo + deli',linewidth=2)
+print('The results for Figure 9 have been generated and saved in the output folder.')
 
 
 plt.legend(loc='lower right',prop = {'size':4})

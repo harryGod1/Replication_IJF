@@ -6436,11 +6436,9 @@ class BASE_RNN():
 test_data = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_st.csv", "r",encoding='utf-8-sig', errors='ignore')
-
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_st.txt")
 if(prs<48):
     from sklearn import preprocessing
     #f1 = open("./train_data.txt")
@@ -6845,11 +6843,13 @@ else:
     #print(x[0][5])
     #print(len(x),len(x[0]))
     scaler = preprocessing.StandardScaler().fit(x)
-for item in reader:
-    dt = []
-    for i in range(12):
-        dt.append(float(item[i]))
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].strip().split(' ')
+    result.append(d)
+df = pd.DataFrame(result)  
 state_size = 16
 batch_size = 512
 #initial_extend8 + washout:40 + forecast + Batch_size:512 + State_size:16 + exclude exception!
@@ -6871,7 +6871,7 @@ tr_d = 0.05
 tr_v = 1.645
 input_file="2259" #toy dataset
 
-csvFile.close()
+
 #if len(sys.argv) < 2:
 #    print("Please input learning rate. ex. 0.0001")
 #    sys.exit(0)
@@ -6910,60 +6910,60 @@ attp = []
 attp.extend([" "," Delong AUC"," Vuong test"," Delong AUC"," Vuong test"])
 rst.append(attp) 
 attp = []
-cot = np.sum(np.array(result)[0:48,0] < tr_d)
-cots = np.sum(np.array(result)[48:86,0] < tr_d)
-vg = np.sum(np.array(result)[0:48,6] > tr_v)
-vgs = np.sum(np.array(result)[48:86,6] > tr_v)
+cot = np.sum(np.array(result).astype(float)[0:48,0] < tr_d)
+cots = np.sum(np.array(result).astype(float)[48:86,0] < tr_d)
+vg = np.sum(np.array(result).astype(float)[0:48,6] > tr_v)
+vgs = np.sum(np.array(result).astype(float)[48:86,6] > tr_v)
 attp.append("Linear DTSM")
 atp.extend([cots,vgs,cot,vg])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-cot = np.sum(np.array(result)[0:48,1] < tr_d)
-cots = np.sum(np.array(result)[48:86,1] < tr_d)
-vg = np.sum(np.array(result)[0:48,7] > tr_v)
-vgs = np.sum(np.array(result)[48:86,7] > tr_v)
+cot = np.sum(np.array(result).astype(float)[0:48,1] < tr_d)
+cots = np.sum(np.array(result).astype(float)[48:86,1] < tr_d)
+vg = np.sum(np.array(result).astype(float)[0:48,7] > tr_v)
+vgs = np.sum(np.array(result).astype(float)[48:86,7] > tr_v)
 attp.append("DeepHit")
 atp.extend([cots,vgs,cot,vg])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-cot = np.sum(np.array(result)[0:48,2] < tr_d)
-cots = np.sum(np.array(result)[48:86,2] < tr_d)
-vg = np.sum(np.array(result)[0:48,8] > tr_v)
-vgs = np.sum(np.array(result)[48:86,8] > tr_v)
+cot = np.sum(np.array(result).astype(float)[0:48,2] < tr_d)
+cots = np.sum(np.array(result).astype(float)[48:86,2] < tr_d)
+vg = np.sum(np.array(result).astype(float)[0:48,8] > tr_v)
+vgs = np.sum(np.array(result).astype(float)[48:86,8] > tr_v)
 attp.append("LSTM + washout")
 atp.extend([cots,vgs,cot,vg])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-cot = np.sum(np.array(result)[0:48,3] < tr_d)
-cots = np.sum(np.array(result)[48:86,3] < tr_d)
-vg = np.sum(np.array(result)[0:48,9] > tr_v)
-vgs = np.sum(np.array(result)[48:86,9] > tr_v)
+cot = np.sum(np.array(result).astype(float)[0:48,3] < tr_d)
+cots = np.sum(np.array(result).astype(float)[48:86,3] < tr_d)
+vg = np.sum(np.array(result).astype(float)[0:48,9] > tr_v)
+vgs = np.sum(np.array(result).astype(float)[48:86,9] > tr_v)
 attp.append("LSTM + washout + Attention")
 atp.extend([cots,vgs,cot,vg])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-cot = np.sum(np.array(result)[0:48,4] < tr_d)
-cots = np.sum(np.array(result)[48:86,4] < tr_d)
-vg = np.sum(np.array(result)[0:48,10] > tr_v)
-vgs = np.sum(np.array(result)[48:86,10] > tr_v)
+cot = np.sum(np.array(result).astype(float)[0:48,4] < tr_d)
+cots = np.sum(np.array(result).astype(float)[48:86,4] < tr_d)
+vg = np.sum(np.array(result).astype(float)[0:48,10] > tr_v)
+vgs = np.sum(np.array(result).astype(float)[48:86,10] > tr_v)
 attp.append("LSTM + Deli + washout + Attention")
 atp.extend([cots,vgs,cot,vg])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-cot = np.sum(np.array(result)[0:48,5] < tr_d)
-cots = np.sum(np.array(result)[48:86,5] < tr_d)
-vg = np.sum(np.array(result)[0:48,11] > tr_v)
-vgs = np.sum(np.array(result)[48:86,11] > tr_v)
+cot = np.sum(np.array(result).astype(float)[0:48,5] < tr_d)
+cots = np.sum(np.array(result).astype(float)[48:86,5] < tr_d)
+vg = np.sum(np.array(result).astype(float)[0:48,11] > tr_v)
+vgs = np.sum(np.array(result).astype(float)[48:86,11] > tr_v)
 attp.append("LSTM + Attention + no washout")
 atp.extend([cots,vgs,cot,vg])
 attp.extend(atp)

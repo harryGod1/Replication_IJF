@@ -915,9 +915,9 @@ for i in range(len(x2)):
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
 result = []  
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 from sklearn import preprocessing
 
 #print(x[0],x[1])
@@ -1677,11 +1677,13 @@ if(max_seqlen != 0):
         #print('after_delete_seq:',final_data[len(final_data)-1])
         #print('after_delete_x:',x2[len(x2)-1])
         #print('after_delete_y:',y2[len(y2)-1])
-for item in reader:
-    dt = []
-    for i in range(16):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 count_len = 0
 last_age = 0
 is_nonzero = 0
@@ -1704,7 +1706,7 @@ if(count_len != 0 ):
 #print(y2.shape)
 
 #print(len(x2),len(x2[0]))
-csvFile.close()
+
 import math
 good = 0
 bad = 0
@@ -2010,9 +2012,9 @@ from sklearn import preprocessing
 import time
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #computational time
 T1 = time.perf_counter()
 
@@ -2214,13 +2216,13 @@ if(max_seqlen != 0):
         #print('after_delete_seq:',final_data[len(final_data)-1])
         #print('after_delete_x:',x[len(x)-1])
         #print('after_delete_y:',y[len(y)-1])
-for item in reader:
-    dt = []
-    for i in range(16):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
 
-
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 #print(len(x),len(x[0]))
 
 
@@ -2418,7 +2420,7 @@ if(max_seqlen != 0):
         #print('after_delete_seq:',final_data[len(final_data)-1])
         #print('after_delete_x:',x2[len(x2)-1])
         #print('after_delete_y:',y2[len(y2)-1])
-csvFile.close()
+
 count_len = 0
 last_age = 0
 is_nonzero = 0
@@ -2854,9 +2856,9 @@ import time
 T1 = time.perf_counter()
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #import pandas as pd
 #import lifelines
 #from lifelines import CoxPHFitter
@@ -3316,12 +3318,13 @@ wbf = WeibullFitter()
 wbf.fit(df_standard[9], df_standard[10])
 
 T4 = time.perf_counter()
-for item in reader:
-    dt = []
-    for i in range(16):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 print('Cox PH and Weibell fitted')
 
 
@@ -3512,7 +3515,6 @@ if(max_seqlen != 0):
         #print('after_delete_y:',y2[len(y2)-1])
     #else:
         #seqlen.append(max_seqlen+1) 
-csvFile.close()
 #print(x2.shape)
 #print(y2.shape)
 labels3 = [] #for account level
@@ -4204,9 +4206,9 @@ if(exposure):
 print("Forecasts of default rate:Weibull...")
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #Weibull
 #lagged 12
 #process for the dataset of the time from 2014 to 2024
@@ -4247,12 +4249,13 @@ train_Deli = []
 data = []
 data2 = []
 seq = []
-for item in reader:
-    dt = []
-    for i in range(16):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 current_deli = []
 last_seq = ''
 new_seq = ''
@@ -4292,7 +4295,7 @@ for i in range(len(train_vintage)):
     b.append(int(train_calendar[i]))
     x2.append(b)
     y2.append(int(train_Def[i]))
-csvFile.close()
+
 #print(x[0])
 #x = np.array(x)
 #y = np.array(y)
@@ -6322,10 +6325,9 @@ for i in range(len(train_vintage)):
 account_vintage = x2
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #DeepHit+Deli
 #Forecast
 #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
@@ -6645,13 +6647,13 @@ all_count = RUNNING_MODEL.tf_bid_len[0] - 0
 for i in range(1,remaining):
     all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 0
 cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
-for item in reader:
-    dt = []
-    for i in range(16):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
 
-
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
     [cross_entropy2,survival_rate0,RUNNING_MODEL.t2,true_label2,predicted_label2,seqlen2,all_count],
     feed_dict={RUNNING_MODEL.tf_x: test_batch_x,
@@ -6715,7 +6717,6 @@ mean_loss = mean_loss/count
 
 #for log_likelihoo_ratio test
 #llr_test_deephit = -mean_loss*count 
-csvFile.close()
 #mean_loss = np.array(loss_arr).mean()
 
 #print('length of true label:',len(true_label))
@@ -8873,12 +8874,9 @@ for i in range(len(train_vintage)):
 account_vintage = x2
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
-
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #3LSTM+Deli
 #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
 #use the second copy of the lstm code
@@ -9168,13 +9166,13 @@ all_count = RUNNING_MODEL.tf_bid_len[0] - 40
 for i in range(1,remaining):
     all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 40
 cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
-for item in reader:
-    dt = []
-    for i in range(16):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
 
-
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
     [cross_entropy2,survival_rate,RUNNING_MODEL.t2,true_label2,predicted_label2,seqlen2,all_count],
     feed_dict={RUNNING_MODEL.tf_x: test_batch_x,
@@ -9198,7 +9196,6 @@ predicted_label.append(test_predicted_label)
 #if(RUNNING_MODEL.SHOW_SURVIVAL_CURVE == True):
 
 #print('test_trainable_attention_mul_weight',test_trainable_attention_mul_weight)
-csvFile.close() 
 
 
 mean_loss = 0
@@ -11282,11 +11279,9 @@ for i in range(len(x)):
 scaler = preprocessing.StandardScaler().fit(x)
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.csv", "r",encoding='gb18030', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_fd.txt")
 #LSTM+Deli
 #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
 #use the second copy of the lstm code
@@ -11319,11 +11314,13 @@ if(prs == 2):
 step = 100000
 
 sess = RUNNING_MODEL.load(meta,ckpt,step)
-for item in reader:
-    dt = []
-    for i in range(16):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 #RUNNING_MODEL.run_test(sess)
 auc_arr = []
 loss_arr = []
@@ -11527,8 +11524,6 @@ bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_se
                 #self.tf_market_price: test_batch_market_price
                 })
 #print('lentgh:',test_length)
-csvFile.close() 
-
 count = count + test_count
 loss_arr.append(bid_loss*test_count)
 true_label.append(test_true_label)

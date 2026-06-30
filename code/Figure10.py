@@ -254,10 +254,9 @@ pseudo_attention_deli = []
 pseudo_3lstm_attention_deli = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 
 
 print('LSTM+Washout...')
@@ -276,12 +275,21 @@ import math
 import matplotlib.pyplot as plt
 import statistics
 from sklearn import preprocessing
-for item in reader:
-    dt = []
-    for i in range(15):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(15):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
+
 TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
@@ -1737,7 +1745,6 @@ ADD_TIME = True
 ALPHA = 1.2 # coefficient for cross entropy
 BETA = 0.2 # coefficient for anlp
 input_file="2259" #toy dataset
-csvFile.close()
 #if len(sys.argv) < 2:
 #    print("Please input learning rate. ex. 0.0001")
 #    sys.exit(0)
@@ -1781,9 +1788,9 @@ pseudo_attention_deli2 = []
 pseudo_3lstm_attention_deli2 = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 #Forecast with no deliquency
 #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
 #use the second copy of the lstm code
@@ -2037,13 +2044,19 @@ all_count = RUNNING_MODEL.tf_bid_len[0] - 40
 for i in range(1,remaining):
     all_count = all_count + RUNNING_MODEL.tf_bid_len[i] - 40
 cross_entropy2 = cross_entropy2/tf.cast(all_count,dtype=tf.float32)
-for item in reader:
-    dt = []
-    for i in range(15):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(15):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
         [cross_entropy2,survival_rate,RUNNING_MODEL.t2,true_label2,predicted_label2,seqlen2,all_count],
         feed_dict={RUNNING_MODEL.tf_x: test_batch_x,
@@ -2413,7 +2426,6 @@ TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
 show_survival_curve = False
-csvFile.close()
 class SparseData():
 
     def shuffle(self):
@@ -7012,7 +7024,7 @@ plt.xlabel('Time')
 
 #2016to2024
 
-
+print('The results for Figure 10 have been generated and saved in the output folder.')
 #draw the curve of AUC from 2016 to 2024
 x_axis = []
 hr = []
@@ -7030,7 +7042,6 @@ plt.plot(x_axis,pseudo_washout_attention2.astype(float),'red',label='LSTM + attn
 plt.plot(x_axis,pseudo_nowashout_attention2.astype(float),'grey',label='LSTM + attn' )
 plt.plot(x_axis,pseudo_attention_deli2.astype(float),'green',label='LSTM + attn + wo + deli')
 plt.plot(x_axis,pseudo_3lstm_attention_deli2.astype(float),'black',label='3LSTM + attn + wo + deli',linewidth=2)
-
 
 plt.legend(prop = {'size':5})
 plt.title('Brier Score(2016-2024)')

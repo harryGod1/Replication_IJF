@@ -485,11 +485,9 @@ class SparseData():
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_wp_ct.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_wp_ct.txt")
 class biSparseData():
     def __init__(self, INPUT_FILE, discount):
         random.seed(time.time())
@@ -506,14 +504,15 @@ class biSparseData():
             a, b, c, d, e = self.loseData.next(batch)
             return a, b, c, d, e, False
 
-for item in reader:
-    dt = []
+for line in f3:
+    line_d.append(line)
 
-    for i in range(2):
-        dt.append(float(item[i]))
-    result.append(dt)
+for i in range(len(line_d)):
+    d = line_d[i].strip().split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
-csvFile.close()
+
 
 class BASE_RNN():
 
@@ -1657,20 +1656,20 @@ class BASE_RNN():
         washout_LLR.append(mean_loss)
 
         return auc_score,mean_loss
-
+print(result)
 attp.extend(["Washout Phase"," AUC"," -log-likelihood"]) 
 rst.append(attp) 
 atp = []
 attp = []
 attp.append("No Washout:")
-atp.extend([np.mean(np.array(result)[0:5,0]),np.mean(np.array(result)[0:5,1])])
+atp.extend([np.mean(np.array(result).astype(float)[0:5,0]),np.mean(np.array(result).astype(float)[0:5,1])])
 attp.extend(atp)
 rst.append(attp) 
 for i in range(1,6):
     atp = []
     attp = []
     attp.append(str(i*10) + "steps: ")
-    atp.extend([np.mean(np.array(result)[i*5:i*5+5,0]),np.mean(np.array(result)[i*5:i*5+5,1])])
+    atp.extend([np.mean(np.array(result).astype(float)[i*5:i*5+5,0]),np.mean(np.array(result).astype(float)[i*5:i*5+5,1])])
     attp.extend(atp)
     rst.append(attp) 
 

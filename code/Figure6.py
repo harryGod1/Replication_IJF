@@ -1688,7 +1688,7 @@ for k in range(1,2):
         #if(RUNNING_MODEL.SHOW_SURVIVAL_CURVE == True):
 
 
-        print("The hazard rate surve and survival rate curve in Figure 6 of the paper. ")
+        print('The results for Figure 6 have been generated and saved in the output folder.')
         #draw the conditional survival curve
         x_axis = []
         hr = []
@@ -1724,6 +1724,7 @@ for k in range(1,2):
 
 
         plt.style.use('ggplot')
+
 
 #plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1, hspace=0.4)
 plt.tight_layout() 

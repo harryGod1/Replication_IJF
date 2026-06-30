@@ -731,9 +731,9 @@ pseudo_3lstm = []
 pseudo_3lstm_unbalanced = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_abl.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_abl.txt")
 class biSparseData():
     def __init__(self, INPUT_FILE, discount):
         random.seed(time.time())
@@ -1749,13 +1749,19 @@ RUNNING_MODEL = BASE_RNN(EMB_DIM=EMB_DIM,
                          NUM_LAYERS = NUM_LAYERS,
                          LOG_PREFIX="drsa")
 RUNNING_MODEL.create_graph()
-for item in reader:
-    dt= []
-    for i in range(4):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt= []
+    #for i in range(4):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 
 #Forecast
@@ -1767,7 +1773,7 @@ from scipy import stats
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import auc
-csvFile.close()
+
 
 #lstm washout 3lstm attention deli testing
 if(int(ym%100)<10):
@@ -2010,10 +2016,9 @@ score_3lstm = []
 score_3lstm_unbalanced = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_abl.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_abl.txt")
 bid_loss,test_survival_rate,test_t2,test_true_label,test_predicted_label,test_seqlen,test_count= sess.run(
     [cross_entropy2,survival_rate0,RUNNING_MODEL.t2,true_label2,predicted_label2,seqlen2,all_count],
     feed_dict={RUNNING_MODEL.tf_x: test_batch_x,
@@ -2264,12 +2269,19 @@ brier_score = 0
 for i in range(len(unbalanced_prediction_3lstm_attention_deli)):
     brier_score = brier_score + (unbalanced_prediction_3lstm_attention_deli[i]-int(true_label[i][1]))**2
 #print('3lstm_attention_deli brier score: ',brier_score/len(unbalanced_prediction_3lstm_attention_deli))
-for item in reader:
-    dt = []
-    for i in range(4):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result) 
+#for item in reader:
+    #dt = []
+    #for i in range(4):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result) 
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 print('LSTM+unbalanced_ablation+Washout+3LSTM Attention+Deli...')
 #data for forecast
 path = os.getcwd()
@@ -2307,7 +2319,7 @@ test_Deli = []
 lag_deli = []
 current_deli = []
 final_data = []
-csvFile.close()
+
 x = []
 y = []
 b2 = []
@@ -3030,11 +3042,11 @@ plt.xlabel('Time')
 #plt.show()  
 
 #2016to2024
-
 #draw the curve of pseudo_r_square from 2016 to 2024
 x_axis = []
 hr = []
 print('Ablation study:Balanced and Unbalanced(2016-2024): ')
+print('The results for Figure 14 have been generated and saved in the output folder.')
 for k in range(0,len(score_3lstm)):
     x_axis.append((k+1))
 
@@ -3049,6 +3061,7 @@ plt.plot(x_axis,score_3lstm.astype(float),'black',label='unbalanced 3LSTM',linew
 plt.legend(prop = {'size':5})
 plt.title('AUC(2016-2024)')
 plt.xlabel('Time')
+
 path = os.getcwd()
 new_path = path.replace("\\","/")
 plt.savefig(new_path + "/output/Figure14.png")

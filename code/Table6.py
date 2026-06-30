@@ -279,10 +279,9 @@ test_data = []
 
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_ct.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_ct.txt")
 class SparseData():
 
     def shuffle(self):
@@ -2173,11 +2172,13 @@ class BASE_RNN():
 rst = []
 atp = []
 attp = []
-for item in reader:
-    dt = []
-    for i in range(2):
-        dt.append(item[i])
-    result.append(dt)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 state_size = 16
 batch_size = 512
 
@@ -2200,7 +2201,7 @@ ALPHA = 1.2 # coefficient for cross entropy
 BETA = 0.2 # coefficient for anlp
 input_file="2259" #toy dataset
 
-csvFile.close()
+
 
 #if len(sys.argv) < 2:
 #    print("Please input learning rate. ex. 0.0001")

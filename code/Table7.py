@@ -532,10 +532,9 @@ class SparseData():
         return np.array(batch_data), np.array(batch_data2),np.array(batch_labels), np.array(batch_seqlen), np.array(batch_labels2)
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
-
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 
 class biSparseData():
     def __init__(self, INPUT_FILE, discount):
@@ -1500,12 +1499,13 @@ class BASE_RNN():
         self.train_log_txt = open(self.train_log_txt_filename, 'a')
         self.train_log_txt.write(log)
         self.train_log_txt.close()
-for item in reader:
-    dt = []
-    for i in range(48):
-        dt.append(float(item[i]))
-    result.append(dt)
-df = pd.DataFrame(result)    
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].strip().split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 #3lstm standardscaler
 if(prs<48):
     path = os.getcwd()
@@ -1547,7 +1547,7 @@ test_Deli = []
 lag_deli = []
 current_deli = []
 final_data = []
-csvFile.close() 
+
 
 x = []
 y = []
@@ -1561,9 +1561,9 @@ is_default = 0
 max_seqlen = 0
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mrs.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 results = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mrs.txt")
 for i in range(len(test_data)):
     line_data = test_data[i].split(' ')
     #if(int(line_data[0])!=9999 ):
@@ -1587,11 +1587,13 @@ for i in range(len(test_data)):
     test_Deli.append(int(line_data[16]));
 
 
-for item in reader:
-    dt = []
-    for i in range(16):
-        dt.append(float(item[i]))
-    results.append(dt)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    results.append(d)
+df = pd.DataFrame(result)   
 f2.close()
 
 #test_credit = np.array(test_credit)
@@ -1688,9 +1690,9 @@ for i in range(len(test_credit)):
     b2=[]
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_abl.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result_u = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_abl.txt")
 rst = []
 atp = []
 attp = []
@@ -1747,11 +1749,13 @@ ADD_TIME = True
 ALPHA = 1.2 # coefficient for cross entropy
 BETA = 0.2 # coefficient for anlp
 input_file="2259" #toy dataset
-for item in reader:
-    dt = []
-    for i in range(5):
-        dt.append(float(item[i]))
-    result_u.append(dt)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result_u.append(d)
+df = pd.DataFrame(result)   
 #if len(sys.argv) < 2:
 #    print("Please input learning rate. ex. 0.0001")
 #    sys.exit(0)
@@ -2035,193 +2039,193 @@ attp = []
 attp.extend(["Row","Model","PRS","AUC","BS","DR","EAD","PRS","AUC","BS","DR","EAD"])
 rst.append(attp) 
 attp = []
-u_a = str(round(np.mean(np.array(result)[0:48,22]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,23]),6))
-u_p = str(round(np.mean(np.array(result)[0:48,21])/10,6))
-u_d = str(round(np.mean(np.abs(np.array(results)[0:12,1]-np.array(results)[0:12,0])),4))
-u_e = str(round(np.mean(np.array(results)[0:12,8]),1))
-u_pr = str(round(np.mean(np.array(result)[48:82,21]),4))
-u_ar = str(round(np.mean(np.array(result)[48:82,22]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,23]),6))
-u_dr = str(round(np.mean(np.abs(np.array(results)[12:24,1]-np.array(results)[12:24,0])),4))
-u_er = str(round(np.mean(np.abs(np.array(results)[12:24,9]-np.array(results)[12:24,8])),1))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,22]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,23]),6))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,21])/10,6))
+u_d = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,1]-np.array(results).astype(float)[0:12,0])),4))
+u_e = str(round(np.mean(np.array(results).astype(float)[0:12,8]),1))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,21]),4))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,22]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,23]),6))
+u_dr = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,1]-np.array(results).astype(float)[12:24,0])),4))
+u_er = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,9]-np.array(results).astype(float)[12:24,8])),1))
 attp.extend([1,"Cox PH"])
 atp.extend([u_p,u_a,u_b,u_d,u_e,u_pr,u_ar,u_br,u_dr,u_er])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,24]),3))
-u_a = str(round(np.mean(np.array(result)[0:48,25]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,26]),6))
-u_d = str(round(np.mean(np.abs(np.array(results)[0:12,2]-np.array(results)[0:12,0])),4))
-u_e = str(round(np.mean(np.abs(np.array(results)[0:12,10]-np.array(results)[0:12,8])),2))
-u_pr = str(round(np.mean(np.array(result)[48:82,24]),4))
-u_ar = str(round(np.mean(np.array(result)[48:82,25]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,26]),6))
-u_dr = str(round(np.mean(np.abs(np.array(results)[12:24,2]-np.array(results)[12:24,0])),4))
-u_er = str(round(np.mean(np.abs(np.array(results)[12:24,10]-np.array(results)[12:24,8])),1))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,24]),3))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,25]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,26]),6))
+u_d = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,2]-np.array(results).astype(float)[0:12,0])),4))
+u_e = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,10]-np.array(results).astype(float)[0:12,8])),2))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,24]),4))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,25]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,26]),6))
+u_dr = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,2]-np.array(results).astype(float)[12:24,0])),4))
+u_er = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,10]-np.array(results).astype(float)[12:24,8])),1))
 attp.extend([2,"Weibull"])
 atp.extend([u_p,u_a,u_b,u_d,u_e,u_pr,u_ar,u_br,u_dr,u_er])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,15]),3))
-u_a = str(round(np.mean(np.array(result)[0:48,16]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,17]),6))
-u_pr = str(round(np.mean(np.array(result)[48:82,15]),4))
-u_ar = str(round(np.mean(np.array(result)[48:82,16]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,17]),6))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,15]),3))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,16]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,17]),6))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,15]),4))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,16]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,17]),6))
 attp.extend([3,"Linear DTSM"])
 atp.extend([u_p,u_a,u_b,' ',' ',u_pr,u_ar,u_br,' ',' '])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,18]),3))
-u_a = str(round(np.mean(np.array(result)[0:48,19]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,20]),6))
-u_d = str(round(np.mean(np.abs(np.array(results)[0:12,3]-np.array(results)[0:12,0])),4))
-u_e = str(round(np.mean(np.abs(np.array(results)[0:12,11]-np.array(results)[0:12,8])),1))
-u_pr = str(round(np.mean(np.array(result)[48:82,18]),5))
-u_ar = str(round(np.mean(np.array(result)[48:82,19]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,20]),6))
-u_dr = str(round(np.mean(np.abs(np.array(results)[12:24,3]-np.array(results)[12:24,0])),5))
-u_er = str(round(np.mean(np.abs(np.array(results)[12:24,11]-np.array(results)[12:24,8])),1))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,18]),3))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,19]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,20]),6))
+u_d = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,3]-np.array(results).astype(float)[0:12,0])),4))
+u_e = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,11]-np.array(results).astype(float)[0:12,8])),1))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,18]),5))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,19]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,20]),6))
+u_dr = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,3]-np.array(results).astype(float)[12:24,0])),5))
+u_er = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,11]-np.array(results).astype(float)[12:24,8])),1))
 attp.extend([4,"GAM"])
 atp.extend([u_p,u_a,u_b,u_d,u_e,u_pr,u_ar,u_br,u_dr,u_er])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,27]),3))
-u_a = str(round(np.mean(np.array(result)[0:48,28]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,29]),6))
-u_pr = str(round(np.mean(np.array(result)[48:82,27]),5))
-u_ar = str(round(np.mean(np.array(result)[48:82,28]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,29]),6))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,27]),3))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,28]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,29]),6))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,27]),5))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,28]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,29]),6))
 attp.extend([5,"DeepHit"])
 atp.extend([u_p,u_a,u_b,' ',' ',u_pr,u_ar,u_br,' ',' '])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,0]),4))
-u_a = str(round(np.mean(np.array(result)[0:48,1]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,2]),6))
-u_pr = str(round(np.mean(np.array(result)[48:82,0]),4))
-u_ar = str(round(np.mean(np.array(result)[48:82,1]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,2]),6))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,0]),4))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,1]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,2]),6))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,0]),4))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,1]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,2]),6))
 attp.extend([6,"LSTM+wo"])
 atp.extend([u_p,u_a,u_b,' ',' ',u_pr,u_ar,u_br,' ',' '])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,6]),4))
-u_a = str(round(np.mean(np.array(result)[0:48,7]),3))
-u_pr = str(round(np.mean(np.array(result)[48:82,6]),4))
-u_ar = str(round(np.mean(np.array(result)[48:82,7]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,8]),6))
-u_b = str(round((np.sum(np.array(result)[0:35,8])+np.sum(np.array(result)[37:48,8]))/(len(np.array(result)[0:48,8])-2),6))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,6]),4))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,7]),3))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,6]),4))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,7]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,8]),6))
+u_b = str(round((np.sum(np.array(result).astype(float)[0:35,8])+np.sum(np.array(result).astype(float)[37:48,8]))/(len(np.array(result).astype(float)[0:48,8])-2),6))
 attp.extend([7,"LSTM+attn"])
 atp.extend([u_p,u_a,u_b,' ',' ',u_pr,u_ar,u_br,' ',' '])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,3]),3))
-u_a = str(round(np.mean(np.array(result)[0:48,4]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,5]),6))
-u_pr = str(round(np.mean(np.array(result)[48:82,3]),3))
-u_ar = str(round(np.mean(np.array(result)[48:82,4]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,5]),6))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,3]),3))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,4]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,5]),6))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,3]),3))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,4]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,5]),6))
 attp.extend([8,"LSTM+wo+attn"])
 atp.extend([u_p,u_a,u_b,' ',' ',u_pr,u_ar,u_br,' ',' '])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,9]),3))
-u_a = str(round(np.mean(np.array(result)[0:48,10]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,11]),6))
-u_d = str(round(np.mean(np.abs(np.array(results)[0:12,4]-np.array(results)[0:12,0])),4))
-u_e = str(round(np.mean(np.abs(np.array(results)[0:12,12]-np.array(results)[0:12,8])),2))
-u_pr = str(round(np.mean(np.array(result)[48:82,9]),3))
-u_ar = str(round(np.mean(np.array(result)[48:82,10]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,11]),6))
-u_dr = str(round(np.mean(np.abs(np.array(results)[12:24,4]-np.array(results)[12:24,0])),4))
-u_er = str(round(np.mean(np.abs(np.array(results)[12:24,12]-np.array(results)[12:24,8])),1))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,9]),3))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,10]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,11]),6))
+u_d = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,4]-np.array(results).astype(float)[0:12,0])),4))
+u_e = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,12]-np.array(results).astype(float)[0:12,8])),2))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,9]),3))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,10]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,11]),6))
+u_dr = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,4]-np.array(results).astype(float)[12:24,0])),4))
+u_er = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,12]-np.array(results).astype(float)[12:24,8])),1))
 attp.extend([9,"LSTM+wo+attn+deli"])
 atp.extend([u_p,u_a,u_b,u_d,u_e,u_pr,u_ar,u_br,u_dr,u_er])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,12]),3))
-u_a = str(round(np.mean(np.array(result)[0:48,13]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,14]),6))
-u_pr = str(round(np.mean(np.array(result)[48:82,12]),3))
-u_ar = str(round(np.mean(np.array(result)[48:82,13]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,14]),6))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,12]),3))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,13]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,14]),6))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,12]),3))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,13]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,14]),6))
 attp.extend([10,"3LSTM"])
 atp.extend([u_p,u_a,u_b,' ',' ',u_pr,u_ar,u_br,' ',' '])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_pr = str(round(np.mean(np.array(result_u)[0:34,2]),4))
-u_ar = str(round(np.mean(np.array(result_u)[0:34,3]),3))
-u_br = str(round(np.mean(np.array(result_u)[0:34,4]),6))
+u_pr = str(round(np.mean(np.array(result_u).astype(float)[0:34,2]),4))
+u_ar = str(round(np.mean(np.array(result_u).astype(float)[0:34,3]),3))
+u_br = str(round(np.mean(np.array(result_u).astype(float)[0:34,4]),6))
 attp.extend([11,"3LSTM (unbalanced)"])
 atp.extend([' ',' ',' ',' ',' ',u_pr,u_ar,u_br,' ',' '])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,35]),3))
-u_a = str(round(np.mean(np.array(result)[0:48,36]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,45]),6))
-u_d = str(round(np.mean(np.abs(np.array(results)[0:12,5]-np.array(results)[0:12,0])),4))
-u_e = str(round(np.mean(np.abs(np.array(results)[0:12,13]-np.array(results)[0:12,8])),1))
-u_pr = str(round(np.mean(np.array(result)[48:82,35]),3))
-u_ar = str(round(np.mean(np.array(result)[48:82,36]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,45]),6))
-u_dr = str(round(np.mean(np.abs(np.array(results)[12:24,5]-np.array(results)[12:24,0])),4))
-u_er = str(round(np.mean(np.abs(np.array(results)[12:24,13]-np.array(results)[12:24,8])),1))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,35]),3))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,36]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,45]),6))
+u_d = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,5]-np.array(results).astype(float)[0:12,0])),4))
+u_e = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,13]-np.array(results).astype(float)[0:12,8])),1))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,35]),3))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,36]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,45]),6))
+u_dr = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,5]-np.array(results).astype(float)[12:24,0])),4))
+u_er = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,13]-np.array(results).astype(float)[12:24,8])),1))
 attp.extend([12,"Linear DTSM + MEVs"])
 atp.extend([u_p,u_a,u_b,u_d,u_e,u_pr,u_ar,u_br,u_dr,u_er])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,39]),3))
-u_a = str(round(np.mean(np.array(result)[0:48,40]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,46]),6))
-u_d = str(round(np.mean(np.abs(np.array(results)[0:12,6]-np.array(results)[0:12,0])),4))
-u_e = str(round(np.mean(np.abs(np.array(results)[0:12,14]-np.array(results)[0:12,8])),1))
-u_pr = str(round(np.mean(np.array(result)[48:82,39]),3))
-u_ar = str(round(np.mean(np.array(result)[48:82,40]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,46]),6))
-u_dr = str(round(np.mean(np.abs(np.array(results)[12:24,6]-np.array(results)[12:24,0])),4))
-u_er = str(round(np.mean(np.abs(np.array(results)[12:24,14]-np.array(results)[12:24,8])),1))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,39]),3))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,40]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,46]),6))
+u_d = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,6]-np.array(results).astype(float)[0:12,0])),4))
+u_e = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,14]-np.array(results).astype(float)[0:12,8])),1))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,39]),3))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,40]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,46]),6))
+u_dr = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,6]-np.array(results).astype(float)[12:24,0])),4))
+u_er = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,14]-np.array(results).astype(float)[12:24,8])),1))
 attp.extend([13,"DeepHit + MEVs"])
 atp.extend([u_p,u_a,u_b,u_d,u_e,u_pr,u_ar,u_br,u_dr,u_er])
 attp.extend(atp)
 rst.append(attp) 
 attp = []
 atp = []
-u_p = str(round(np.mean(np.array(result)[0:48,43]),3))
-u_a = str(round(np.mean(np.array(result)[0:48,44]),3))
-u_b = str(round(np.mean(np.array(result)[0:48,47]),6))
-u_d = str(round(np.mean(np.abs(np.array(results)[0:12,7]-np.array(results)[0:12,0])),4))
-u_e = str(round(np.mean(np.abs(np.array(results)[0:12,15]-np.array(results)[0:12,8])),2))
-u_pr = str(round(np.mean(np.array(result)[48:82,43]),3))
-u_ar = str(round(np.mean(np.array(result)[48:82,44]),3))
-u_br = str(round(np.mean(np.array(result)[48:82,47]),6))
-u_dr = str(round(np.mean(np.abs(np.array(results)[12:24,7]-np.array(results)[12:24,0])),4))
-u_er = str(round(np.mean(np.abs(np.array(results)[12:24,15]-np.array(results)[12:24,8])),1))
+u_p = str(round(np.mean(np.array(result).astype(float)[0:48,43]),3))
+u_a = str(round(np.mean(np.array(result).astype(float)[0:48,44]),3))
+u_b = str(round(np.mean(np.array(result).astype(float)[0:48,47]),6))
+u_d = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,7]-np.array(results).astype(float)[0:12,0])),4))
+u_e = str(round(np.mean(np.abs(np.array(results).astype(float)[0:12,15]-np.array(results).astype(float)[0:12,8])),2))
+u_pr = str(round(np.mean(np.array(result).astype(float)[48:82,43]),3))
+u_ar = str(round(np.mean(np.array(result).astype(float)[48:82,44]),3))
+u_br = str(round(np.mean(np.array(result).astype(float)[48:82,47]),6))
+u_dr = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,7]-np.array(results).astype(float)[12:24,0])),4))
+u_er = str(round(np.mean(np.abs(np.array(results).astype(float)[12:24,15]-np.array(results).astype(float)[12:24,8])),1))
 attp.extend([14,"3LSTM + MEVs"])
 atp.extend([u_p,u_a,u_b,u_d,u_e,u_pr,u_ar,u_br,u_dr,u_er])
 attp.extend(atp)

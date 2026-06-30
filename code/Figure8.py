@@ -258,10 +258,11 @@ pseudo_attention_deli = []
 pseudo_3lstm_attention_deli = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
-result = []
 
+
+result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 
 
 print('LSTM+Washout...')
@@ -748,11 +749,19 @@ class SparseData():
         self.batch_all_id = self.batch_all_id + all_count
         return np.array(batch_data), np.array(batch_data2),np.array(batch_labels), np.array(batch_seqlen), np.array(batch_labels2)
 
-for item in reader:
-    dt = []
-    for i in range(15):
-        dt.append(item[i])
-    result.append(dt)
+#for item in reader:
+    #dt = []
+    #for i in range(15):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)    
+
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
 df = pd.DataFrame(result)    
 
 class biSparseData():
@@ -2399,9 +2408,11 @@ pseudo_attention_deli2 = []
 pseudo_3lstm_attention_deli2 = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
+
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
+
 TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
@@ -4351,12 +4362,20 @@ RUNNING_MODEL = BASE_RNN(EMB_DIM=EMB_DIM,
 RUNNING_MODEL.create_graph()
 
 
-for item in reader:
-    dt = []
-    for i in range(15):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(15):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 #Forecast with no deliquency
 #initial_extend8 + washout:30，take care of the length of the tf__y2 from the perspective of cross ectropy code and sparsedata code
@@ -4505,7 +4524,7 @@ TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
 show_survival_curve = False
-csvFile.close()
+#csvFile.close()
 
 class SparseData():
 
@@ -6986,7 +7005,6 @@ from sklearn.metrics import auc
 #draw the curve of AUC from 2004 to 2015
 x_axis = []
 hr = []
-print('Brier Score(2004-2015): ')
 for k in range(0,len(pseudo_3lstm_attention_deli)):
     x_axis.append((k+1))
 
@@ -7029,7 +7047,7 @@ plt.plot(x_axis,pseudo_washout_attention2.astype(float),'red',label='LSTM + attn
 plt.plot(x_axis,pseudo_nowashout_attention2.astype(float),'grey',label='LSTM + attn' )
 plt.plot(x_axis,pseudo_attention_deli2.astype(float),'green',label='LSTM + attn + wo + deli')
 plt.plot(x_axis,pseudo_3lstm_attention_deli2.astype(float),'black',label='3LSTM + attn + wo + deli',linewidth=2)
-
+print('The results for Figure 8 have been generated and saved in the output folder.')
 
 plt.legend(loc='lower left',prop = {'size':5})
 plt.title('Pseudo-R-square (2016-2024)')

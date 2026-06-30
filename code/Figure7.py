@@ -1929,7 +1929,7 @@ for k in range(6):
 
 
 
-
+        print('The results for Figure 7 have been generated and saved in the output folder.')
         #draw the hazard rate curve
         x_axis = []
         hr = []

@@ -2739,9 +2739,10 @@ pseudo_3lstm = []
 pseudo_3lstm_mev = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
+
 class SparseData():
 
     def shuffle(self):
@@ -4283,13 +4284,19 @@ class BASE_RNN():
         self.train_log_txt.close()
 
 
-for item in reader:
-    dt = []
-    for i in range(45):
-        dt.append(item[i])
-    result.append(dt)    
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(45):
+        #dt.append(item[i])
+    #result.append(dt)    
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
 
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 #deephit standardscaler
 if(prs<48):
@@ -4332,7 +4339,7 @@ test_Deli = []
 lag_deli = []
 current_deli = []
 final_data = []
-csvFile.close()
+
 x = []
 y = []
 b2 = []
@@ -4589,9 +4596,10 @@ pseudo_3lstm_mev2 = []
 path = os.getcwd()
 new_path = path.replace("\\","/")
 
-csvFile = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.csv", "r",encoding='utf-8-sig', errors='ignore')
-reader = csv.reader(csvFile)
+
 result = []
+line_d = []
+f3 = open(new_path + "/data/2259/unbalanced_dtsm_x_Deli_mev.txt")
 if(prs<48):     
     path = os.getcwd()
     new_path = path.replace("\\","/")
@@ -5076,12 +5084,19 @@ for i in range(len(unbalanced_prediction_deephit)):
     brier_score = brier_score + (unbalanced_prediction_deephit[i]-int(true_label[i][1]))**2
 
 
-for item in reader:
-    dt = []
-    for i in range(45):
-        dt.append(item[i])
-    result.append(dt)
-df = pd.DataFrame(result)
+#for item in reader:
+    #dt = []
+    #for i in range(45):
+        #dt.append(item[i])
+    #result.append(dt)
+#df = pd.DataFrame(result)
+for line in f3:
+    line_d.append(line)
+
+for i in range(len(line_d)):
+    d = line_d[i].split(' ')
+    result.append(d)
+df = pd.DataFrame(result)   
 
 
 print("Deephit + MEVs ...")
@@ -5105,7 +5120,7 @@ TRAING_TIME = 15
 SHUFFLE = True
 LOAD_LITTLE_DATA = False
 show_survival_curve = False
-csvFile.close()
+
 
 class SparseData():
 
@@ -11569,6 +11584,7 @@ plt.xlabel('Time')
 x_axis = []
 hr = []
 print('AUC:Models with and without MEVs(2016-2024): ')
+print('The results for Figure 16 have been generated and saved in the output folder.')
 for k in range(0,len(pseudo_3lstm2)):
     x_axis.append((k+1))
 
