@@ -2,7 +2,7 @@
 ## 📅 Assembly date and authorship
 
 - **Date assembled:** June 2026 
-- **Authors:** Hao Wang(scxhw1@nottingham.edu.cn), Anthony Bellotti(Anthony-Graham.Bellotti@nottingham.edu.cn)
+- **Authors:** Hao Wang(scxhw2@outlook.com), Anthony Bellotti(Anthony-Graham.Bellotti@nottingham.edu.cn)
 
 
 ---
